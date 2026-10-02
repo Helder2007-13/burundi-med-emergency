@@ -1,0 +1,12 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 204 32" width="204" height="32" role="img" aria-label="Urgences Burundi">
+  <title>Urgences Burundi</title>
+  <g>
+    <path d="M16 2.5 4.5 7.4v7.4c0 6.1 4.9 11.2 11.5 12.7 6.6-1.5 11.5-6.6 11.5-12.7V7.4L16 2.5Z"
+          fill="#F0FDF4" stroke="#16A34A" stroke-width="1.8" stroke-linejoin="round"/>
+    <path d="M16 9.8v12.4M9.8 16h12.4" stroke="#DC2626" stroke-width="2.6" stroke-linecap="round"/>
+  </g>
+  <text x="42" y="21.5" xml:space="preserve"
+        font-family="'Public Sans', 'Segoe UI', system-ui, -apple-system, sans-serif"
+        font-size="15" font-weight="700" fill="#191C1E" letter-spacing="-0.2">Urgences<tspan
+        font-weight="800" fill="#16A34A">&#160;Burundi</tspan></text>
+</svg>

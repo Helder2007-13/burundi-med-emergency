@@ -1,0 +1,291 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+  <title>Signaler un cas — Urgences Burundi</title>
+  <meta name="description" content="Assistant d'orientation médicale : décrivez la situation, l'analyse vous oriente vers l'hôpital ou centre de santé le plus adapté.">
+  <meta name="theme-color" content="#FFFFFF">
+  <link rel="preload" href="assets/fonts/Inter-var.woff2" as="font" type="font/woff2" crossorigin>
+  <link rel="preload" href="assets/fonts/PlusJakartaSans-var.woff2" as="font" type="font/woff2" crossorigin>
+
+  <link rel="stylesheet" href="ui.css?v=4">
+  <link rel="icon" href="assets/img/logo.svg" type="image/svg+xml">
+  <style>[v-cloak]{display:none}</style>
+</head>
+<body>
+<div id="app" class="ub" v-cloak>
+
+  <header class="ub-head">
+    <div class="ub-head-in">
+      <a class="ub-brand" href="accueil.html">
+        <span class="ub-brand-mark" aria-hidden="true">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2"
+               stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 5.5v13M5.5 12h13"/></svg>
+        </span>
+        <span class="ub-brand-txt"><b>Urgences Burundi</b><span>Santé Publique 24/7</span></span>
+      </a>
+
+      <nav class="ub-nav" aria-label="Navigation principale">
+        <a href="accueil.html">Accueil</a>
+        <a href="signaler-un-cas.html" aria-current="page">Services</a>
+        <a href="dashboard-hopital.html">Trouver un hôpital</a>
+        <a href="mes-rendez-vous.html">Mes rendez-vous</a>
+        <a href="accueil.html#a-propos">Contact</a>
+      </nav>
+
+      <div class="ub-head-actions">
+        <button class="ub-lang" type="button" aria-label="Changer de langue">
+          <span class="on">FR</span><span class="sep">/</span><span>RN</span><span class="sep">/</span><span>EN</span>
+        </button>
+        <a class="ub-urgent-btn" href="signaler-une-urgence.html">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2"
+               stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+            <path d="M3 8.5h18M12 3v5.5M12 15.5V21M8.5 12h7"/>
+          </svg>
+          <span>Urgence Médicale</span>
+        </a>
+      </div>
+    </div>
+  </header>
+
+  <main class="ub-main">
+
+    <!-- ============ EN-TÊTE ============ -->
+    <section class="ub-sec" style="padding-bottom:0">
+      <div class="ub-wrap">
+        <nav aria-label="Fil d'Ariane" style="margin-bottom:1.5rem">
+          <ol style="display:flex;align-items:center;gap:0.5rem;flex-wrap:wrap;
+                     font-size:0.8125rem">
+            <li style="display:flex;align-items:center">
+              <a class="ub-crumb" href="accueil.html">Services</a>
+            </li>
+            <li aria-hidden="true" style="display:flex;align-items:center;color:var(--ub-ink-40)">›</li>
+            <li class="ub-crumb" aria-current="page">Signaler un cas</li>
+          </ol>
+        </nav>
+
+        <div class="ub-a">
+          <span class="ub-tag ub-tag--ghost">Évaluation médicale guidée · 3 étapes</span>
+          <h1 class="ub-h2" style="font-size:clamp(1.75rem,3.6vw,2.75rem);margin-top:1rem">
+            Signaler un cas
+          </h1>
+          <p class="ub-lead" style="margin-top:0.75rem;max-width:52rem">
+            Notre assistant d'orientation médicale vous guide vers l'hôpital ou le centre de
+            santé le plus adapté et disponible au Burundi, sans inscription préalable pour
+            les urgences.
+          </p>
+        </div>
+
+        <!-- ============ LES 3 ÉTAPES ============ -->
+        <div class="ub-grid ub-grid--3" style="margin-top:clamp(1.75rem,4vw,2.75rem)">
+
+          <article class="ub-card ub-a ub-d2">
+            <div style="display:flex;align-items:center;gap:0.9rem;margin-bottom:1rem">
+              <span class="ub-step__n ub-step__n--urgent" style="width:40px;height:40px;font-size:1rem">1</span>
+              <h2 class="ub-h3">Décrivez la situation</h2>
+            </div>
+            <p style="font-size:0.9375rem;line-height:1.6;color:var(--ub-ink-64)">
+              Précisez les symptômes, la localisation (Bujumbura, Gitega, Ngozi…) et le niveau
+              de gravité ressenti.
+            </p>
+          </article>
+
+          <article class="ub-card ub-a ub-d3">
+            <div style="display:flex;align-items:center;gap:0.9rem;margin-bottom:1rem">
+              <span class="ub-step__n ub-step__n--urgent" style="width:40px;height:40px;font-size:1rem">2</span>
+              <h2 class="ub-h3">L'IA analyse en direct</h2>
+            </div>
+            <p style="font-size:0.9375rem;line-height:1.6;color:var(--ub-ink-64)">
+              Évaluation instantanée du degré d'urgence et tri médical rigoureux selon les
+              protocoles hospitaliers nationaux.
+            </p>
+          </article>
+
+          <article class="ub-card ub-a ub-d4">
+            <div style="display:flex;align-items:center;gap:0.9rem;margin-bottom:1rem">
+              <span class="ub-step__n" style="width:40px;height:40px;font-size:1rem">3</span>
+              <h2 class="ub-h3">Hôpital recommandé</h2>
+            </div>
+            <p style="font-size:0.9375rem;line-height:1.6;color:var(--ub-ink-64)">
+              Orientation vers l'établissement de santé le plus proche avec lits de réanimation
+              et équipes de garde prêtes.
+            </p>
+          </article>
+
+        </div>
+      </div>
+    </section>
+
+    <!-- ============ CHOIX DU TYPE DE PRISE EN CHARGE ============ -->
+    <section class="ub-sec">
+      <div class="ub-wrap">
+        <div class="ub-grid ub-grid--2" style="align-items:stretch">
+
+          <!-- Urgence -->
+          <article class="ub-panel ub-a ub-d3" style="border-color:var(--ub-urgent)">
+            <div class="ub-panel__top">
+              <span class="ub-ico ub-ico--urgent" aria-hidden="true">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
+                     stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+                  <path d="M3 8.5h18M12 3v5.5M12 15.5V21M8.5 12h7"/>
+                </svg>
+              </span>
+              <span class="ub-tag ub-tag--urgent">Priorité absolue</span>
+            </div>
+
+            <h2>Cas d'Urgence Médicale</h2>
+            <p>
+              Détresse respiratoire, traumatisme aigu, perte de connaissance, accident grave
+              de circulation ou hémorragie nécessitant une ambulance ou une admission
+              hospitalière immédiate sans délai.
+            </p>
+
+            <div class="ub-panel__tags">
+              <span class="ub-chip">Réponse rapide (&lt; 30 s)</span>
+              <span class="ub-chip">Pas d'inscription</span>
+              <span class="ub-chip">Géolocalisation automatique</span>
+            </div>
+
+            <a class="ub-btn ub-btn--urgent ub-btn--block" href="signaler-une-urgence.html">
+              Déclarer mon cas
+              <svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.9"
+                   stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+                <path d="M2.8 8h10.4M9.4 4.2 13.2 8l-3.8 3.8"/>
+              </svg>
+            </a>
+          </article>
+
+          <!-- Consultation -->
+          <article class="ub-panel ub-a ub-d4">
+            <div class="ub-panel__top">
+              <span class="ub-ico" aria-hidden="true">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
+                     stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+                  <path d="M3.5 8.5h17v12h-17v-12ZM7.5 4v4.5M16.5 4v4.5M3.5 12.5h17"/>
+                </svg>
+              </span>
+              <span class="ub-tag">Soins programmés</span>
+            </div>
+
+            <h2>Centres de Santé</h2>
+            <p>
+              Pour une consultation planifiée, un suivi de maladie chronique ou un contrôle
+              ordinaire : choisissez votre spécialité et réservez un créneau.
+            </p>
+
+            <div class="ub-panel__tags">
+              <span class="ub-chip ub-chip--ok">Prise de rendez-vous</span>
+              <span class="ub-chip ub-chip--ok">Suivi médical</span>
+            </div>
+
+            <a class="ub-btn ub-btn--ok ub-btn--block" href="mes-rendez-vous.html">
+              Prendre rendez-vous
+              <svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.9"
+                   stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+                <path d="M2.8 8h10.4M9.4 4.2 13.2 8l-3.8 3.8"/>
+              </svg>
+            </a>
+          </article>
+
+        </div>
+
+        <!-- ============ ASSISTANCE IMMÉDIATE ============ -->
+        <div class="ub-card ub-card--triage ub-a ub-d5"
+             style="margin-top:clamp(1.5rem,3vw,2rem);display:flex;align-items:center;
+                    gap:1.5rem;flex-wrap:wrap">
+          <span class="ub-ico ub-ico--urgent" aria-hidden="true">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
+                 stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+              <path d="M12 3 5 6v6c0 4.4 3.6 7.8 7 8.3 3.4-.5 7-3.9 7-8.3V6l-7-3Z"/>
+              <path d="M12 9v4M12 15.5v.2"/>
+            </svg>
+          </span>
+          <div style="flex:1;min-width:17rem">
+            <h2 class="ub-h3">Besoin d'assistance immédiate sans utiliser l'application ?</h2>
+            <p style="margin-top:0.35rem;font-size:0.9375rem;color:var(--ub-ink-64);line-height:1.6">
+              La ligne d'urgence médicale est accessible 24h/24, gratuit et prioritaire, depuis
+              n'importe quel téléphone fixe ou mobile.
+            </p>
+          </div>
+          <a class="ub-btn ub-btn--ghost" href="portail-hopital.html">
+            Numéros d'urgence
+          </a>
+        </div>
+      </div>
+    </section>
+
+    <!-- ============ HÔPITAUX PROCHES ============ -->
+    <section class="ub-sec ub-sec--soft">
+      <div class="ub-wrap">
+        <div style="max-width:44rem;margin-bottom:clamp(1.25rem,3vw,2rem)">
+          <h2 class="ub-h2">Hôpitaux et structures partenaires</h2>
+          <p class="ub-lead" style="margin-top:0.6rem">
+            Les centres ci-dessous transmettent leur disponibilité de lits et d'ambulances
+            en temps réel.
+          </p>
+        </div>
+
+        <ul class="ub-grid ub-grid--3">
+          <li class="ub-card ub-card--triage-ok ub-reveal" data-d="0">
+            <div style="display:flex;align-items:center;justify-content:space-between;gap:1rem;margin-bottom:0.85rem">
+              <span class="ub-chip ub-chip--ok">
+                <span class="ub-live" style="width:5px;height:5px;border-radius:9999px;background:var(--ub-ok);display:block"></span>
+                Lits disponibles
+              </span>
+              <span class="ub-tag">6 / 15</span>
+            </div>
+            <h3 class="ub-h3" style="font-size:1.0625rem">CHR de Ruziba</h3>
+            <p style="margin-top:0.35rem;font-size:0.875rem;color:var(--ub-ink-64);line-height:1.55">
+              Bujumbura, Commune de Muha · Réanimation et bloc opératoire
+            </p>
+          </li>
+
+          <li class="ub-card ub-card--triage-ok ub-reveal" data-d="100">
+            <div style="display:flex;align-items:center;justify-content:space-between;gap:1rem;margin-bottom:0.85rem">
+              <span class="ub-chip ub-chip--ok">
+                <span class="ub-live" style="width:5px;height:5px;border-radius:9999px;background:var(--ub-ok);display:block"></span>
+                Lits disponibles
+              </span>
+              <span class="ub-tag">11 / 24</span>
+            </div>
+            <h3 class="ub-h3" style="font-size:1.0625rem">Hôpital Prince Louis</h3>
+            <p style="margin-top:0.35rem;font-size:0.875rem;color:var(--ub-ink-64);line-height:1.55">
+              Bujumbura · Urgences traumatologiques et imagerie
+            </p>
+          </li>
+
+          <li class="ub-card ub-reveal" data-d="200">
+            <div style="display:flex;align-items:center;justify-content:space-between;gap:1rem;margin-bottom:0.85rem">
+              <span class="ub-chip">Occupation élevée</span>
+              <span class="ub-tag ub-tag--ghost">1 / 12</span>
+            </div>
+            <h3 class="ub-h3" style="font-size:1.0625rem">Hôpital Régional de Gitega</h3>
+            <p style="margin-top:0.35rem;font-size:0.875rem;color:var(--ub-ink-64);line-height:1.55">
+              Gitega · Maternité et urgences couvertes
+            </p>
+          </li>
+        </ul>
+      </div>
+    </section>
+
+  </main>
+
+  <footer class="ub-foot">
+    <div class="ub-wrap">
+      <div class="ub-foot-bottom" style="margin-top:0;border-top:0;padding-top:0">
+        <span>© 2026 Ministère de la Santé Publique — République du Burundi</span>
+        <span>Données de démonstration</span>
+      </div>
+    </div>
+  </footer>
+
+</div>
+
+  <script src="assets/vendor/vue.global.prod.js?v=1"></script>
+  <script src="data.js?v=4"></script>
+  <script src="components.js?v=4"></script>
+  <script src="ui.js?v=4"></script>
+<script>UB.mount();</script>
+</body>
+</html>

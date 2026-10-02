@@ -1,1 +1,68 @@
-<!-- Interface Utilisateur --> 
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+  <title>Urgences Burundi</title>
+  <meta name="description" content="Plateforme centralisée du Ministère de la Santé pour la gestion des urgences vitales et la prise de rendez-vous médical au Burundi.">
+  <meta name="theme-color" content="#FFFFFF">
+
+  <!--
+    Point d'entrée du dossier : la visite debute sur l'onboarding.
+    Deux mecanismes se redundent volontairement —
+      1. le script, qui redirige sans laisser d'entrée dans l'historique
+         (la touche "retour" du navigateur ne ramène pas ici) ;
+      2. la balise meta refresh, qui couvre le cas où le JavaScript est
+         bloque ou desactive.
+    Le lien visible est le filet de securite pour un navigateur sans
+    JavaScript ni meta refresh : il emmene quand meme a l'ecran 1.
+  -->
+  <meta http-equiv="refresh" content="0; url=onboarding-1.html">
+  <link rel="canonical" href="onboarding-1.html">
+  <link rel="icon" href="assets/img/logo.svg" type="image/svg+xml">
+
+  <style>
+    body {
+      margin: 0;
+      min-height: 100svh;
+      display: grid;
+      place-items: center;
+      gap: 1rem;
+      background: #FFFFFF;
+      color: #191C1E;
+      font-family: 'Plus Jakarta Sans', 'Inter', -apple-system, BlinkMacSystemFont,
+                   'Segoe UI', Roboto, sans-serif;
+      text-align: center;
+      padding: 2rem;
+    }
+    .marque {
+      display: flex;
+      align-items: center;
+      gap: 0.6rem;
+      font-size: 1.25rem;
+      font-weight: 800;
+      letter-spacing: -0.02em;
+    }
+    .marque span {
+      display: grid;
+      place-items: center;
+      width: 40px;
+      height: 40px;
+      border-radius: 12px;
+      background: #16A34A;
+      color: #FFFFFF;
+      font-size: 24px;
+      line-height: 1;
+    }
+    a { color: #16A34A; font-weight: 600; }
+    .filet { color: rgba(25, 28, 30, 0.4); font-size: 0.9375rem; }
+  </style>
+</head>
+<body>
+  <p class="marque"><span aria-hidden="true">+</span> Urgences Burundi</p>
+  <p class="filet">Ouverture de l'accueil…</p>
+  <p><a href="onboarding-1.html">Continuer vers l'accueil</a></p>
+
+  <script>location.replace("onboarding-1.html");</script>
+</body>
+</html>

@@ -1,0 +1,309 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+  <title>Dashboard Hôpital — Urgences Burundi</title>
+  <meta name="description" content="Tableau de bord SIH : urgences entrantes, lits disponibles, planning du jour et régulation réseau.">
+  <meta name="theme-color" content="#FFFFFF">
+  <link rel="preload" href="assets/fonts/Inter-var.woff2" as="font" type="font/woff2" crossorigin>
+  <link rel="preload" href="assets/fonts/PlusJakartaSans-var.woff2" as="font" type="font/woff2" crossorigin>
+
+  <link rel="stylesheet" href="ui.css?v=4">
+  <link rel="icon" href="assets/img/logo.svg" type="image/svg+xml">
+  <style>[v-cloak]{display:none}</style>
+</head>
+<body>
+<div id="app" class="ub" v-cloak>
+
+  <header class="ub-head">
+    <div class="ub-head-in">
+      <a class="ub-brand" href="accueil.html">
+        <span class="ub-brand-mark" aria-hidden="true">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2"
+               stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 5.5v13M5.5 12h13"/></svg>
+        </span>
+        <span class="ub-brand-txt"><b>Urgences Burundi</b><span>Portail National SIH</span></span>
+      </a>
+
+      <nav class="ub-nav" aria-label="Navigation principale">
+        <a href="accueil.html">Accueil</a>
+        <a href="suivi-urgence.html">Urgences</a>
+        <a href="mes-rendez-vous.html">Rendez-vous</a>
+        <a href="dashboard-hopital.html" aria-current="page">Tableau de bord</a>
+        <a href="accueil.html#a-propos">À propos</a>
+      </nav>
+
+      <div class="ub-head-actions">
+        <span class="ub-tag">PRO SIH</span>
+        <a class="ub-btn ub-btn--ghost ub-btn--sm" href="portail-hopital.html"
+           aria-label="Se déconnecter"><ub-icon name="logout" :size="16"></ub-icon><span>Se déconnecter</span></a>
+      </div>
+    </div>
+  </header>
+
+  <!-- Synchronisation réseau : barre vivante -->
+
+  <main class="ub-main">
+    <section class="ub-sec">
+      <div class="ub-wrap">
+
+        <!-- ============ IDENTITÉ DU POSTE ============ -->
+        <div class="ub-idcard ub-a">
+          <span class="ub-idcard__av" aria-hidden="true">CH</span>
+          <div class="ub-idcard__n">
+            <h1>Centre Hospitalier Régional de Ruziba</h1>
+            <p>
+              Bujumbura, Commune de Muha · Service SIH Régulation · Poste de garde #3
+            </p>
+          </div>
+          <div class="ub-idcard__facts">
+            <span class="ub-chip ub-chip--ok">
+              <span class="ub-live ub-live-ring" style="width:6px;height:6px;border-radius:9999px;background:var(--ub-ok);display:block"></span>
+              Ouvert 24h/24
+            </span>
+            <span class="ub-chip ub-chip--ink">Session MSPLS-RUZ-9844</span>
+          </div>
+        </div>
+
+        <!-- ============ COMPTEURS ============ -->
+        <div class="ub-grid ub-grid--4" style="margin-top:1.5rem">
+
+          <div class="ub-tile ub-a ub-d1">
+            <p class="ub-tile__t">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
+                   stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+                <path d="M3 8.5h18M12 3v5.5M12 15.5V21M8.5 12h7"/>
+              </svg>
+              Urgences entrantes
+            </p>
+            <p class="ub-tile__n"><span data-count="3">0</span></p>
+            <div class="ub-bar ub-bar--urgent" style="margin-top:0.75rem">
+              <i style="width:60%"></i>
+            </div>
+          </div>
+
+          <div class="ub-tile ub-a ub-d2">
+            <p class="ub-tile__t">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
+                   stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+                <path d="M3.5 8.5h17v12h-17v-12ZM7.5 4v4.5M16.5 4v4.5M3.5 12.5h17"/>
+              </svg>
+              Rendez-vous du jour
+            </p>
+            <p class="ub-tile__n"><span data-count="5">0</span></p>
+            <div class="ub-bar" style="margin-top:0.75rem"><i style="width:72%"></i></div>
+          </div>
+
+          <div class="ub-tile ub-a ub-d3">
+            <p class="ub-tile__t">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
+                   stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+                <path d="M4 19V9l8-5 8 5v10"/><path d="M9.5 19v-5h5v5"/>
+              </svg>
+              Lits d'urgence libres
+            </p>
+            <p class="ub-tile__n">6 <span style="font-size:1rem;font-weight:600;color:var(--ub-ink-40)">/ 15</span></p>
+            <div class="ub-bar" style="margin-top:0.75rem"><i style="width:40%"></i></div>
+          </div>
+
+          <div class="ub-tile ub-a ub-d4">
+            <p class="ub-tile__t">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
+                   stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+                <path d="M2.5 16V9.5h11V16h-11Z"/><path d="M13.5 11h3l3 3.2V16h-6v-5Z"/>
+                <circle cx="6.5" cy="17.5" r="1.8"/><circle cx="16.5" cy="17.5" r="1.8"/>
+              </svg>
+              Réseau ambulance
+            </p>
+            <p class="ub-tile__n">2</p>
+            <p style="font-size:0.75rem;color:var(--ub-ok);font-weight:600;margin-top:0.35rem">
+              véhicules opérationnels
+            </p>
+          </div>
+
+        </div>
+
+        <!-- ============ FILE D'ATTENTE ============ -->
+        <div class="ub-grid ub-cols" style="grid-template-columns:1fr 1fr;margin-top:1.5rem;align-items:start">
+
+          <div class="ub-card ub-a ub-d3">
+            <div style="display:flex;align-items:center;justify-content:space-between;gap:1rem;margin-bottom:1.25rem">
+              <h2 class="ub-h3">Salle d'attente urgence</h2>
+              <span class="ub-chip">Tension modérée</span>
+            </div>
+
+            <div style="display:flex;align-items:center;justify-content:space-between;gap:1rem;margin-bottom:0.75rem">
+              <span style="font-size:0.875rem;color:var(--ub-ink-soft)">Patients en attente</span>
+              <span style="font-size:1.5rem;font-weight:800;font-variant-numeric:tabular-nums">
+                8 <span style="font-size:0.875rem;color:var(--ub-ink-40)">/ 20</span>
+              </span>
+            </div>
+            <div class="ub-bar" style="height:10px"><i style="width:40%"></i></div>
+            <p style="font-size:0.75rem;color:var(--ub-ink-40);margin-top:0.5rem">
+              Capacité actuelle : 40% · 12 places disponibles
+            </p>
+
+            <h3 style="font-size:0.8125rem;font-weight:700;margin:1.75rem 0 0.75rem">
+              Files de triage
+            </h3>
+            <ul class="ub-list">
+              <li>
+                <span class="ub-ico ub-ico--sm ub-ico--urgent" aria-hidden="true">
+                  <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
+                       stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+                    <path d="M12 3 5 6v6c0 4.4 3.6 7.8 7 8.3 3.4-.5 7-3.9 7-8.3V6l-7-3Z"/>
+                  </svg>
+                </span>
+                <div class="ub-list__body">
+                  <h3>Acuités высses</h3>
+                  <p>3 patients · délai moyen 6 min</p>
+                </div>
+                <span class="ub-tag ub-tag--urgent">3</span>
+              </li>
+              <li>
+                <span class="ub-ico ub-ico--sm" aria-hidden="true">
+                  <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
+                       stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+                    <path d="M12 6v6l4 2.4"/><circle cx="12" cy="12" r="8.5"/>
+                  </svg>
+                </span>
+                <div class="ub-list__body">
+                  <h3>Acuités moyennes</h3>
+                  <p>5 patients · délai moyen 22 min</p>
+                </div>
+                <span class="ub-tag">5</span>
+              </li>
+            </ul>
+          </div>
+
+          <div class="ub-card ub-a ub-d4">
+            <div style="display:flex;align-items:center;justify-content:space-between;gap:1rem;margin-bottom:1.25rem">
+              <h2 class="ub-h3">Planning du jour</h2>
+              <span class="ub-chip ub-chip--ok">5 rendez-vous</span>
+            </div>
+
+            <ul class="ub-list">
+              <li>
+                <span class="ub-ico ub-ico--sm" aria-hidden="true">
+                  <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
+                       stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+                    <circle cx="12" cy="12" r="8.5"/><path d="M12 7v5.2l3.4 2"/>
+                  </svg>
+                </span>
+                <div class="ub-list__body">
+                  <h3>Dr. Ilunga Nadine · Cardiologie</h3>
+                  <p>Salle 2 · 09:30 — Confirmation reçue</p>
+                </div>
+                <div class="ub-list__meta"><time>09:30</time></div>
+              </li>
+              <li>
+                <span class="ub-ico ub-ico--sm" aria-hidden="true">
+                  <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
+                       stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+                    <circle cx="12" cy="12" r="8.5"/><path d="M12 7v5.2l3.4 2"/>
+                  </svg>
+                </span>
+                <div class="ub-list__body">
+                  <h3>Dr. Nshimirimana · Médecine générale</h3>
+                  <p>Salle 1 · 10:15 — Confirmation reçue</p>
+                </div>
+                <div class="ub-list__meta"><time>10:15</time></div>
+              </li>
+              <li>
+                <span class="ub-ico ub-ico--sm" aria-hidden="true">
+                  <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
+                       stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+                    <circle cx="12" cy="12" r="8.5"/><path d="M12 7v5.2l3.4 2"/>
+                  </svg>
+                </span>
+                <div class="ub-list__body">
+                  <h3>Dr. Mwakamé · Pédiatrie</h3>
+                  <p>Salle 4 · 14:00 — En attente de confirmation</p>
+                </div>
+                <div class="ub-list__meta"><time>14:00</time></div>
+              </li>
+            </ul>
+
+            <a class="ub-btn ub-btn--ghost ub-btn--block" href="mes-rendez-vous.html" style="margin-top:1.25rem">
+              Ouvrir le planning complet
+            </a>
+          </div>
+
+        </div>
+
+        <!-- ============ URGENCES EN ATTENTE ============ -->
+        <div style="margin-top:1.5rem">
+          <div style="display:flex;align-items:center;justify-content:space-between;gap:1rem;
+                      flex-wrap:wrap;margin-bottom:1rem">
+            <h2 class="ub-h3">Urgences entrantes</h2>
+            <a class="ub-link" href="suivi-urgence.html">
+              Tout le suivi
+              <svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.9"
+                   stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+                <path d="M2.8 8h10.4M9.4 4.2 13.2 8l-3.8 3.8"/>
+              </svg>
+            </a>
+          </div>
+
+          <ul class="ub-grid ub-grid--3">
+            <li class="ub-card ub-card--triage ub-reveal" data-d="0">
+              <div style="display:flex;align-items:center;justify-content:space-between;gap:1rem;margin-bottom:0.75rem">
+                <span class="ub-tag ub-tag--urgent">Acuité 1</span>
+                <time style="font-size:0.75rem;color:var(--ub-ink-40)">il y a 4 min</time>
+              </div>
+              <h3 style="font-size:1rem;font-weight:700;margin-bottom:0.3rem">Détresse respiratoire</h3>
+              <p style="font-size:0.8125rem;color:var(--ub-ink-64);line-height:1.55">
+                Homme, 47 ans · Nyakabiga · ambulance mobilisée
+              </p>
+              <div class="ub-bar ub-bar--urgent" style="margin-top:1rem"><i style="width:85%"></i></div>
+            </li>
+
+            <li class="ub-card ub-card--triage ub-reveal" data-d="100">
+              <div style="display:flex;align-items:center;justify-content:space-between;gap:1rem;margin-bottom:0.75rem">
+                <span class="ub-tag ub-tag--urgent">Acuité 2</span>
+                <time style="font-size:0.75rem;color:var(--ub-ink-40)">il y a 11 min</time>
+              </div>
+              <h3 style="font-size:1rem;font-weight:700;margin-bottom:0.3rem">Traumatisme routier</h3>
+              <p style="font-size:0.8125rem;color:var(--ub-ink-64);line-height:1.55">
+                Femme, 32 ans · Avenue du Large · en salle de soins
+              </p>
+              <div class="ub-bar ub-bar--urgent" style="margin-top:1rem"><i style="width:52%"></i></div>
+            </li>
+
+            <li class="ub-card ub-card--triage-ok ub-reveal" data-d="200">
+              <div style="display:flex;align-items:center;justify-content:space-between;gap:1rem;margin-bottom:0.75rem">
+                <span class="ub-tag ub-tag--ghost">Acuité 3</span>
+                <time style="font-size:0.75rem;color:var(--ub-ink-40)">il y a 23 min</time>
+              </div>
+              <h3 style="font-size:1rem;font-weight:700;margin-bottom:0.3rem">Céphalées persistantes</h3>
+              <p style="font-size:0.8125rem;color:var(--ub-ink-64);line-height:1.55">
+                Femme, 61 ans · Rohero · triage effectué
+              </p>
+              <div class="ub-bar" style="margin-top:1rem"><i style="width:28%"></i></div>
+            </li>
+          </ul>
+        </div>
+
+      </div>
+    </section>
+  </main>
+
+  <footer class="ub-foot">
+    <div class="ub-wrap">
+      <div class="ub-foot-bottom" style="margin-top:0;border-top:0;padding-top:0">
+        <span>© 2026 Ministère de la Santé Publique — République du Burundi</span>
+        <span>Données de démonstration · Session chiffrée TLS 256-bit</span>
+      </div>
+    </div>
+  </footer>
+
+</div>
+
+  <script src="assets/vendor/vue.global.prod.js?v=1"></script>
+  <script src="data.js?v=4"></script>
+  <script src="components.js?v=4"></script>
+  <script src="ui.js?v=4"></script>
+<script>UB.mount();</script>
+</body>
+</html>

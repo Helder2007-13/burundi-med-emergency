@@ -1,0 +1,380 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+  <title>Dashboard Administration — Urgences Burundi</title>
+  <meta name="description" content="Supervision du réseau de soins, des hôpitaux partenaires et des urgences nationales. Tableau de bord temps réel.">
+  <meta name="theme-color" content="#FFFFFF">
+  <link rel="preload" href="assets/fonts/Inter-var.woff2" as="font" type="font/woff2" crossorigin>
+  <link rel="preload" href="assets/fonts/PlusJakartaSans-var.woff2" as="font" type="font/woff2" crossorigin>
+
+  <link rel="stylesheet" href="ui.css?v=4">
+  <link rel="icon" href="assets/img/logo.svg" type="image/svg+xml">
+  <style>[v-cloak]{display:none}</style>
+</head>
+<body>
+<div id="app" class="ub" v-cloak>
+
+  <ub-header section="admin" produit="Supervision Nationale SIH"></ub-header>
+
+  <main class="ub-main">
+    <section class="ub-sec">
+      <div class="ub-wrap">
+
+        <a class="ub-crumb ub-a" href="accueil.html" style="margin-bottom:1.5rem">
+          <ub-icon name="arrowLeft" :size="14"></ub-icon> Retour à l'accueil
+        </a>
+
+        <!-- ============ POSTE DE SUPERVISION ============ -->
+        <div class="ub-idcard ub-a">
+          <span class="ub-idcard__av">SN</span>
+          <div class="ub-idcard__n">
+            <template v-if="d">
+              <h1>{{ d.superviseur.role }}</h1>
+              <p>{{ d.superviseur.nom }} · ID : {{ d.superviseur.id }}</p>
+            </template>
+          </div>
+          <div class="ub-idcard__facts">
+            <span class="ub-chip ub-chip--ink">Flux SIH temps réel</span>
+            <a class="ub-btn ub-btn--ghost ub-btn--sm" href="accueil.html">
+              <ub-icon name="logout" :size="15"></ub-icon> Se déconnecter
+            </a>
+          </div>
+        </div>
+
+        <!-- ============ COMPTEURS NATIONAUX ============ -->
+        <div class="ub-grid ub-grid--3" style="margin-top:1.5rem">
+          <article class="ub-card ub-reveal" data-d="0">
+            <div class="ub-metric">
+              <span class="ub-metric__ico"><ub-icon name="hospital" :size="20"></ub-icon></span>
+              <div>
+                <p class="ub-metric__n"><ub-stat-inline :valeur="c.hopitaux"></ub-stat-inline></p>
+                <p class="ub-stat__t">Total Hôpitaux</p>
+              </div>
+            </div>
+            <ul class="ub-metric__notes">
+              <li><ub-icon name="checkCircle" :size="14"></ub-icon>
+                  {{ c.hopitaux.partConnectes }}% connectés</li>
+              <li><ub-icon name="building" :size="14"></ub-icon>
+                  {{ c.hopitaux.publics }} publics · {{ c.hopitaux.prives }} privés</li>
+            </ul>
+          </article>
+
+          <article class="ub-card ub-reveal" data-d="100">
+            <div class="ub-metric">
+              <span class="ub-metric__ico ub-metric__ico--urgent"><ub-icon name="plus" :size="20"></ub-icon></span>
+              <div>
+                <p class="ub-metric__n ub-metric__n--urgent">
+                  <ub-stat-inline :valeur="c.urgences24h"></ub-stat-inline>
+                </p>
+                <p class="ub-stat__t">Urgences 24h</p>
+              </div>
+            </div>
+            <ul class="ub-metric__notes">
+              <li class="is-urgent">
+                <ub-icon name="trendUp" :size="14"></ub-icon>
+                +{{ c.urgences24h.variation }}% {{ c.urgences24h.note }}
+              </li>
+              <li><ub-icon name="alert" :size="14"></ub-icon>
+                  {{ c.urgences24h.vitales }} urgences vitales</li>
+            </ul>
+          </article>
+
+          <article class="ub-card ub-reveal" data-d="200">
+            <div class="ub-metric">
+              <span class="ub-metric__ico"><ub-icon name="clock" :size="20"></ub-icon></span>
+              <div>
+                <p class="ub-metric__n">
+                  {{ D.nombre(c.tempsMoyen.valeurMin, 1) }}
+                  <span class="ub-metric__u">min</span>
+                </p>
+                <p class="ub-stat__t">Temps moyen avant prise en charge</p>
+              </div>
+            </div>
+            <ul class="ub-metric__notes">
+              <li class="is-ok">
+                <ub-icon name="trendDown" :size="14"></ub-icon>
+                {{ D.nombre(Math.abs(c.tempsMoyen.variationMin), 1) }} min vs cible
+              </li>
+              <li><ub-icon name="checkCircle" :size="14"></ub-icon>
+                  Objectif national &lt; {{ c.tempsMoyen.objectifMin }} min</li>
+            </ul>
+          </article>
+        </div>
+
+        <!-- ============ CARTE DES ZONES DE TENSION ============ -->
+        <div class="ub-reveal" data-d="0" style="margin-top:clamp(1.5rem,3vw,2rem)">
+          <div class="ub-sect__head" style="max-width:46rem">
+            <h2 class="ub-h2">Zones d'urgence — surveillance en direct</h2>
+            <p class="ub-lead">
+              Cartographie thermique prévisionnelle des appels et incidents signalés dans
+              l'agglomération de Bujumbura.
+            </p>
+          </div>
+
+          <div class="ub-card" style="padding:0;overflow:hidden">
+            <div class="ub-map">
+
+              <svg class="ub-map__svg" viewBox="0 0 900 520" role="img"
+                   aria-label="Carte de Bujumbura : Bwiza en tension critique, Rohero et Musaga modérées, Cibitoke et Kanyosha faibles">
+                <defs>
+                  <radialGradient id="t-critique">
+                    <stop offset="0" stop-color="#DC2626" stop-opacity=".5"/>
+                    <stop offset="1" stop-color="#DC2626" stop-opacity="0"/>
+                  </radialGradient>
+                  <radialGradient id="t-eleve">
+                    <stop offset="0" stop-color="#E57373" stop-opacity=".48"/>
+                    <stop offset="1" stop-color="#E57373" stop-opacity="0"/>
+                  </radialGradient>
+                  <radialGradient id="t-modere">
+                    <stop offset="0" stop-color="#E57373" stop-opacity=".26"/>
+                    <stop offset="1" stop-color="#E57373" stop-opacity="0"/>
+                  </radialGradient>
+                  <radialGradient id="t-faible">
+                    <stop offset="0" stop-color="#16A34A" stop-opacity=".24"/>
+                    <stop offset="1" stop-color="#16A34A" stop-opacity="0"/>
+                  </radialGradient>
+                  <filter id="flou"><feGaussianBlur stdDeviation="10"/></filter>
+                </defs>
+
+                <!-- Fond : lac et tissu urbain stylise -->
+                <rect width="900" height="520" fill="#DCFCE7"/>
+                <path d="M0 372 Q 70 346 190 378 T 380 398 T 596 410 T 900 428 L 900 520 L 0 520 Z"
+                      fill="#FFFFFF" opacity=".8"/>
+                <path d="M0 372 Q 70 346 190 378 T 380 398 T 596 410 T 900 428"
+                      fill="none" stroke="#16A34A" stroke-width="2" opacity=".35"/>
+
+                <!-- Voies -->
+                <g stroke="#FFFFFF" stroke-width="9" stroke-linecap="round" opacity=".95">
+                  <path d="M-10 150h920"/><path d="M-10 262h920"/><path d="M-10 348h920"/>
+                  <path d="M170-10v540"/><path d="M420-10v540"/><path d="M648-10v540"/>
+                  <path d="M-10 60 900 470"/>
+                </g>
+
+                <!-- Reperes -->
+                <g font-family="Public Sans, sans-serif" font-size="11" font-weight="600"
+                   fill="#444651" opacity=".62">
+                  <text x="24" y="440">LAC TANGANYIKA</text>
+                  <text x="96" y="142">RN1 (vers Ngozi / Bugarama)</text>
+                  <text x="520" y="254">RN3 (Axe Rumonge / Muha)</text>
+                  <text x="700" y="110">RN5 / Aéroport</text>
+                  <text x="440" y="142">Bd de l'Uprona</text>
+                  <text x="300" y="254">Bd du 28 Novembre</text>
+                  <text x="466" y="296">Centre-ville</text>
+                </g>
+
+                <!-- Haeurs de tension, taille proportionnelle au nombre de cas -->
+                <g v-for="z in zones" :key="z.nom">
+                  <circle :cx="x(z)" :cy="y(z)" :r="rayon(z)"
+                          :fill="'url(#t-' + ton(z) + ')'" filter="url(#flou)"/>
+                  <circle class="ub-map__dot"
+                          :class="'ub-map__dot--' + ton(z)"
+                          :cx="x(z)" :cy="y(z)" :r="6"/>
+                </g>
+
+                <!-- Etiquettes : placees au-dessus du point, decalees
+                     vers le haut pour ne pas se superposer -->
+                <g v-for="z in zones" :key="'l' + z.nom">
+                  <line :x1="x(z)" :y1="y(z) - 9" :x2="x(z)" :y2="y(z) - 24"
+                        :stroke="'#191C1E'" stroke-width="1" opacity=".22"/>
+                  <text class="ub-map__label" :x="x(z)" :y="y(z) - 30"
+                        text-anchor="middle">{{ z.nom }}</text>
+                  <text class="ub-map__value" :x="x(z)" :y="y(z) + 21"
+                        text-anchor="middle"
+                        :class="'ub-map__value--' + ton(z)">{{ libelle(z) }}</text>
+                </g>
+              </svg>
+
+              <div class="ub-map__pin">
+                <ub-icon name="pin" :size="15"></ub-icon>
+                <span>Représentation de démonstration — aucune carte réelle</span>
+              </div>
+            </div>
+
+            <!-- Legende -->
+            <div class="ub-map__legend">
+              <span v-for="s in d.seuilsTension" :key="s.niveau" class="ub-legend">
+                <i :class="'ub-legend__sw ub-legend__sw--' + s.tone"></i>
+                <b>{{ libelleSeuil(s) }}</b>
+              </span>
+            </div>
+
+            <div class="ub-map__foot">
+              <span class="ub-livebar ub-livebar--wide"></span>
+              <p class="ub-map__refresh">
+                <ub-icon name="refresh" :size="14"></ub-icon>
+                Actualisation automatique toutes les {{ d.actualisationSecondes }} secondes
+              </p>
+            </div>
+          </div>
+        </div>
+
+        <!-- ============ RESEAU HOSPITALIER ============ -->
+        <div class="ub-reveal" style="margin-top:clamp(1.5rem,3vw,2rem)">
+          <div class="ub-sect__head" style="max-width:46rem">
+            <h2 class="ub-h2">Réseau hospitalier</h2>
+            <p class="ub-lead">Gestion des établissements du réseau.</p>
+          </div>
+
+          <div class="ub-table-wrap">
+            <table class="ub-table">
+              <caption class="ub-sr-only">Établissements partenaires du réseau national</caption>
+              <thead>
+                <tr>
+                  <th scope="col">Établissement</th>
+                  <th scope="col">Localisation / GPS</th>
+                  <th scope="col">Spécialités</th>
+                  <th scope="col">Capacité</th>
+                  <th scope="col">Statut</th>
+                  <th scope="col">Personnel</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr v-for="h in hopitaux" :key="h.id">
+                  <th scope="row">
+                    <span class="ub-table__name">{{ h.nom }}</span>
+                    <span class="ub-table__meta">{{ h.reference }} · {{ h.type }}</span>
+                  </th>
+                  <td>
+                    <span class="ub-table__main">{{ h.ville }}</span>
+                    <span class="ub-table__meta">{{ h.gps.lat }}, {{ h.gps.lng }}</span>
+                  </td>
+                  <td>
+                    <span class="ub-table__tags">
+                      <span v-for="s in h.specialites" :key="s" class="ub-chip ub-chip--ink">{{ s }}</span>
+                    </span>
+                  </td>
+                  <td>
+                    <span class="ub-table__main">{{ h.lits.libres }}/{{ h.lits.total }}</span>
+                    <span class="ub-table__meta">lits</span>
+                  </td>
+                  <td><ub-statut :statut="h.statut"></ub-statut></td>
+                  <td>
+                    <span class="ub-table__main">{{ h.personnel }}</span>
+                    <span class="ub-table__meta">soignants</span>
+                  </td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+
+          <div class="ub-disclaimer">
+            <ub-icon name="info" :size="15"></ub-icon>
+            Effectifs, capacités et GPS sont des données de démonstration. Elles seront
+            fournies par le système d'information hospitalier au branchement du backend.
+          </div>
+        </div>
+
+        <!-- ============ REPARTITION DES LANGUES ============ -->
+        <div class="ub-reveal" style="margin-top:clamp(1.5rem,3vw,2rem)">
+          <div class="ub-sect__head" style="max-width:46rem">
+            <h2 class="ub-h2">Répartition des langues</h2>
+            <p class="ub-lead">
+              Utilisation des interfaces usagers et signalements par langue choisie.
+            </p>
+          </div>
+
+          <ul class="ub-grid ub-grid--3">
+            <li v-for="(l, i) in d.langues" :key="l.code" class="ub-card ub-langcard"
+                :style="{ '--part': l.part + '%' }">
+              <div class="ub-langcard__top">
+                <span class="ub-langcard__code">{{ l.code }}</span>
+                <span class="ub-langcard__part">{{ l.part }}%</span>
+              </div>
+              <p class="ub-langcard__name">{{ l.nom }}</p>
+              <div class="ub-langcard__track">
+                <i :style="{ width: l.part + '%', animationDelay: (i * 120) + 'ms' }"></i>
+              </div>
+              <p class="ub-langcard__usage">{{ l.usage }}</p>
+              <p class="ub-langcard__count">≈ {{ l.alertesJour }} alertes / jour</p>
+            </li>
+          </ul>
+        </div>
+
+      </div>
+    </section>
+  </main>
+
+  <ub-footer></ub-footer>
+</div>
+
+<script src="assets/vendor/vue.global.prod.js?v=1"></script>
+<script src="data.js?v=4"></script>
+<script src="components.js?v=4"></script>
+<script src="ui.js?v=4"></script>
+<script>
+/* Compteur chiffre seul, sans carte autour */
+UB.component('ub-stat-inline', {
+  props: { valeur: { type: [Number, String], default: 0 } },
+  template: '<span class="ub-stat-inline">{{ aff }}</span>',
+  setup(props) {
+    const aff = Vue.ref(0);
+    /* Accepte un nombre ou un objet : les compteurs de l'administration
+       sont des sous-objets (ex. { hopitaux: { valeur: 12 } }). */
+    const cible = Vue.computed(() => {
+      const v = props.valeur;
+      const n = typeof v === "object" && v !== null ? v.valeur : v;
+      const num = Number(n);
+      return Number.isFinite(num) ? num : 0;
+    });
+    let raf = null;
+
+    function animer() {
+      if (raf) cancelAnimationFrame(raf);
+      if (window.matchMedia('(prefers-reduced-motion: reduce)').matches) {
+        aff.value = cible.value;
+        return;
+      }
+      const t0 = performance.now();
+      const pas = (ts) => {
+        const p = Math.min(1, (ts - t0) / 1100);
+        aff.value = Math.round(cible.value * (1 - Math.pow(1 - p, 3)));
+        if (p < 1) raf = requestAnimationFrame(pas);
+        else raf = null;
+      };
+      raf = requestAnimationFrame(pas);
+    }
+
+    Vue.onMounted(animer);
+    Vue.watch(cible, animer);
+    Vue.onUnmounted(() => raf && cancelAnimationFrame(raf));
+    return { aff };
+  }
+});
+
+/* L'API de data.js est asynchrone : elle le sera aussi face a
+   Supabase. On charge les donnees AVANT de monter l'application,
+   ce qui evite un etat vide au premier rendu. */
+window.UB.data.dashboardAdmin().then(function (donnees) {
+  UB.mount({
+  setup() {
+    const D = window.UB.data;
+    const d = Vue.ref(donnees);
+    const c = Vue.computed(() => d.value.compteurs);
+    const hopitaux = Vue.computed(() => d.value.hopitaux);
+    const zones = Vue.computed(() => d.value.zonesTension);
+
+    /* Projection des coordonnées GPS sur la zone de carte (900x520) */
+    const LAT0 = -3.345, LAT1 = -3.405, LNG0 = 29.335, LNG1 = 29.395;
+    const x = (z) => ((z.lng - LNG0) / (LNG1 - LNG0)) * 900;
+    const y = (z) => ((LAT0 - z.lat) / (LAT0 - LAT1)) * 400 + 70;
+
+    const ton = (z) => D.tensionTone(z.cas);
+    const libelle = (z) => D.tensionLabel(z.cas);
+    /* Rayon : racine carree, borne a 130px pour rester lisible */
+    const rayon = (z) => Math.min(130, 26 + Math.sqrt(z.cas) * 13);
+
+    function libelleSeuil(s) {
+      if (s.minCas && s.maxCas) return s.niveau.charAt(0).toUpperCase() + s.niveau.slice(1) + ' (' + s.minCas + '-' + s.maxCas + ')';
+      if (s.maxCas) return s.niveau.charAt(0).toUpperCase() + s.niveau.slice(1) + ' (< ' + (s.maxCas + 1) + ')';
+      return s.niveau.charAt(0).toUpperCase() + s.niveau.slice(1) + ' (> ' + (s.minCas - 1) + ')';
+    }
+
+    return { D, d, c, hopitaux, zones, x, y, ton, libelle, rayon, libelleSeuil };
+  }
+  });
+});
+</script>
+</body>
+</html>

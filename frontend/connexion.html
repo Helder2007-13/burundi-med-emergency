@@ -1,0 +1,240 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+  <title>Connexion — Urgences Burundi</title>
+  <meta name="description" content="Connectez-vous pour accéder à votre espace patient et gérer vos rendez-vous de consultation.">
+  <meta name="theme-color" content="#FFFFFF">
+  <link rel="preload" href="assets/fonts/Inter-var.woff2" as="font" type="font/woff2" crossorigin>
+  <link rel="preload" href="assets/fonts/PlusJakartaSans-var.woff2" as="font" type="font/woff2" crossorigin>
+
+  <link rel="stylesheet" href="ui.css?v=4">
+  <link rel="icon" href="assets/img/logo.svg" type="image/svg+xml">
+  <style>[v-cloak]{display:none}</style>
+</head>
+<body>
+<div id="app" class="ub" v-cloak>
+
+  <header class="ub-head">
+    <div class="ub-head-in">
+      <a class="ub-brand" href="accueil.html">
+        <span class="ub-brand-mark" aria-hidden="true">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2"
+               stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 5.5v13M5.5 12h13"/></svg>
+        </span>
+        <span class="ub-brand-txt"><b>Urgences Burundi</b><span>Santé Publique 24/7</span></span>
+      </a>
+
+      <nav class="ub-nav" aria-label="Navigation principale">
+        <a href="accueil.html" aria-current="page">Accueil</a>
+        <a href="signaler-un-cas.html">Services</a>
+        <a href="signaler-une-urgence.html">Hôpitaux</a>
+        <a href="accueil.html#a-propos">À propos</a>
+        <a href="portail-hopital.html">Contact</a>
+      </nav>
+
+      <div class="ub-head-actions">
+        <button class="ub-lang" type="button" aria-label="Changer de langue">
+          <span class="on">FR</span><span class="sep">/</span><span>RN</span><span class="sep">/</span><span>EN</span>
+        </button>
+        <a class="ub-urgent-btn" href="signaler-une-urgence.html">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2"
+               stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+            <path d="M3 8.5h18M12 3v5.5M12 15.5V21M8.5 12h7"/>
+          </svg>
+          <span>Urgence Médicale</span>
+        </a>
+      </div>
+    </div>
+  </header>
+
+  <main class="ub-main">
+    <section class="ub-sec">
+      <div class="ub-wrap">
+        <div class="ub-cols" style="display:grid;grid-template-columns:1fr 1fr;gap:clamp(1.5rem,3vw,3.5rem);align-items:center">
+
+          <!-- ============ FORMULAIRE ============ -->
+          <div class="ub-a">
+            <a class="ub-link" href="accueil.html" style="margin-bottom:1.5rem">
+              <svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.9"
+                   stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+                <path d="M13.2 8H2.8M6.6 4.2 2.8 8l3.8 3.8"/>
+              </svg>
+              Retour à Signaler un cas
+            </a>
+
+            <span class="ub-tag">Espace Patient</span>
+            <h1 class="ub-h2" style="font-size:clamp(1.75rem,3.4vw,2.5rem);margin-top:1rem">Connexion</h1>
+            <p class="ub-lead" style="margin-top:0.6rem;margin-bottom:2rem">
+              Connectez-vous pour accéder à votre espace patient et gérer vos rendez-vous
+              de consultation.
+            </p>
+
+            <form data-validate novalidate style="display:grid;gap:1.25rem;max-width:26rem">
+
+              <p class="ub-hint--bad" data-form-note data-msg="Complétez les champs obligatoires ci-dessous."
+                 style="display:none;padding:0.75rem 1rem;border:1px solid var(--ub-urgent);
+                        border-radius:var(--ub-radius);background:var(--ub-soft-bg)" role="alert"></p>
+
+              <div class="ub-field">
+                <label for="id">Téléphone ou adresse e-mail <span class="req" aria-hidden="true">*</span></label>
+                <input class="ub-input" id="id" name="id" type="text" required
+                       autocomplete="username" placeholder="+257 79 12 34 56">
+              </div>
+
+              <div class="ub-field">
+                <label for="pwd">Mot de passe <span class="req" aria-hidden="true">*</span></label>
+                <div class="ub-input-wrap">
+                  <input class="ub-input" id="pwd" name="pwd" type="password" required
+                         autocomplete="current-password" placeholder="••••••••">
+                  <button type="button" aria-label="Afficher le mot de passe"
+                          style="position:absolute;right:0.5rem;top:50%;translate:0 -50%;
+                                 width:36px;height:36px;display:grid;place-items:center;
+                                 border:0;background:none;cursor:pointer;color:var(--ub-ink-40)">
+                    <svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor"
+                         stroke-width="1.8" stroke-linecap="round" aria-hidden="true">
+                      <rect x="3.5" y="10.5" width="17" height="10" rx="2"/>
+                      <path d="M7.5 10.5V7.5a4.5 4.5 0 0 1 9 0v3"/>
+                    </svg>
+                  </button>
+                </div>
+              </div>
+
+              <div style="display:flex;align-items:center;justify-content:space-between;gap:1rem;flex-wrap:wrap">
+                <label class="ub-check">
+                  <input type="checkbox" id="memo" name="memo">
+                  <span>Se souvenir de moi</span>
+                </label>
+                <a class="ub-link" href="#">Mot de passe oublié ?</a>
+              </div>
+
+              <button class="ub-btn ub-btn--ok" type="submit">
+                Se connecter
+                <svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.9"
+                     stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+                  <path d="M2.8 8h10.4M9.4 4.2 13.2 8l-3.8 3.8"/>
+                </svg>
+              </button>
+
+              <div style="display:flex;align-items:center;gap:0.75rem;color:var(--ub-ink-40);font-size:0.8125rem">
+                <span style="flex:1;height:1px;background:var(--ub-ink-12)"></span>
+                ou
+                <span style="flex:1;height:1px;background:var(--ub-ink-12)"></span>
+              </div>
+
+              <a class="ub-btn ub-btn--ghost" href="creer-un-compte.html">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
+                     stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+                  <circle cx="10" cy="8" r="3.5"/><path d="M3.5 20a6.5 6.5 0 0 1 13 0M19 8v6M16 11h6"/>
+                </svg>
+                Créer un compte
+              </a>
+            </form>
+          </div>
+
+          <!-- ============ VISUEL ============ -->
+          <div class="ub-a ub-d3 ub-a--veil" style="position:relative">
+            <div class="ub-card ub-card--soft" style="padding:clamp(1.5rem,3vw,2.25rem)">
+              <h2 class="ub-h3">Votre espace santé en toute sérénité</h2>
+              <p style="margin-top:0.6rem;color:var(--ub-ink-64);font-size:0.9375rem;line-height:1.6">
+                Prenez rendez-vous avec un médecin spécialiste ou généraliste dans les
+                centres hospitaliers agréés du Burundi.
+              </p>
+
+              <ul style="display:grid;gap:1.1rem;margin-top:1.75rem">
+                <li style="display:flex;gap:0.85rem;align-items:flex-start">
+                  <span class="ub-ico ub-ico--sm" aria-hidden="true">
+                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
+                         stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+                      <path d="m5 12.5 4.5 4.5L19 7.5"/>
+                    </svg>
+                  </span>
+                  <div>
+                    <h3 style="font-size:0.9375rem;font-weight:700;margin-bottom:0.2rem">
+                      Médecins et structures vérifiés
+                    </h3>
+                    <p style="font-size:0.8125rem;color:var(--ub-ink-64);line-height:1.55">
+                      Réseau national certifié par le Ministère de la Santé Publique.
+                    </p>
+                  </div>
+                </li>
+
+                <li style="display:flex;gap:0.85rem;align-items:flex-start">
+                  <span class="ub-ico ub-ico--sm" aria-hidden="true">
+                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
+                         stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+                      <circle cx="12" cy="12" r="8.5"/><path d="M12 7v5.2l3.4 2"/>
+                    </svg>
+                  </span>
+                  <div>
+                    <h3 style="font-size:0.9375rem;font-weight:700;margin-bottom:0.2rem">
+                      Rendez-vous en quelques secondes
+                    </h3>
+                    <p style="font-size:0.8125rem;color:var(--ub-ink-64);line-height:1.55">
+                      Accès instantané aux créneaux disponibles à Bujumbura, Gitega et provinces.
+                    </p>
+                  </div>
+                </li>
+
+                <li style="display:flex;gap:0.85rem;align-items:flex-start">
+                  <span class="ub-ico ub-ico--sm" aria-hidden="true">
+                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
+                         stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+                      <rect x="4.5" y="10.5" width="15" height="10" rx="2"/>
+                      <path d="M8 10.5V7.5a4 4 0 0 1 8 0v3"/>
+                    </svg>
+                  </span>
+                  <div>
+                    <h3 style="font-size:0.9375rem;font-weight:700;margin-bottom:0.2rem">
+                      Données confidentielles et sécurisées
+                    </h3>
+                    <p style="font-size:0.8125rem;color:var(--ub-ink-64);line-height:1.55">
+                      Secret médical strictement protégé.
+                    </p>
+                  </div>
+                </li>
+              </ul>
+
+              <div class="ub-note ub-note--urgent" style="margin-top:1.75rem">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
+                     stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+                  <path d="M3 8.5h18M12 3v5.5M12 15.5V21M8.5 12h7"/>
+                </svg>
+                <span>
+                  <strong>Urgence vitale ?</strong> Ne tardez pas et utilisez le signalement
+                  d'urgence, qui ne demande ni connexion ni inscription.
+                </span>
+              </div>
+            </div>
+
+            <!-- Photo : soins en cours -->
+            <figure style="margin-top:1rem;border-radius:var(--ub-radius-lg);overflow:hidden;
+                            border:1px solid var(--ub-ink-12);box-shadow:var(--ub-shadow)">
+              <picture><source srcset="assets/img/hopital-soins-800.webp" type="image/webp"><img src="assets/img/hopital-soins.jpg" alt="Équipe soignante s'occupant d'un patient" width="1280" height="853" loading="lazy" style="width:100%;height:210px;object-fit:cover"></picture>
+            </figure>
+          </div>
+
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <footer class="ub-foot">
+    <div class="ub-wrap">
+      <div class="ub-foot-bottom" style="margin-top:0;border-top:0;padding-top:0">
+        <span>© 2026 Ministère de la Santé Publique — République du Burundi</span>
+        <span>Accès sécurisé conforme aux normes de la télésanté</span>
+      </div>
+    </div>
+  </footer>
+
+</div>
+
+  <script src="assets/vendor/vue.global.prod.js?v=1"></script>
+  <script src="data.js?v=4"></script>
+  <script src="components.js?v=4"></script>
+  <script src="ui.js?v=4"></script>
+<script>UB.mount();</script>
+</body>
+</html>

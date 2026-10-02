@@ -1,0 +1,306 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+  <title>Suivi de l'urgence — Urgences Burundi</title>
+  <meta name="description" content="Suivez votre urgence en temps réel : analyse, transmission au centre, ambulance en route et distance à parcourir.">
+  <meta name="theme-color" content="#FFFFFF">
+  <link rel="preload" href="assets/fonts/Inter-var.woff2" as="font" type="font/woff2" crossorigin>
+  <link rel="preload" href="assets/fonts/PlusJakartaSans-var.woff2" as="font" type="font/woff2" crossorigin>
+
+  <link rel="stylesheet" href="ui.css?v=4">
+  <link rel="icon" href="assets/img/logo.svg" type="image/svg+xml">
+  <style>[v-cloak]{display:none}</style>
+</head>
+<body>
+<div id="app" class="ub" v-cloak>
+
+  <header class="ub-head">
+    <div class="ub-head-in">
+      <a class="ub-brand" href="accueil.html">
+        <span class="ub-brand-mark" aria-hidden="true">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2"
+               stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 5.5v13M5.5 12h13"/></svg>
+        </span>
+        <span class="ub-brand-txt"><b>Urgences Burundi</b><span>République du Burundi</span></span>
+      </a>
+
+      <nav class="ub-nav" aria-label="Navigation principale">
+        <a href="accueil.html" aria-current="page">Accueil</a>
+        <a href="signaler-un-cas.html">Services</a>
+        <a href="signaler-une-urgence.html">Hôpitaux</a>
+        <a href="mes-rendez-vous.html">Contact</a>
+      </nav>
+
+      <div class="ub-head-actions">
+        <button class="ub-lang" type="button" aria-label="Changer de langue">
+          <span class="on">FR</span><span class="sep">/</span><span>RN</span><span class="sep">/</span><span>EN</span>
+        </button>
+        <a class="ub-urgent-btn" href="signaler-une-urgence.html">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2"
+               stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+            <path d="M3 8.5h18M12 3v5.5M12 15.5V21M8.5 12h7"/>
+          </svg>
+          <span>Urgence Médicale</span>
+        </a>
+      </div>
+    </div>
+  </header>
+
+  <!-- Mise à jour en direct -->
+
+  <main class="ub-main">
+    <section class="ub-sec">
+      <div class="ub-wrap">
+        <div class="ub-cols" style="display:grid;grid-template-columns:1.1fr 1fr;gap:clamp(1.5rem,3vw,3rem);align-items:start">
+
+          <!-- ============ COLONNE SUIVI ============ -->
+          <div>
+            <a class="ub-link" href="accueil.html" style="margin-bottom:1.5rem">
+              <svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.9"
+                   stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+                <path d="M13.2 8H2.8M6.6 4.2 2.8 8l3.8 3.8"/>
+              </svg>
+              Retour à l'accueil
+            </a>
+
+            <span class="ub-tag ub-tag--urgent">
+              <span class="ub-live ub-live-ring" style="width:6px;height:6px;border-radius:9999px;background:#fff;display:block"></span>
+              En cours de traitement
+            </span>
+
+            <h1 class="ub-h2" style="font-size:clamp(1.75rem,3.4vw,2.5rem);margin-top:1rem">
+              Suivi de votre urgence
+            </h1>
+            <p class="ub-lead" style="margin-top:0.6rem;margin-bottom:2rem">
+              Dossier #UB-2024-8942 · Votre demande est en cours de traitement. Nous vous
+              indiquons en temps réel son évolution.
+            </p>
+
+            <!-- ============ LIGNE DE TEMPS ============ -->
+            <ol class="ub-tl ub-a ub-d2">
+              <li class="is-now">
+                <span class="ub-tl__rail">
+                  <span class="ub-tl__dot">
+                    <svg class="ub-spin" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+                         stroke-width="2.4" stroke-linecap="round" aria-hidden="true">
+                      <path d="M20 12a8 8 0 1 1-2.6-5.9"/>
+                    </svg>
+                  </span>
+                  <span class="ub-tl__line"></span>
+                </span>
+                <div class="ub-tl__body">
+                  <h3>Étape 1 : Analyse IA</h3>
+                  <p>Triage intelligent en cours. Nous analysons la gravité et le protocole
+                     médical adapté à votre situation.</p>
+                  <span class="ub-chip" style="margin-top:0.5rem">En cours</span>
+                </div>
+              </li>
+
+              <li class="is-done">
+                <span class="ub-tl__rail">
+                  <span class="ub-tl__dot">
+                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4"
+                         stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+                      <path d="m5 12.5 4.5 4.5L19 7.5"/>
+                    </svg>
+                  </span>
+                  <span class="ub-tl__line"></span>
+                </span>
+                <div class="ub-tl__body">
+                  <h3>Étape 2 : Transmis au centre</h3>
+                  <p>Garde médicale prévenue. Votre dossier a été reçu par l'équipe de
+                     régulation du centre recommandé.</p>
+                </div>
+              </li>
+
+              <li>
+                <span class="ub-tl__rail">
+                  <span class="ub-tl__dot">
+                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
+                         stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+                      <path d="m5 12.5 4.5 4.5L19 7.5"/>
+                    </svg>
+                  </span>
+                  <span class="ub-tl__line"></span>
+                </span>
+                <div class="ub-tl__body">
+                  <h3>Étape 3 : Validé · ambulance en route</h3>
+                  <p>La validation médicale déclenchera le départ de l'ambulance vers vous.</p>
+                </div>
+              </li>
+            </ol>
+
+            <!-- ============ SERVICES DISPONIBLES ============ -->
+            <div class="ub-card ub-a ub-d4" style="margin-top:0.5rem">
+              <h2 class="ub-h3" style="margin-bottom:1.25rem">
+                Services d'urgence disponibles sur site
+              </h2>
+              <ul class="ub-grid ub-cols" style="grid-template-columns:repeat(2,1fr);gap:0.75rem">
+                <li style="display:flex;align-items:center;gap:0.7rem;font-size:0.875rem">
+                  <svg viewBox="0 0 20 20" width="17" height="17" fill="none" stroke="var(--ub-ok)"
+                       stroke-width="2.2" stroke-linecap="round" aria-hidden="true"><path d="m4 10.4 4 4 8-8.8"/></svg>
+                  Réanimation
+                </li>
+                <li style="display:flex;align-items:center;gap:0.7rem;font-size:0.875rem">
+                  <svg viewBox="0 0 20 20" width="17" height="17" fill="none" stroke="var(--ub-ok)"
+                       stroke-width="2.2" stroke-linecap="round" aria-hidden="true"><path d="m4 10.4 4 4 8-8.8"/></svg>
+                  Bloc opératoire
+                </li>
+                <li style="display:flex;align-items:center;gap:0.7rem;font-size:0.875rem">
+                  <svg viewBox="0 0 20 20" width="17" height="17" fill="none" stroke="var(--ub-ok)"
+                       stroke-width="2.2" stroke-linecap="round" aria-hidden="true"><path d="m4 10.4 4 4 8-8.8"/></svg>
+                  Imagerie médicale
+                </li>
+                <li style="display:flex;align-items:center;gap:0.7rem;font-size:0.875rem">
+                  <svg viewBox="0 0 20 20" width="17" height="17" fill="none" stroke="var(--ub-ok)"
+                       stroke-width="2.2" stroke-linecap="round" aria-hidden="true"><path d="m4 10.4 4 4 8-8.8"/></svg>
+                  Laboratoire
+                </li>
+              </ul>
+            </div>
+
+            <div class="ub-note ub-note--urgent" style="margin-top:1rem">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
+                   stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+                <path d="M12 3 5 6v6c0 4.4 3.6 7.8 7 8.3 3.4-.5 7-3.9 7-8.3V6l-7-3Z"/>
+                <path d="M12 9v4M12 15.5v.2"/>
+              </svg>
+              <span>
+                <strong>Avertissement de sécurité vitale.</strong>
+                Ne quittez pas votre logement et gardez votre téléphone à portée de main.
+                L'équipe vous contactera avant son arrivée.
+              </span>
+            </div>
+          </div>
+
+          <!-- ============ COLONNE CARTE ============ -->
+          <div class="ub-a ub-d3">
+            <div class="ub-card" style="padding:0;overflow:hidden">
+
+              <div style="padding:1.25rem 1.5rem;border-bottom:1px solid var(--ub-ink-12);
+                          display:flex;align-items:center;justify-content:space-between;gap:1rem;flex-wrap:wrap">
+                <h2 class="ub-h3">Carte de trajet</h2>
+                <span class="ub-demo">
+                  <svg viewBox="0 0 20 20" fill="none" stroke="currentColor" stroke-width="1.8"
+                       stroke-linecap="round" aria-hidden="true">
+                    <circle cx="10" cy="10" r="8"/><path d="M10 9v5M10 6.5v.2"/>
+                  </svg>
+                  Démonstration Bujumbura
+                </span>
+              </div>
+
+              <!-- Carte stylisée : tracé SVG animé -->
+              <div style="position:relative;background:var(--ub-ok-bg);padding:1.5rem">
+                <svg viewBox="0 0 400 300" style="width:100%;height:auto;display:block"
+                     role="img" aria-label="Trajet du patient vers l'hôpital de Ruziba : 2,4 kilomètres, environ 8 minutes">
+                  <!-- Lac -->
+                  <path d="M0 236c40-16 76-14 108 4s70 26 112 12 92-6 128 10 52 12 52 12v26H0Z"
+                        fill="#FFFFFF" opacity=".65"/>
+                  <text x="20" y="272" font-family="Public Sans, sans-serif" font-size="10"
+                        font-weight="600" fill="#444651" opacity=".65">LAC TANGANYIKA</text>
+
+                  <!-- Réseau routier -->
+                  <g stroke="#FFFFFF" stroke-width="7" stroke-linecap="round" opacity=".9">
+                    <path d="M-10 96h420"/><path d="M-10 176h420"/>
+                    <path d="M92 -10v320"/><path d="M238 -10v320"/><path d="M340 -10v320"/>
+                  </g>
+
+                  <!-- Trajet : point de départ -> hôpital -->
+                  <path d="M92 176 C 140 176, 150 140, 196 140 S 270 120, 300 96"
+                        fill="none" stroke="#16A34A" stroke-width="5" stroke-linecap="round"
+                        stroke-dasharray="12 9" class="ub-draw" style="--len:220"/>
+
+                  <!-- Point de départ : patient -->
+                  <circle cx="92" cy="176" r="22" fill="#DC2626" opacity=".16"/>
+                  <circle cx="92" cy="176" r="12" fill="#DC2626"/>
+                  <path d="M92 168v16M84 176h16" stroke="#fff" stroke-width="3.4" stroke-linecap="round"/>
+
+                  <!-- Hôpital recommandé -->
+                  <circle cx="300" cy="96" r="26" fill="#16A34A" opacity=".18"/>
+                  <circle class="ub-live-ring" cx="300" cy="96" r="14" fill="#16A34A"/>
+                  <path d="M295 96h10M300 91v10" stroke="#fff" stroke-width="3.2" stroke-linecap="round"/>
+
+                  <!-- Étiquettes -->
+                  <text x="66" y="212" font-family="Public Sans, sans-serif" font-size="11.5"
+                        font-weight="700" fill="#191C1E">Patient</text>
+                  <text x="272" y="140" font-family="Public Sans, sans-serif" font-size="11.5"
+                        font-weight="700" fill="#191C1E">Hôpital Ruziba</text>
+                </svg>
+              </div>
+
+              <!-- Chiffres du trajet -->
+              <div class="ub-grid ub-cols" style="grid-template-columns:repeat(2,1fr);gap:0;border-top:1px solid var(--ub-ink-12)">
+                <div style="padding:1.25rem;border-right:1px solid var(--ub-ink-12)">
+                  <p style="font-size:0.75rem;font-weight:600;color:var(--ub-ink-soft)">Distance</p>
+                  <p style="font-size:1.5rem;font-weight:800;margin-top:0.35rem;font-variant-numeric:tabular-nums">
+                    2,4 km
+                  </p>
+                  <p style="font-size:0.75rem;color:var(--ub-ink-40);margin-top:0.25rem">
+                    Rayon d'action optimal
+                  </p>
+                </div>
+                <div style="padding:1.25rem">
+                  <p style="font-size:0.75rem;font-weight:600;color:var(--ub-ink-soft)">Temps estimé</p>
+                  <p style="font-size:1.5rem;font-weight:800;margin-top:0.35rem;font-variant-numeric:tabular-nums;color:var(--ub-ok)">
+                    8 min
+                  </p>
+                  <p style="font-size:0.75rem;color:var(--ub-ink-40);margin-top:0.25rem">
+                    Transport ambulance
+                  </p>
+                </div>
+              </div>
+            </div>
+
+            <!-- ============ CENTRE RECOMMANDÉ ============ -->
+            <div class="ub-card ub-card--triage-ok" style="margin-top:1rem;border-color:var(--ub-ok)">
+              <span class="ub-ico" aria-hidden="true">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
+                     stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+                  <path d="M4 19V9l8-5 8 5v10"/><path d="M9.5 19v-5h5v5"/>
+                </svg>
+              </span>
+              <h2 class="ub-h3" style="margin-top:1rem">Centre Hospitalier Régional de Ruziba</h2>
+              <p style="margin-top:0.4rem;font-size:0.875rem;color:var(--ub-ink-64);line-height:1.55">
+                Bujumbura, Commune de Muha (Avenue du Large) · Opérationnel 24h/24
+              </p>
+
+              <ul class="ub-grid ub-cols" style="grid-template-columns:1fr 1fr;gap:0.75rem;margin-top:1.25rem">
+                <li class="ub-card ub-card--soft ub-card--flat" style="padding:0.85rem">
+                  <p style="font-size:0.6875rem;color:var(--ub-ink-soft);font-weight:600">Disponibilité</p>
+                  <p style="font-size:0.9375rem;font-weight:700;color:var(--ub-ok);margin-top:0.2rem">
+                    Immédiate
+                  </p>
+                </li>
+                <li class="ub-card ub-card--soft ub-card--flat" style="padding:0.85rem">
+                  <p style="font-size:0.6875rem;color:var(--ub-ink-soft);font-weight:600">Lits d'urgence</p>
+                  <p style="font-size:0.9375rem;font-weight:700;margin-top:0.2rem">Libres</p>
+                </li>
+              </ul>
+            </div>
+          </div>
+
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <footer class="ub-foot">
+    <div class="ub-wrap">
+      <div class="ub-foot-bottom" style="margin-top:0;border-top:0;padding-top:0">
+        <span>© 2026 Ministère de la Santé Publique — République du Burundi</span>
+        <span>Position et trajet simulés pour la démonstration</span>
+      </div>
+    </div>
+  </footer>
+
+</div>
+
+  <script src="assets/vendor/vue.global.prod.js?v=1"></script>
+  <script src="data.js?v=4"></script>
+  <script src="components.js?v=4"></script>
+  <script src="ui.js?v=4"></script>
+<script>UB.mount();</script>
+</body>
+</html>
