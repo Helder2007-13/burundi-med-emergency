@@ -1,0 +1,186 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+  <title>Accueil — Urgences Burundi</title>
+  <meta name="description" content="Plateforme centralisée du Ministère de la Santé pour la gestion des urgences vitales et la prise de rendez-vous médical au Burundi.">
+  <meta name="theme-color" content="#FFFFFF">
+  <link rel="preload" href="assets/fonts/Inter-var.woff2" as="font" type="font/woff2" crossorigin>
+  <link rel="preload" href="assets/fonts/PlusJakartaSans-var.woff2" as="font" type="font/woff2" crossorigin>
+
+  <link rel="stylesheet" href="ui.css?v=4">
+  <link rel="icon" href="assets/img/logo.svg" type="image/svg+xml">
+  <style>[v-cloak]{display:none}</style>
+</head>
+<body>
+<div id="app" class="ub" v-cloak>
+
+  <ub-header section="accueil"></ub-header>
+
+  <main class="ub-main">
+
+    <!-- ============ DEUX PORTES D'ENTREE ============ -->
+    <section class="ub-sec">
+      <div class="ub-wrap">
+        <div class="ub-hero">
+          <h1 class="ub-hero__t">Comment pouvons-nous vous assister aujourd'hui ?</h1>
+          <p class="ub-lead">
+            Plateforme centralisée du Ministère de la Santé pour la gestion des urgences
+            vitales et la prise de rendez-vous médical immédiat.
+          </p>
+        </div>
+
+        <div class="ub-grid ub-grid--2">
+
+          <article class="ub-panel ub-panel--urgent ub-a ub-d2">
+            <div class="ub-panel__top">
+              <span class="ub-ico ub-ico--urgent"><ub-icon name="ambulance" :size="24"></ub-icon></span>
+              <span class="ub-tag ub-tag--urgent">
+                <span class="ub-live ub-live-ring ub-dot"></span>
+                Priorité Absolue
+              </span>
+            </div>
+            <h2 class="ub-panel__h">Urgence Médicale</h2>
+            <p class="ub-panel__p">
+              Pour toute détresse vitale, accident grave, transfert d'urgence ou besoin
+              immédiat d'une ambulance médicalisée dans votre province.
+            </p>
+            <div class="ub-panel__tags">
+              <span class="ub-chip">Intervention rapide</span>
+              <span class="ub-chip">Pas de connexion nécessaire</span>
+            </div>
+            <a class="ub-btn ub-btn--urgent ub-btn--block" href="signaler-une-urgence.html">
+              <ub-icon name="plus" :size="18"></ub-icon> Déclencher une Urgence
+            </a>
+            <p class="ub-panel__foot">
+              <ub-icon name="shield" :size="15"></ub-icon>
+              Ligne d'Urgence accessible 24h/24, gratuit et prioritaire
+            </p>
+          </article>
+
+          <article class="ub-panel ub-a ub-d3">
+            <div class="ub-panel__top">
+              <span class="ub-ico"><ub-icon name="stethoscope" :size="24"></ub-icon></span>
+              <span class="ub-tag">Soins Programmés</span>
+            </div>
+            <h2 class="ub-panel__h">Consultation Classique</h2>
+            <p class="ub-panel__p">
+              Trouvez un centre de santé, consultez les disponibilités des médecins
+              spécialistes et réservez une consultation en clinique ou hôpital.
+            </p>
+            <div class="ub-panel__tags">
+              <span class="ub-chip ub-chip--ok">Prise de rendez-vous</span>
+              <span class="ub-chip ub-chip--ok">Consultation planifiée</span>
+            </div>
+            <a class="ub-btn ub-btn--ok ub-btn--block" href="mes-rendez-vous.html">
+              <ub-icon name="search" :size="18"></ub-icon> Rechercher une Consultation
+            </a>
+            <p class="ub-panel__foot">
+              <ub-icon name="calendar" :size="15"></ub-icon>
+              Créneau disponible dans plus de 48 centres partenaires
+            </p>
+          </article>
+
+        </div>
+      </div>
+    </section>
+
+    <!-- ============ CHIFFRES ============ -->
+    <section class="ub-sec ub-sec--soft">
+      <div class="ub-wrap">
+        <div class="ub-grid ub-grid--3">
+          <div class="ub-reveal" data-d="0">
+            <ub-stat valeur="48" :cible="48" label="Centres partenaires"
+                     detail="Hôpitaux, cliniques et centres de santé affiliés à la plateforme."></ub-stat>
+          </div>
+          <div class="ub-reveal" data-d="100">
+            <ub-stat valeur="18" :cible="18" label="Provinces couvertes"
+                     detail="Orientation des soins disponible sur l'ensemble du territoire national."></ub-stat>
+          </div>
+          <div class="ub-reveal" data-d="200">
+            <ub-stat valeur="24/7" label="Régulation active"
+                     detail="Une équipe de garde répond à chaque signalement, jour et nuit."></ub-stat>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ============ NOTRE DISPOSITIF ============ -->
+    <section class="ub-sec" id="a-propos">
+      <div class="ub-wrap">
+        <div class="ub-split ub-reveal">
+          <div class="ub-split__body">
+            <h2 class="ub-h2">La vie avant tout</h2>
+            <p class="ub-lead">
+              Intervention coordonnée avec les hôpitaux nationaux. Grâce à notre dispositif
+              d'urgence mobile et à nos ambulanciers qualifiés, nous assurons un acheminement
+              sécurisé vers le centre hospitalier universitaire ou régional le plus adapté.
+            </p>
+            <ul class="ub-checklist">
+              <li><ub-icon name="checkCircle" :size="17"></ub-icon> Bujumbura Mairie</li>
+              <li><ub-icon name="checkCircle" :size="17"></ub-icon> Gitega</li>
+              <li><ub-icon name="checkCircle" :size="17"></ub-icon> Ngozi</li>
+            </ul>
+          </div>
+          <figure class="ub-split__media">
+            <picture><source srcset="assets/img/hopital-bujumbura-800.webp" type="image/webp"><img src="assets/img/hopital-bujumbura.jpg" alt="Hôpital Prince Régent Charles à Bujumbura : entrée principale du service d'urgence" width="1200" height="896" loading="lazy"></picture>
+          </figure>
+        </div>
+      </div>
+    </section>
+
+    <!-- ============ SERVICES ============ -->
+    <section class="ub-sec ub-sec--soft">
+      <div class="ub-wrap">
+        <div class="ub-sect__head">
+          <h2 class="ub-h2">Nos services</h2>
+          <p class="ub-lead">Trois parcours vous accompagnent, du signalement d'urgence au suivi de vos soins programmés.</p>
+        </div>
+
+        <div class="ub-grid ub-grid--3">
+          <article class="ub-card ub-reveal" data-d="0">
+            <span class="ub-ico ub-ico--urgent"><ub-icon name="plus" :size="24"></ub-icon></span>
+            <p class="ub-figure">&lt; 30s</p>
+            <p class="ub-stat__t">Réponse à un signalement</p>
+            <p class="ub-stat__d">
+              Formulaire immédiat, géolocalisation automatique, orientation vers l'hôpital
+              le plus proche. Aucune inscription préalable.
+            </p>
+          </article>
+
+          <article class="ub-card ub-reveal" data-d="100">
+            <span class="ub-ico"><ub-icon name="calendar" :size="24"></ub-icon></span>
+            <p class="ub-figure">48</p>
+            <p class="ub-stat__t">Centres de santé partenaires</p>
+            <p class="ub-stat__d">
+              Accès direct aux créneaux des médecins spécialistes et généralistes dans
+              tout le pays.
+            </p>
+          </article>
+
+          <article class="ub-card ub-reveal" data-d="200">
+            <span class="ub-ico"><ub-icon name="shield" :size="24"></ub-icon></span>
+            <p class="ub-figure">100%</p>
+            <p class="ub-stat__t">Données sous secret médical</p>
+            <p class="ub-stat__d">
+              Historique, ordonnances et rendez-vous centralisés, partagés uniquement avec
+              les praticiens agréés.
+            </p>
+          </article>
+        </div>
+      </div>
+    </section>
+
+  </main>
+
+  <ub-footer></ub-footer>
+</div>
+
+<script src="assets/vendor/vue.global.prod.js?v=1"></script>
+<script src="data.js?v=4"></script>
+<script src="components.js?v=4"></script>
+<script src="ui.js?v=4"></script>
+<script>UB.mount();</script>
+</body>
+</html>

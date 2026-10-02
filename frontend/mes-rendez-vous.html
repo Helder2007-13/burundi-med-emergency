@@ -1,0 +1,303 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+  <title>Mes rendez-vous — Urgences Burundi</title>
+  <meta name="description" content="Retrouvez l'historique et les convocations médicales programmées dans vos centres de santé.">
+  <meta name="theme-color" content="#FFFFFF">
+  <link rel="preload" href="assets/fonts/Inter-var.woff2" as="font" type="font/woff2" crossorigin>
+  <link rel="preload" href="assets/fonts/PlusJakartaSans-var.woff2" as="font" type="font/woff2" crossorigin>
+
+  <link rel="stylesheet" href="ui.css?v=4">
+  <link rel="icon" href="assets/img/logo.svg" type="image/svg+xml">
+  <style>[v-cloak]{display:none}</style>
+</head>
+<body>
+<div id="app" class="ub" v-cloak>
+
+  <header class="ub-head">
+    <div class="ub-head-in">
+      <a class="ub-brand" href="accueil.html">
+        <span class="ub-brand-mark" aria-hidden="true">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2"
+               stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 5.5v13M5.5 12h13"/></svg>
+        </span>
+        <span class="ub-brand-txt"><b>Urgences Burundi</b><span>Santé Publique 24/7</span></span>
+      </a>
+
+      <nav class="ub-nav" aria-label="Navigation principale">
+        <a href="accueil.html">Accueil</a>
+        <a href="signaler-un-cas.html">Services</a>
+        <a href="signaler-une-urgence.html">Hôpitaux</a>
+        <a href="mes-rendez-vous.html" aria-current="page">Mes rendez-vous</a>
+        <a href="accueil.html#a-propos">À propos</a>
+      </nav>
+
+      <div class="ub-head-actions">
+        <button class="ub-lang" type="button" aria-label="Changer de langue">
+          <span class="on">FR</span><span class="sep">/</span><span>RN</span><span class="sep">/</span><span>EN</span>
+        </button>
+        <a class="ub-urgent-btn" href="signaler-une-urgence.html">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2"
+               stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+            <path d="M3 8.5h18M12 3v5.5M12 15.5V21M8.5 12h7"/>
+          </svg>
+          <span>Urgence Médicale</span>
+        </a>
+      </div>
+    </div>
+  </header>
+
+  <main class="ub-main">
+    <section class="ub-sec">
+      <div class="ub-wrap">
+
+        <!-- ============ EN-TÊTE PATIENT ============ -->
+        <div class="ub-idcard ub-a">
+          <span class="ub-idcard__av" aria-hidden="true">JN</span>
+          <div class="ub-idcard__n">
+            <h1>Bonjour, Jean Ndayishimiye</h1>
+            <p>Dossier #UB-2024-0891 · Groupe sanguin O+ · Patient depuis 2024</p>
+          </div>
+          <div class="ub-idcard__facts">
+            <a class="ub-btn ub-btn--ok" href="mon-espace-patient.html">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
+                   stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+                <path d="M3.5 8.5h17v12h-17v-12ZM7.5 4v4.5M16.5 4v4.5M3.5 12.5h17"/>
+              </svg>
+              Prendre un nouveau RDV
+            </a>
+          </div>
+        </div>
+
+        <!-- ============ TITRE + FILTRES ============ -->
+        <div style="margin-top:clamp(1.5rem,3vw,2.5rem)">
+          <div style="display:flex;align-items:flex-end;justify-content:space-between;gap:1rem;
+                      flex-wrap:wrap;margin-bottom:1.25rem">
+            <div>
+              <h2 class="ub-h2">Mes consultations et rendez-vous</h2>
+              <p class="ub-lead" style="margin-top:0.5rem">
+                Retrouvez l'historique et les convocations médicales programmées dans vos
+                centres de santé.
+              </p>
+            </div>
+          </div>
+
+          <div class="ub-tabs ub-a ub-d2" role="tablist" aria-label="Filtrer les rendez-vous" data-tabs>
+            <button role="tab" aria-selected="true" data-panel="p-all">Tous <b>6</b></button>
+            <button role="tab" aria-selected="false" data-panel="p-avenir">À venir <b>3</b></button>
+            <button role="tab" aria-selected="false" data-panel="p-passes">Passés <b>3</b></button>
+          </div>
+
+          <!-- ---------- À VENIR ---------- -->
+          <div id="p-all" data-panel>
+            <h3 class="ub-h3" style="margin-bottom:1rem">À venir</h3>
+            <ul class="ub-list">
+              <li class="ub-a ub-d3" style="border-left:4px solid var(--ub-ok)">
+                <span class="ub-ico ub-ico--sm" aria-hidden="true">
+                  <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
+                       stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+                    <path d="M3.5 8.5h17v12h-17v-12ZM7.5 4v4.5M16.5 4v4.5M3.5 12.5h17"/>
+                  </svg>
+                </span>
+                <div class="ub-list__body">
+                  <div style="display:flex;align-items:center;gap:0.6rem;flex-wrap:wrap;margin-bottom:0.35rem">
+                    <h3>Cardiologie</h3>
+                    <span class="ub-chip ub-chip--ok">
+                      <span class="ub-live" style="width:5px;height:5px;border-radius:9999px;background:var(--ub-ok);display:block"></span>
+                      Confirmé
+                    </span>
+                  </div>
+                  <p>
+                    Réf. RDV-2026-1042 · CHR Ruziba — Bujumbura (Commune Muha)<br>
+                    Dr. Ilunga Nadine (cardiologue référent)
+                  </p>
+                </div>
+                <div class="ub-list__meta">
+                  <time style="font-size:0.9375rem;font-weight:700;color:var(--ub-ink)">Lundi 5 oct.</time>
+                  <time>09:30 · Salle 2</time>
+                </div>
+              </li>
+
+              <li class="ub-a ub-d4" style="border-left:4px solid var(--ub-soft)">
+                <span class="ub-ico ub-ico--sm" aria-hidden="true">
+                  <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
+                       stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+                    <path d="M3.5 8.5h17v12h-17v-12ZM7.5 4v4.5M16.5 4v4.5M3.5 12.5h17"/>
+                  </svg>
+                </span>
+                <div class="ub-list__body">
+                  <div style="display:flex;align-items:center;gap:0.6rem;flex-wrap:wrap;margin-bottom:0.35rem">
+                    <h3>Médecine générale</h3>
+                    <span class="ub-chip">En attente</span>
+                  </div>
+                  <p>
+                    Réf. RDV-2026-1058 · Hôpital Régional de Gitega — Gitega<br>
+                    Dr. Nshimirimana A.
+                  </p>
+                </div>
+                <div class="ub-list__meta">
+                  <time style="font-size:0.9375rem;font-weight:700;color:var(--ub-ink)">Jeudi 12 oct.</time>
+                  <time>10:15 · Salle 1</time>
+                </div>
+              </li>
+
+              <li class="ub-a ub-d5" style="border-left:4px solid var(--ub-soft)">
+                <span class="ub-ico ub-ico--sm" aria-hidden="true">
+                  <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
+                       stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+                    <path d="M3.5 8.5h17v12h-17v-12ZM7.5 4v4.5M16.5 4v4.5M3.5 12.5h17"/>
+                  </svg>
+                </span>
+                <div class="ub-list__body">
+                  <div style="display:flex;align-items:center;gap:0.6rem;flex-wrap:wrap;margin-bottom:0.35rem">
+                    <h3>Pédiatrie</h3>
+                    <span class="ub-chip">À confirmer</span>
+                  </div>
+                  <p>
+                    Réf. RDV-2026-1071 · Centre Hospitalier de Ngozi — Ngozi<br>
+                    Dr. Mwakamé J.
+                  </p>
+                </div>
+                <div class="ub-list__meta">
+                  <time style="font-size:0.9375rem;font-weight:700;color:var(--ub-ink)">Samedi 19 oct.</time>
+                  <time>14:00 · Salle 4</time>
+                </div>
+              </li>
+            </ul>
+
+            <!-- ---------- PASSÉS ---------- -->
+            <h3 class="ub-h3" style="margin:clamp(1.5rem,3vw,2.25rem) 0 1rem">Consultations passées</h3>
+            <ul class="ub-list">
+              <li class="ub-reveal" data-d="0" style="opacity:1">
+                <span class="ub-ico ub-ico--sm" aria-hidden="true" style="background:var(--ub-canvas);color:var(--ub-ink-40)">
+                  <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
+                       stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+                    <path d="m5 12.5 4.5 4.5L19 7.5"/>
+                  </svg>
+                </span>
+                <div class="ub-list__body">
+                  <div style="display:flex;align-items:center;gap:0.6rem;flex-wrap:wrap;margin-bottom:0.35rem">
+                    <h3>Médecine générale</h3>
+                    <span class="ub-chip ub-chip--ink">Terminé</span>
+                  </div>
+                  <p>Réf. RDV-2026-0814 · Hôpital Régional de Gitega — Gitega · Dr. Nshimirimana A.</p>
+                </div>
+                <div class="ub-list__meta">
+                  <time style="font-size:0.9375rem;font-weight:700;color:var(--ub-ink)">12 août 2026</time>
+                  <time>Compte rendu disponible</time>
+                </div>
+              </li>
+
+              <li class="ub-reveal" data-d="100" style="opacity:1">
+                <span class="ub-ico ub-ico--sm" aria-hidden="true" style="background:var(--ub-canvas);color:var(--ub-ink-40)">
+                  <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
+                       stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+                    <path d="m5 12.5 4.5 4.5L19 7.5"/>
+                  </svg>
+                </span>
+                <div class="ub-list__body">
+                  <div style="display:flex;align-items:center;gap:0.6rem;flex-wrap:wrap;margin-bottom:0.35rem">
+                    <h3>Médecine générale</h3>
+                    <span class="ub-chip ub-chip--ink">Terminé</span>
+                  </div>
+                  <p>Réf. RDV-2026-0643 · CHR Ruziba — Bujumbura · Dr. Ilunga Nadine</p>
+                </div>
+                <div class="ub-list__meta">
+                  <time style="font-size:0.9375rem;font-weight:700;color:var(--ub-ink)">28 juin 2026</time>
+                  <time>Ordonnance transmise</time>
+                </div>
+              </li>
+
+              <li class="ub-reveal" data-d="200" style="opacity:1">
+                <span class="ub-ico ub-ico--sm" aria-hidden="true" style="background:var(--ub-canvas);color:var(--ub-ink-40)">
+                  <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
+                       stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+                    <path d="m5 12.5 4.5 4.5L19 7.5"/>
+                  </svg>
+                </span>
+                <div class="ub-list__body">
+                  <div style="display:flex;align-items:center;gap:0.6rem;flex-wrap:wrap;margin-bottom:0.35rem">
+                    <h3>Dermatologie</h3>
+                    <span class="ub-chip ub-chip--ink">Terminé</span>
+                  </div>
+                  <p>Réf. RDV-2026-0512 · Hôpital Prince Louis — Bujumbura · Dr. Kamana B.</p>
+                </div>
+                <div class="ub-list__meta">
+                  <time style="font-size:0.9375rem;font-weight:700;color:var(--ub-ink)">14 mai 2026</time>
+                  <time>Suivi recommandé à 6 mois</time>
+                </div>
+              </li>
+            </ul>
+          </div>
+
+          <!-- ---------- Panneaux onglets (mêmes listes, filtrés) ---------- -->
+          <div id="p-avenir" data-panel hidden>
+            <p class="ub-note" style="margin-bottom:1.25rem">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
+                   stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+                <path d="M3.5 8.5h17v12h-17v-12ZM7.5 4v4.5M16.5 4v4.5M3.5 12.5h17"/>
+              </svg>
+              <span>Trois rendez-vous vous attendent. Utilisez l'onglet « Tous » pour la liste complète.</span>
+            </p>
+          </div>
+
+          <div id="p-passes" data-panel hidden>
+            <p class="ub-note" style="margin-bottom:1.25rem">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
+                   stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+                <path d="m5 12.5 4.5 4.5L19 7.5"/>
+              </svg>
+              <span>Trois consultations passées, avec comptes rendus et ordonnances disponibles.</span>
+            </p>
+          </div>
+
+          <!-- ============ PAS DE RENDEZ-VOUS PLANIFIÉ ============ -->
+          <div class="ub-card ub-card--triage" style="margin-top:clamp(1.5rem,3vw,2.5rem);
+               display:flex;align-items:center;gap:1.5rem;flex-wrap:wrap">
+            <span class="ub-ico ub-ico--urgent" aria-hidden="true">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
+                   stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+                <path d="M3 8.5h18M12 3v5.5M12 15.5V21M8.5 12h7"/>
+              </svg>
+            </span>
+            <div style="flex:1;min-width:16rem">
+              <h2 class="ub-h3">Ne pas attendre un rendez-vous planifié</h2>
+              <p style="margin-top:0.35rem;font-size:0.9375rem;color:var(--ub-ink-64);line-height:1.6">
+                Pour toute détresse vitale, accéssibilité compromise ou aggravation brutale,
+                signalez l'urgence immédiatement : aucune inscription n'est demandée.
+              </p>
+            </div>
+            <a class="ub-btn ub-btn--urgent" href="signaler-une-urgence.html">
+              Signaler l'urgence
+              <svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.9"
+                   stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+                <path d="M2.8 8h10.4M9.4 4.2 13.2 8l-3.8 3.8"/>
+              </svg>
+            </a>
+          </div>
+
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <footer class="ub-foot">
+    <div class="ub-wrap">
+      <div class="ub-foot-bottom" style="margin-top:0;border-top:0;padding-top:0">
+        <span>© 2026 Ministère de la Santé Publique — République du Burundi</span>
+        <span>Données de démonstration</span>
+      </div>
+    </div>
+  </footer>
+
+</div>
+
+  <script src="assets/vendor/vue.global.prod.js?v=1"></script>
+  <script src="data.js?v=4"></script>
+  <script src="components.js?v=4"></script>
+  <script src="ui.js?v=4"></script>
+<script>UB.mount();</script>
+</body>
+</html>

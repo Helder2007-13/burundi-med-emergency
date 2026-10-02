@@ -1,0 +1,274 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+  <title>Portail Hôpital — Urgences Burundi</title>
+  <meta name="description" content="Accès réservé au personnel hospitalier : gérez les urgences entrantes, les lits disponibles et les rendez-vous médicaux.">
+  <meta name="theme-color" content="#FFFFFF">
+  <link rel="preload" href="assets/fonts/Inter-var.woff2" as="font" type="font/woff2" crossorigin>
+  <link rel="preload" href="assets/fonts/PlusJakartaSans-var.woff2" as="font" type="font/woff2" crossorigin>
+
+  <link rel="stylesheet" href="ui.css?v=4">
+  <link rel="icon" href="assets/img/logo.svg" type="image/svg+xml">
+  <style>[v-cloak]{display:none}</style>
+</head>
+<body>
+<div id="app" class="ub" v-cloak>
+
+  <header class="ub-head">
+    <div class="ub-head-in">
+      <a class="ub-brand" href="accueil.html">
+        <span class="ub-brand-mark" aria-hidden="true">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2"
+               stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 5.5v13M5.5 12h13"/></svg>
+        </span>
+        <span class="ub-brand-txt"><b>Urgences Burundi</b><span>Portail E-Santé</span></span>
+      </a>
+
+      <nav class="ub-nav" aria-label="Navigation principale">
+        <a href="accueil.html">Accueil</a>
+        <a href="signaler-un-cas.html">Services</a>
+        <a href="dashboard-hopital.html">Tableau de bord</a>
+        <a href="accueil.html#a-propos">À propos</a>
+        <a href="portail-hopital.html" aria-current="page">Contact</a>
+      </nav>
+
+      <div class="ub-head-actions">
+        <span class="ub-tag">PRO</span>
+        <a class="ub-urgent-btn" href="signaler-une-urgence.html">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2"
+               stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+            <path d="M3 8.5h18M12 3v5.5M12 15.5V21M8.5 12h7"/>
+          </svg>
+          <span>Urgence Médicale</span>
+        </a>
+      </div>
+    </div>
+  </header>
+
+  <main class="ub-main">
+    <section class="ub-sec">
+      <div class="ub-wrap">
+        <div class="ub-cols" style="display:grid;grid-template-columns:1fr 1fr;gap:clamp(1.5rem,3vw,3.5rem);align-items:center">
+
+          <!-- ============ FORMULAIRE PRO ============ -->
+          <div class="ub-a">
+            <a class="ub-link" href="accueil.html" style="margin-bottom:1.5rem">
+              <svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.9"
+                   stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+                <path d="M13.2 8H2.8M6.6 4.2 2.8 8l3.8 3.8"/>
+              </svg>
+              Retour à l'accueil
+            </a>
+
+            <span class="ub-tag ub-tag--ghost">
+              <svg viewBox="0 0 24 24" width="13" height="13" fill="none" stroke="currentColor"
+                   stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+                <path d="M12 3 5 6v6c0 4.4 3.6 7.8 7 8.3 3.4-.5 7-3.9 7-8.3V6l-7-3Z"/>
+              </svg>
+              Espace professionnel sécurisé
+            </span>
+
+            <h1 class="ub-h2" style="font-size:clamp(1.75rem,3.4vw,2.5rem);margin-top:1rem">Portail Hôpital</h1>
+            <p class="ub-lead" style="margin-top:0.6rem;margin-bottom:2rem">
+              Accédez à votre espace professionnel pour gérer les urgences entrantes, les lits
+              disponibles et les rendez-vous médicaux.
+            </p>
+
+            <div class="ub-note" style="margin-bottom:1.75rem">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
+                   stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+                <path d="M12 3 5 6v6c0 4.4 3.6 7.8 7 8.3 3.4-.5 7-3.9 7-8.3V6l-7-3Z"/>
+              </svg>
+              <span>
+                <strong>Accès réservé au personnel hospitalier.</strong>
+                Connexion sécurisée — vos identifiants sont vérifiés par la direction de votre
+                établissement sanitaire.
+              </span>
+            </div>
+
+            <form data-validate novalidate style="display:grid;gap:1.25rem;max-width:26rem">
+
+              <p class="ub-hint--bad" data-form-note data-msg="Complétez les champs obligatoires ci-dessous."
+                 style="display:none;padding:0.75rem 1rem;border:1px solid var(--ub-urgent);
+                        border-radius:var(--ub-radius);background:var(--ub-soft-bg)" role="alert"></p>
+
+              <div class="ub-field">
+                <label for="pid">Identifiant professionnel ou Email institutionnel <span class="req" aria-hidden="true">*</span></label>
+                <input class="ub-input" id="pid" name="pid" type="text" required
+                       autocomplete="username" placeholder="MSPLS-RUZ-0000">
+              </div>
+
+              <div class="ub-field">
+                <label for="ppwd">Mot de passe professionnel <span class="req" aria-hidden="true">*</span></label>
+                <div class="ub-input-wrap">
+                  <input class="ub-input" id="ppwd" name="ppwd" type="password" required
+                         autocomplete="current-password" placeholder="••••••••">
+                  <button type="button" aria-label="Afficher le mot de passe"
+                          style="position:absolute;right:0.5rem;top:50%;translate:0 -50%;
+                                 width:36px;height:36px;display:grid;place-items:center;
+                                 border:0;background:none;cursor:pointer;color:var(--ub-ink-40)">
+                    <svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor"
+                         stroke-width="1.8" stroke-linecap="round" aria-hidden="true">
+                      <rect x="3.5" y="10.5" width="17" height="10" rx="2"/>
+                      <path d="M7.5 10.5V7.5a4.5 4.5 0 0 1 9 0v3"/>
+                    </svg>
+                  </button>
+                </div>
+              </div>
+
+              <div style="display:flex;align-items:center;justify-content:space-between;gap:1rem;flex-wrap:wrap">
+                <label class="ub-check">
+                  <input type="checkbox" id="poste" name="poste">
+                  <span>Se souvenir de ce poste sécurisé</span>
+                </label>
+                <a class="ub-link" href="#">Mot de passe oublié ?</a>
+              </div>
+
+              <a class="ub-btn ub-btn--ok" href="dashboard-hopital.html">
+                Se connecter à l'espace médical
+                <svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.9"
+                     stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+                  <path d="M2.8 8h10.4M9.4 4.2 13.2 8l-3.8 3.8"/>
+                </svg>
+              </a>
+
+              <div class="ub-demo">
+                <svg viewBox="0 0 20 20" fill="none" stroke="currentColor" stroke-width="1.8"
+                     stroke-linecap="round" aria-hidden="true">
+                  <circle cx="10" cy="10" r="8"/><path d="M10 9v5M10 6.5v.2"/>
+                </svg>
+                Démonstration : la connexion est simulée pour la maquette, aucun serveur n'est contacté.
+              </div>
+            </form>
+          </div>
+
+          <!-- ============ RASSUREMENT ============ -->
+          <div class="ub-a ub-d3 ub-a--veil">
+            <div class="ub-card" style="padding:clamp(1.5rem,3vw,2.25rem)">
+              <h2 class="ub-h3">Réglementation e-Santé Burundi &amp; Protection des Données</h2>
+              <p style="margin-top:0.6rem;font-size:0.9375rem;line-height:1.6;color:var(--ub-ink-64)">
+                Cet espace est strictement réservé au personnel soignant des centres de santé
+                et hôpitaux agréés du Burundi. Toute tentative d'accès non autorisée fait l'objet
+                d'une journalisation de sécurité.
+              </p>
+
+              <ul style="display:grid;gap:1rem;margin-top:1.75rem">
+                <li style="display:flex;gap:0.85rem;align-items:flex-start">
+                  <svg viewBox="0 0 24 24" width="20" height="20" fill="none" stroke="var(--ub-ok)"
+                       stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"
+                       style="flex:none;margin-top:2px">
+                    <circle cx="12" cy="12" r="8.5"/><path d="m8.5 12.3 2.5 2.5 4.5-5"/>
+                  </svg>
+                  <span style="font-size:0.875rem;line-height:1.55;color:var(--ub-ink-soft)">
+                    Chiffrement TLS 256-bit sur l'ensemble des échanges
+                  </span>
+                </li>
+                <li style="display:flex;gap:0.85rem;align-items:flex-start">
+                  <svg viewBox="0 0 24 24" width="20" height="20" fill="none" stroke="var(--ub-ok)"
+                       stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"
+                       style="flex:none;margin-top:2px">
+                    <circle cx="12" cy="12" r="8.5"/><path d="m8.5 12.3 2.5 2.5 4.5-5"/>
+                  </svg>
+                  <span style="font-size:0.875rem;line-height:1.55;color:var(--ub-ink-soft)">
+                    Support SIH : +257 22 20 00 00
+                  </span>
+                </li>
+                <li style="display:flex;gap:0.85rem;align-items:flex-start">
+                  <svg viewBox="0 0 24 24" width="20" height="20" fill="none" stroke="var(--ub-ok)"
+                       stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"
+                       style="flex:none;margin-top:2px">
+                    <circle cx="12" cy="12" r="8.5"/><path d="m8.5 12.3 2.5 2.5 4.5-5"/>
+                  </svg>
+                  <span style="font-size:0.875rem;line-height:1.55;color:var(--ub-ink-soft)">
+                    Journalisation des accès conservée 12 mois
+                  </span>
+                </li>
+              </ul>
+            </div>
+
+            <figure style="margin-top:1rem;border-radius:var(--ub-radius-lg);overflow:hidden;
+                            border:1px solid var(--ub-ink-12);box-shadow:var(--ub-shadow)">
+              <picture><source srcset="assets/img/hopital-ruyigi-800.webp" type="image/webp"><img src="assets/img/hopital-ruyigi.jpg" alt="Façade d'un hôpital burundais" width="1280" height="960" loading="lazy" style="width:100%;height:200px;object-fit:cover"></picture>
+            </figure>
+          </div>
+
+        </div>
+      </div>
+    </section>
+
+    <!-- ============ SERVICES HOSPITALIERS ============ -->
+    <section class="ub-sec ub-sec--soft">
+      <div class="ub-wrap">
+        <div class="ub-grid ub-grid--3">
+          <div class="ub-reveal" data-d="0">
+            <p class="ub-stat__n">48</p>
+            <p class="ub-stat__t">Services hospitaliers</p>
+            <p class="ub-stat__d">Structures raccordées au portail national.</p>
+          </div>
+          <div class="ub-reveal" data-d="100">
+            <p class="ub-stat__n"><span data-count="6">0</span></p>
+            <p class="ub-stat__t">Lits de réanimation</p>
+            <p class="ub-stat__d">Disponibilité actualisée en continu.</p>
+          </div>
+          <div class="ub-reveal" data-d="200">
+            <p class="ub-stat__n">24/7</p>
+            <p class="ub-stat__t">Synchronisation SIH</p>
+            <p class="ub-stat__d">État des services transmis en temps réel.</p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+  </main>
+
+  <footer class="ub-foot">
+    <div class="ub-wrap">
+      <div class="ub-foot-grid">
+        <div>
+          <p>
+            Portail officiel de coordination des soins d'urgence et d'orientation hospitalière
+            de la République du Burundi.
+          </p>
+        </div>
+        <div>
+          <h4>Numéros d'urgence</h4>
+          <ul>
+            <li><a href="signaler-une-urgence.html">Ligne d'urgence médicale</a></li>
+            <li><a href="#">Protection Civile : 113</a></li>
+            <li><a href="#">SAMU Burundi</a></li>
+          </ul>
+        </div>
+        <div>
+          <h4>Services</h4>
+          <ul>
+            <li><a href="dashboard-hopital.html">Portail Hôpital</a></li>
+            <li><a href="dashboard-hopital.html">Cartographie des lits</a></li>
+            <li><a href="dashboard-hopital.html">Régulation</a></li>
+          </ul>
+        </div>
+        <div>
+          <h4>Institutions</h4>
+          <ul>
+            <li><a href="#">MSPLS République du Burundi</a></li>
+            <li><a href="#">Loi e-Santé</a></li>
+          </ul>
+        </div>
+      </div>
+      <div class="ub-foot-bottom">
+        <span>© 2026 Ministère de la Santé Publique — République du Burundi</span>
+        <span>Données de démonstration</span>
+      </div>
+    </div>
+  </footer>
+
+</div>
+
+  <script src="assets/vendor/vue.global.prod.js?v=1"></script>
+  <script src="data.js?v=4"></script>
+  <script src="components.js?v=4"></script>
+  <script src="ui.js?v=4"></script>
+<script>UB.mount();</script>
+</body>
+</html>

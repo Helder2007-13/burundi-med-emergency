@@ -1,0 +1,1869 @@
+/* ============================================
+   URGENCES BURUNDI — Système d'interface partagé
+   Source de vérité : Design.md (palette, typo, formes, élévation)
+
+   Couleurs — strictement cinq valeurs :
+   rouge #DC2626 · vert #16A34A · rouge doux #E57373
+   encre #191C1E · blanc #FFFFFF
+   Aucun bleu, aucun noir. Les gris naissent d'alpha de l'encre
+   sur blanc. Les aplats pâles, d'alpha des couleurs de marque.
+
+   Typographie : Inter (texte) + Plus Jakarta Sans (titres)
+   Échelle de corps plus généreuse que Design.md : le texte courant
+   ne descend jamais sous 16px et chaque niveau a un interligne
+   explicite, pour éviter les lignes collées.
+   Formes : 8px composants, 16px conteneurs
+   Élévation : ombre neutre 0 8px 30px rgba(25,28,30,.08)
+   ============================================ */
+
+/* ---------- Polices auto-hébergées ----------
+   Un fichier par famille (variables) : 76 Ko au total, aucune
+   requête vers un domaine tiers, aucun blocage de rendu. */
+@font-face {
+  font-family: 'Inter';
+  src: url('assets/fonts/Inter-var.woff2') format('woff2-variations');
+  font-weight: 100 900;
+  font-style: normal;
+  font-display: swap;
+}
+@font-face {
+  font-family: 'Plus Jakarta Sans';
+  src: url('assets/fonts/PlusJakartaSans-var.woff2') format('woff2-variations');
+  font-weight: 200 800;
+  font-style: normal;
+  font-display: swap;
+}
+
+.ub {
+  /* Échelle typographique. Les corps sont en rem, les interlignes
+     en unité relative pour que l'espacement des lignes reste stable
+     quelle que soit la taille de police. */
+  --ub-f-display: clamp(2.125rem, 1.15rem + 3.4vw, 3.25rem);
+  --ub-f-h1: clamp(1.75rem, 1.15rem + 2.1vw, 2.625rem);
+  --ub-f-h2: clamp(1.5rem, 1.2rem + 1.1vw, 2.0625rem);
+  --ub-f-h3: clamp(1.25rem, 1.14rem + 0.42vw, 1.5rem);
+  --ub-f-h4: 1.1875rem;
+  --ub-f-lead: clamp(1.125rem, 1.07rem + 0.28vw, 1.3125rem);
+  --ub-f-body: 1.0625rem;
+  --ub-f-body-lg: 1.1875rem;
+  --ub-f-small: 0.9375rem;
+  --ub-f-label: 0.9375rem;
+  --ub-f-micro: 0.8125rem;
+
+  --ub-lh-display: 1.14;
+  --ub-lh-title: 1.24;
+  --ub-lh-body: 1.68;
+  --ub-lh-tight: 1.42;
+
+  --ub-font: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+  --ub-font-display: 'Plus Jakarta Sans', 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+
+  --ub-urgent: #DC2626;
+  --ub-urgent-dark: #B91C1C;
+  --ub-soft: #E57373;
+  --ub-soft-bg: #FEF2F2;
+  --ub-ok: #16A34A;
+  --ub-ok-dark: #15803D;
+  --ub-ok-bg: #DCFCE7;
+  --ub-ink: #191C1E;
+  --ub-ink-soft: #444651;
+  --ub-ink-06: rgba(25, 28, 30, 0.06);
+  --ub-ink-12: rgba(25, 28, 30, 0.12);
+  --ub-ink-20: rgba(25, 28, 30, 0.20);
+  --ub-ink-40: rgba(25, 28, 30, 0.40);
+  --ub-ink-64: rgba(25, 28, 30, 0.64);
+  --ub-white: #FFFFFF;
+  --ub-canvas: #F8F9FA;
+  --ub-radius: 0.5rem;
+  --ub-radius-lg: 1rem;
+  --ub-shadow: 0 8px 30px rgba(25, 28, 30, 0.08);
+  --ub-max: 1200px;
+
+  min-height: 100svh;
+  display: flex;
+  flex-direction: column;
+  background: var(--ub-white);
+  color: var(--ub-ink);
+  font-family: var(--ub-font);
+  font-size: var(--ub-f-body);
+  line-height: var(--ub-lh-body);
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  text-rendering: optimizeLegibility;
+  overflow-x: clip;
+}
+.ub * { box-sizing: border-box; }
+/* Toute colonne de grille peut se retrecir en dessous de la
+   largeur de son contenu. Sans cela, un mot long ou un identifiant
+   force la piste a depasser la largeur du conteneur, et la page
+   devient defilable horizontalement sur telephone. */
+.ub-grid > *,
+.ub-split > *,
+.ub-pick > *,
+.ub-blood > *,
+.ub-cols > *,
+.ub-foot-grid > * { min-width: 0; }
+.ub h1, .ub h2, .ub h3, .ub h4, .ub p, .ub ul, .ub figure { margin: 0; }
+/* Tout titre prend la police d'affichage : le contraste avec le
+   corps de texte en Inter est ce qui rend la page lisible d'un coup
+   d'oeil. */
+.ub h1, .ub h2, .ub h3, .ub h4, .ub-h2, .ub-h3 {
+  font-family: var(--ub-font-display);
+  line-height: var(--ub-lh-title);
+}
+/* Tout paragraphe herite de l'interligne confortable du corps */
+.ub p { line-height: var(--ub-lh-body); }
+.ub ul { padding: 0; list-style: none; }
+.ub img { display: block; max-width: 100%; }
+
+/* ============================================
+   1. EN-TÊTE + NAVIGATION
+   ============================================ */
+.ub-head {
+  position: sticky;
+  top: 0;
+  z-index: 100;
+  background: var(--ub-white);
+  border-bottom: 1px solid var(--ub-ink-12);
+}
+.ub-head-in {
+  max-width: var(--ub-max);
+  margin: 0 auto;
+  padding: 0 clamp(1rem, 4vw, 2rem);
+  min-height: 76px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 1rem;
+}
+
+.ub-brand {
+  display: flex;
+  align-items: center;
+  gap: 0.7rem;
+  text-decoration: none;
+  color: var(--ub-ink);
+  flex: none;
+}
+.ub-brand-mark {
+  width: 44px;
+  height: 44px;
+  flex: none;
+  display: grid;
+  place-items: center;
+  border-radius: var(--border-radius-full);
+  background: var(--ub-ok);
+  color: var(--ub-white);
+}
+.ub-brand-mark svg { width: 24px; height: 24px; }
+.ub-brand-txt { display: flex; flex-direction: column; line-height: 1.1; }
+.ub-brand-txt b {
+  font-family: var(--ub-font-display);
+  font-size: 1.1875rem;
+  font-weight: 800;
+  line-height: 1.25;
+  letter-spacing: -0.02em;
+  color: var(--ub-ink);
+}
+.ub-brand-txt span {
+  font-size: var(--ub-f-micro);
+  font-weight: 600;
+  line-height: 1.4;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+  color: var(--ub-ok);
+}
+
+.ub-nav { display: flex; align-items: center; gap: 1.75rem; }
+.ub-nav a {
+  position: relative;
+  display: inline-flex;
+  align-items: center;
+  gap: 0.35rem;
+  padding: 0.5rem 0;
+  font-size: var(--ub-f-label);
+  font-weight: 600;
+  color: var(--ub-ink);
+  text-decoration: none;
+  white-space: nowrap;
+  transition: color var(--transition-base);
+}
+.ub-nav a::after {
+  content: "";
+  position: absolute;
+  left: 0;
+  bottom: 0;
+  width: 100%;
+  height: 2px;
+  border-radius: 9999px;
+  background: var(--ub-ok);
+  transform: scaleX(0);
+  transform-origin: left center;
+  transition: transform var(--transition-base);
+}
+.ub-nav a:hover { color: var(--ub-ok); }
+.ub-nav a:hover::after,
+.ub-nav a[aria-current="page"]::after { transform: scaleX(1); }
+.ub-nav a[aria-current="page"] { color: var(--ub-ok); }
+.ub-nav svg { width: 16px; height: 16px; }
+
+.ub-head-actions { display: flex; align-items: center; gap: 0.75rem; }
+/* Les actions peuvent etre plus larges que la place restante :
+   elles se compriment plutot que de pousser la marque dehors. */
+.ub-head-actions > * { flex: 0 1 auto; min-width: 0; }
+
+/* ---------- Menu mobile ----------
+   Sous 900px la barre de liens laisse la place a un bouton. Le
+   panneau est en flux (pas en position absolute) : la page se
+   pousse au lieu de recouvrir le contenu, et le defilement natif
+   du telephone continue de fonctionner. */
+.ub-burger {
+  display: none;
+  width: 44px;
+  height: 44px;
+  flex: none;
+  align-items: center;
+  justify-content: center;
+  border: 1px solid var(--ub-ink-12);
+  border-radius: 12px;
+  background: var(--ub-white);
+  color: var(--ub-ink);
+  cursor: pointer;
+  transition: background-color var(--transition-base), border-color var(--transition-base);
+}
+.ub-burger:hover { border-color: var(--ub-ok); color: var(--ub-ok); }
+.ub-burger svg { width: 22px; height: 22px; }
+
+.ub-menu {
+  border-bottom: 1px solid var(--ub-ink-12);
+  background: var(--ub-white);
+  animation: ub-menu-in 220ms cubic-bezier(0.16, 1, 0.3, 1);
+}
+.ub-menu[hidden] { display: none; }
+@keyframes ub-menu-in {
+  from { opacity: 0; transform: translateY(-8px); }
+  to   { opacity: 1; transform: translateY(0); }
+}
+.ub-menu nav {
+  display: flex;
+  flex-direction: column;
+  max-width: var(--ub-max);
+  margin: 0 auto;
+  padding: 0.5rem clamp(1rem, 4vw, 2rem);
+}
+.ub-menu nav a {
+  display: flex;
+  align-items: center;
+  min-height: 52px;
+  padding: 0.35rem 0;
+  border-bottom: 1px solid var(--ub-ink-06);
+  font-size: var(--ub-f-body-lg);
+  font-weight: 600;
+  color: var(--ub-ink);
+  text-decoration: none;
+}
+.ub-menu nav a:last-child { border-bottom: 0; }
+.ub-menu nav a[aria-current="page"] { color: var(--ub-ok); }
+.ub-menu__foot {
+  display: grid;
+  gap: 0.6rem;
+  max-width: var(--ub-max);
+  margin: 0 auto;
+  padding: 0.75rem clamp(1rem, 4vw, 2rem) 1.25rem;
+  border-top: 1px solid var(--ub-ink-06);
+}
+.ub-menu__foot .ub-btn { width: 100%; }
+.ub-menu__row { display: flex; align-items: center; gap: 0.6rem; }
+.ub-menu__row .ub-btn { flex: 1; }
+.ub-menu__row .ub-lang { height: 48px; flex: none; }
+
+.ub-btn ub-icon { flex: none; }
+
+.ub-lang {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.3rem;
+  padding: 0.35rem 0.6rem;
+  border: 1px solid var(--ub-ink-12);
+  border-radius: var(--border-radius-full);
+  background: var(--ub-white);
+  font-family: inherit;
+  font-size: var(--ub-f-micro);
+  font-weight: 600;
+  color: var(--ub-ink-soft);
+  cursor: pointer;
+  transition: border-color var(--transition-base), color var(--transition-base);
+}
+.ub-lang:hover { border-color: var(--ub-ok); color: var(--ub-ok); }
+.ub-lang .on { color: var(--ub-ok); }
+.ub-lang .sep { color: var(--ub-ink-20); }
+
+/* Bouton d'urgence permanent dans l'en-tête */
+.ub-urgent-btn {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.4rem;
+  padding: 0.6rem 1.1rem;
+  border-radius: var(--ub-radius);
+  background: var(--ub-urgent);
+  color: var(--ub-white);
+  font-size: var(--ub-f-small);
+  font-weight: 700;
+  text-decoration: none;
+  white-space: nowrap;
+  transition: background-color var(--transition-base), transform var(--transition-base);
+}
+.ub-urgent-btn:hover { background: var(--ub-urgent-dark); }
+.ub-urgent-btn:active { transform: scale(0.98); }
+.ub-urgent-btn svg { width: 16px; height: 16px; }
+
+/* ============================================
+   2. MISE EN PAGE
+   ============================================ */
+.ub-main { flex: 1; }
+.ub-wrap {
+  max-width: var(--ub-max);
+  margin: 0 auto;
+  padding: 0 clamp(1rem, 4vw, 2rem);
+}
+.ub-sec { padding: clamp(2.5rem, 6vw, 4.5rem) 0; }
+.ub-sec--soft { background: var(--ub-canvas); }
+
+/* Titres de section — pas d'eyebrow : le titre porte le message */
+.ub-h2 {
+  font-family: var(--ub-font-display);
+  font-size: var(--ub-f-h2);
+  font-weight: 800;
+  line-height: var(--ub-lh-title);
+  letter-spacing: -0.022em;
+  color: var(--ub-ink);
+  text-wrap: balance;
+}
+.ub-h3 {
+  font-family: var(--ub-font-display);
+  font-size: var(--ub-f-h3);
+  font-weight: 700;
+  line-height: var(--ub-lh-title);
+  letter-spacing: -0.012em;
+  color: var(--ub-ink);
+  text-wrap: balance;
+}
+.ub-lead {
+  font-size: var(--ub-f-lead);
+  line-height: var(--ub-lh-body);
+  color: var(--ub-ink-64);
+  max-width: 62ch;
+  text-wrap: pretty;
+}
+
+/* ============================================
+   3. BOUTONS
+   ============================================ */
+.ub-btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.5rem;
+  min-width: 0;
+  min-height: 48px;
+  padding: 0.75rem 1.5rem;
+  border: 0;
+  border-radius: var(--ub-radius);
+  font-family: inherit;
+  font-size: 1rem;
+  font-weight: 600;
+  line-height: 1.3;
+  text-decoration: none;
+  cursor: pointer;
+  transition: background-color var(--transition-base), color var(--transition-base),
+    border-color var(--transition-base), transform var(--transition-base),
+    box-shadow var(--transition-base);
+}
+.ub-btn:active { transform: scale(0.99); }
+.ub-btn:focus-visible { outline: 2px solid var(--ub-ok); outline-offset: 3px; }
+.ub-btn svg { width: 18px; height: 18px; flex: none; }
+/* Le libelle peut se replier sur deux lignes sans deborder :
+   flex-basis:0 + min-width:0 autorise le retour a la ligne,
+   et le padding reste constant grace a box-sizing. */
+.ub-btn > span { flex: 0 1 auto; min-width: 0; text-wrap: balance; }
+
+.ub-btn--urgent { background: var(--ub-urgent); color: var(--ub-white); box-shadow: 0 4px 12px rgba(220, 38, 38, 0.2); }
+.ub-btn--urgent:hover { background: var(--ub-urgent-dark); box-shadow: 0 6px 16px rgba(220, 38, 38, 0.28); }
+
+.ub-btn--ok { background: var(--ub-ok); color: var(--ub-white); box-shadow: 0 4px 12px rgba(22, 163, 74, 0.18); }
+.ub-btn--ok:hover { background: var(--ub-ok-dark); box-shadow: 0 6px 16px rgba(22, 163, 74, 0.24); }
+
+.ub-btn--ghost { background: var(--ub-white); color: var(--ub-ink); border: 1px solid var(--ub-ink-20); }
+.ub-btn--ghost:hover { border-color: var(--ub-ok); color: var(--ub-ok); }
+
+.ub-btn--sm { min-height: 40px; padding: 0.5rem 1rem; font-size: var(--ub-f-small); }
+.ub-btn--block { width: 100%; }
+
+.ub-link {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.35rem;
+  font-family: inherit;
+  font-size: var(--ub-f-small);
+  font-weight: 600;
+  color: var(--ub-ok);
+  background: none;
+  border: 0;
+  padding: 0;
+  text-decoration: none;
+  cursor: pointer;
+  transition: gap var(--transition-base), color var(--transition-base);
+}
+.ub-link:hover { gap: 0.55rem; color: var(--ub-ok-dark); }
+.ub-link svg { width: 15px; height: 15px; }
+
+/* Un lien seul sur sa ligne : rien ne doit coller a sa suite.
+   `flex` + espacement entre enfants evite que le texte suivant
+   se colle au lien quand le conteneur est en ligne. */
+.ub-crumb {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5rem;
+  padding: 0.35rem 0;
+  font-size: var(--ub-f-small);
+  font-weight: 600;
+  color: var(--ub-ink-40);
+  text-decoration: none;
+}
+.ub-crumb svg { width: 14px; height: 14px; }
+.ub-crumb:hover { color: var(--ub-ok); }
+.ub-crumb[aria-current="page"] { color: var(--ub-ink); }
+.ub-link--urgent { color: var(--ub-urgent); }
+.ub-link--urgent:hover { color: var(--ub-urgent-dark); }
+
+/* ============================================
+   4. CARTES
+   ============================================ */
+.ub-card {
+  background: var(--ub-white);
+  border: 1px solid var(--ub-ink-12);
+  border-radius: 18px;
+  padding: clamp(1.25rem, 3vw, 2rem);
+}
+.ub-card--soft { background: var(--ub-canvas); }
+.ub-card--flat { border-radius: var(--ub-radius); }
+
+/* Variante triage : liseré d'urgence à gauche (Design.md § Cards) */
+.ub-card--triage { border-left: 4px solid var(--ub-urgent); }
+.ub-card--triage-ok { border-left: 4px solid var(--ub-ok); }
+
+.ub-grid { display: grid; gap: clamp(1rem, 2.5vw, 1.75rem); }
+.ub-grid--2 { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+.ub-grid--3 { grid-template-columns: repeat(3, minmax(0, 1fr)); }
+.ub-grid--4 { grid-template-columns: repeat(4, minmax(0, 1fr)); }
+
+/* ============================================
+   5. PASTILLES / BADGES
+   ============================================ */
+.ub-chip {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.3rem;
+  padding: 0.3rem 0.7rem;
+  border-radius: var(--ub-radius);
+  border: 1px solid var(--ub-soft);
+  background: rgba(229, 115, 115, 0.2);
+  font-size: var(--ub-f-micro);
+  font-weight: 600;
+  color: var(--ub-urgent);
+  white-space: nowrap;
+}
+.ub-chip--ok { border-color: var(--ub-ok); background: rgba(22, 163, 74, 0.15); color: var(--ub-ok); }
+.ub-chip--ink { border-color: var(--ub-ink-12); background: var(--ub-canvas); color: var(--ub-ink-soft); }
+.ub-chip svg { width: 14px; height: 14px; flex: none; }
+
+/* pastille pleine, pour statuts forts */
+.ub-tag {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.35rem;
+  padding: 0.25rem 0.6rem;
+  border-radius: 9999px;
+  background: var(--ub-ok);
+  color: var(--ub-white);
+  font-size: var(--ub-f-micro);
+  font-weight: 700;
+  letter-spacing: 0.03em;
+  text-transform: uppercase;
+  white-space: nowrap;
+}
+.ub-tag--urgent { background: var(--ub-urgent); }
+.ub-tag--ghost {
+  background: var(--ub-white);
+  color: var(--ub-urgent);
+  border: 1px solid var(--ub-soft);
+}
+
+/* ============================================
+   6. FORMULAIRES
+   ============================================ */
+.ub-field { display: flex; flex-direction: column; gap: 0.4rem; }
+.ub-field > label {
+  font-size: var(--ub-f-small);
+  font-weight: 600;
+  color: var(--ub-ink);
+}
+.ub-field .req { color: var(--ub-urgent); }
+
+.ub-input, .ub-select, .ub-textarea {
+  width: 100%;
+  min-height: 48px;
+  padding: 0.7rem 0.9rem;
+  border: 1px solid var(--ub-ink-20);
+  border-radius: var(--ub-radius);
+  background: var(--ub-white);
+  font-family: inherit;
+  font-size: var(--ub-f-label);
+  color: var(--ub-ink);
+  transition: border-color var(--transition-base), box-shadow var(--transition-base);
+}
+.ub-textarea { min-height: 120px; resize: vertical; line-height: var(--ub-lh-body); }
+.ub-input::placeholder, .ub-textarea::placeholder { color: var(--ub-ink-40); }
+.ub-input:hover, .ub-select:hover, .ub-textarea:hover { border-color: var(--ub-ink-40); }
+.ub-input:focus, .ub-select:focus, .ub-textarea:focus {
+  outline: none;
+  border-color: var(--ub-urgent);
+  box-shadow: 0 0 0 3px rgba(220, 38, 38, 0.12);
+}
+.ub-select {
+  appearance: none;
+  padding-right: 2.4rem;
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 16 16' fill='none' stroke='%23444651' stroke-width='1.8' stroke-linecap='round'%3E%3Cpath d='m4 6.5 4 4 4-4'/%3E%3C/svg%3E");
+  background-repeat: no-repeat;
+  background-position: right 0.85rem center;
+  background-size: 16px;
+}
+
+/* préfixe téléphone */
+.ub-input-wrap { position: relative; display: flex; align-items: stretch; }
+.ub-input-wrap .ub-prefix {
+  display: flex;
+  align-items: center;
+  padding: 0 0.7rem;
+  border: 1px solid var(--ub-ink-20);
+  border-right: 0;
+  border-radius: var(--ub-radius) 0 0 var(--ub-radius);
+  background: var(--ub-canvas);
+  font-size: var(--ub-f-small);
+  font-weight: 600;
+  color: var(--ub-ink-soft);
+  white-space: nowrap;
+}
+.ub-input-wrap .ub-input {
+  border-radius: 0 var(--ub-radius) var(--ub-radius) 0;
+}
+
+/* état valide */
+.ub-input.is-ok, .ub-select.is-ok { border-color: var(--ub-ok); }
+.ub-input.is-bad, .ub-select.is-bad { border-color: var(--ub-urgent); }
+.ub-hint {
+  font-size: var(--ub-f-micro);
+  color: var(--ub-ink-40);
+  line-height: 1.55;
+}
+.ub-hint--bad { color: var(--ub-urgent); }
+
+/* case à cocher — 20px, coche verte */
+.ub-check {
+  display: flex;
+  align-items: flex-start;
+  gap: 0.6rem;
+  font-size: var(--ub-f-small);
+  line-height: 1.5;
+  color: var(--ub-ink-soft);
+  cursor: pointer;
+}
+.ub-check input {
+  appearance: none;
+  width: 20px;
+  height: 20px;
+  flex: none;
+  margin: 0;
+  border: 1.5px solid var(--ub-ink-40);
+  border-radius: 0.25rem;
+  background: var(--ub-white);
+  cursor: pointer;
+  transition: background-color var(--transition-base), border-color var(--transition-base);
+}
+.ub-check input:checked {
+  border-color: var(--ub-ok);
+  background: var(--ub-ok);
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 16 16' fill='none' stroke='%23fff' stroke-width='2.4' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpath d='m3.2 8.4 3.2 3.2 6.4-7.2'/%3E%3C/svg%3E");
+  background-repeat: no-repeat;
+  background-position: center;
+  background-size: 13px;
+}
+.ub-check input:focus-visible { outline: 2px solid var(--ub-ok); outline-offset: 2px; }
+
+/* ============================================
+   7. ICONES (SVG inline — pas d'emoji)
+   ============================================ */
+.ub-ico {
+  width: 48px;
+  height: 48px;
+  flex: none;
+  display: grid;
+  place-items: center;
+  border-radius: var(--ub-radius-lg);
+  background: var(--ub-ok-bg);
+  color: var(--ub-ok);
+}
+.ub-ico svg { width: 24px; height: 24px; }
+.ub-ico--urgent { background: var(--ub-soft-bg); color: var(--ub-urgent); }
+.ub-ico--sm { width: 36px; height: 36px; border-radius: var(--ub-radius); }
+.ub-ico--sm svg { width: 18px; height: 18px; }
+
+/* ============================================
+   8. PIED DE PAGE — blanc, jamais sombre
+   ============================================ */
+.ub-foot {
+  margin-top: auto;
+  background: var(--ub-white);
+  border-top: 1px solid var(--ub-ink-12);
+  padding: clamp(2rem, 4vw, 3rem) 0 1.5rem;
+  color: var(--ub-ink-soft);
+  font-size: var(--ub-f-small);
+}
+.ub-foot-grid {
+  display: grid;
+  grid-template-columns: minmax(0, 1.6fr) repeat(3, minmax(0, 1fr));
+  gap: clamp(1.5rem, 3vw, 2.5rem);
+}
+.ub-foot h4 {
+  font-size: var(--ub-f-micro);
+  font-weight: 700;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: var(--ub-ink);
+  margin-bottom: 0.9rem;
+}
+.ub-foot li { margin-bottom: 0.5rem; }
+.ub-foot a {
+  color: var(--ub-ink-soft);
+  text-decoration: none;
+  transition: color var(--transition-base);
+}
+.ub-foot a:hover { color: var(--ub-ok); }
+.ub-foot-bottom {
+  margin-top: 2rem;
+  padding-top: 1.25rem;
+  border-top: 1px solid var(--ub-ink-12);
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.75rem 1.5rem;
+  align-items: center;
+  justify-content: space-between;
+  font-size: var(--ub-f-small);
+  color: var(--ub-ink-40);
+}
+
+.ub-demo-tag {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.35rem;
+  padding: 0.2rem 0.55rem;
+  border-radius: var(--border-radius-full);
+  border: 1px solid var(--ub-ink-12);
+  background: var(--ub-canvas);
+  font-size: var(--ub-f-micro);
+  font-weight: 600;
+}
+
+/* ============================================
+   9. ANIMATIONS
+   Un mouvement par page, jamais deux fois le même.
+   Rise  = hiérarchie (contenu qui se met en place)
+   Veil  = révélation d'image (clip-path)
+   Sweep = barre d'acuité qui se remplit
+   Draw  = tracé progressif (SVG, stroke-dashoffset)
+   Count = chiffres qui s'incrémentent
+   ============================================ */
+@keyframes ub-rise {
+  from { opacity: 0; transform: translateY(20px); }
+  to   { opacity: 1; transform: translateY(0); }
+}
+@keyframes ub-fade {
+  from { opacity: 0; }
+  to   { opacity: 1; }
+}
+@keyframes ub-veil {
+  from { opacity: 0; clip-path: inset(0 0 100% 0); }
+  to   { opacity: 1; clip-path: inset(0 0 0 0); }
+}
+@keyframes ub-slide-left {
+  from { opacity: 0; transform: translateX(-24px); }
+  to   { opacity: 1; transform: translateX(0); }
+}
+@keyframes ub-pop {
+  from { opacity: 0; transform: scale(0.94); }
+  to   { opacity: 1; transform: scale(1); }
+}
+@keyframes ub-pulse {
+  0%, 100% { transform: scale(1); opacity: 1; }
+  50%      { transform: scale(1.14); opacity: 0.72; }
+}
+@keyframes ub-ping {
+  0%   { transform: scale(0.65); opacity: 0.8; }
+  70%  { transform: scale(2.1); opacity: 0; }
+  100% { transform: scale(2.1); opacity: 0; }
+}
+@keyframes ub-spin {
+  to { transform: rotate(360deg); }
+}
+@keyframes ub-sweep { from { transform: scaleX(0); } to { transform: scaleX(1); } }
+@keyframes ub-draw { to { stroke-dashoffset: 0; } }
+@keyframes ub-track { from { stroke-dashoffset: var(--len); } to { stroke-dashoffset: 0; } }
+@keyframes ub-tick { 0% { transform: translateX(-100%); } 100% { transform: translateX(400%); } }
+
+/* Séquence d'entrée, décalée */
+.ub-a { animation: ub-rise 720ms cubic-bezier(0.16, 1, 0.3, 1) backwards; }
+.ub-a--veil { animation: ub-veil 1000ms cubic-bezier(0.16, 1, 0.3, 1) backwards; }
+.ub-a--pop { animation: ub-pop 640ms cubic-bezier(0.16, 1, 0.3, 1) backwards; }
+.ub-a--left { animation: ub-slide-left 720ms cubic-bezier(0.16, 1, 0.3, 1) backwards; }
+.ub-d1 { animation-delay: 70ms; }
+.ub-d2 { animation-delay: 150ms; }
+.ub-d3 { animation-delay: 230ms; }
+.ub-d4 { animation-delay: 310ms; }
+.ub-d5 { animation-delay: 390ms; }
+.ub-d6 { animation-delay: 470ms; }
+.ub-d7 { animation-delay: 550ms; }
+
+/* Révélation au défilement — pilotée par IntersectionObserver
+   (ub.js pose .is-in quand l'élément entre dans le champ) */
+.ub-reveal {
+  opacity: 0;
+  transform: translateY(24px);
+  transition: opacity 700ms cubic-bezier(0.16, 1, 0.3, 1),
+              transform 700ms cubic-bezier(0.16, 1, 0.3, 1);
+}
+.ub-reveal.is-in { opacity: 1; transform: translateY(0); }
+
+/* Éléments vivants — boucle justifiée par la fonction */
+.ub-live { animation: ub-pulse 2.4s ease-in-out infinite; }
+.ub-live-ring {
+  position: relative;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 100%;
+  height: 100%;
+}
+.ub-live-ring::before {
+  content: "";
+  position: absolute;
+  inset: 1px;
+  border-radius: var(--border-radius-full);
+  border: 1.5px solid currentColor;
+  opacity: 0;
+  animation: ub-ping 2.4s cubic-bezier(0, 0, 0.2, 1) infinite;
+}
+/* La pastille garde son halo visible dans le badge */
+.ub-tag .ub-live-ring::before,
+.ub-chip .ub-live-ring::before { border-width: 1.5px; }
+.ub-spin { animation: ub-spin 1.4s linear infinite; }
+
+/* Barre de progression */
+.ub-bar {
+  height: 8px;
+  border-radius: 9999px;
+  background: var(--ub-ink-06);
+  overflow: hidden;
+}
+.ub-bar > i {
+  display: block;
+  height: 100%;
+  border-radius: 9999px;
+  background: var(--ub-ok);
+  transform-origin: left center;
+  animation: ub-sweep 1100ms cubic-bezier(0.16, 1, 0.3, 1) 260ms backwards;
+}
+.ub-bar--urgent > i { background: var(--ub-urgent); }
+.ub-bar--soft > i { background: var(--ub-soft); }
+
+/* Barre « en direct » — balayage continu */
+.ub-livebar {
+  position: relative;
+  height: 3px;
+  border-radius: 9999px;
+  background: var(--ub-ink-06);
+  overflow: hidden;
+}
+.ub-livebar::after {
+  content: "";
+  position: absolute;
+  inset: 0 auto 0 0;
+  width: 25%;
+  border-radius: 9999px;
+  background: var(--ub-ok);
+  animation: ub-tick 2.6s cubic-bezier(0.4, 0, 0.2, 1) infinite;
+}
+
+/* Tracé progressif : donner --len = longueur du tracé */
+.ub-draw {
+  stroke-dasharray: var(--len, 300);
+  stroke-dashoffset: var(--len, 300);
+  animation: ub-track 1600ms cubic-bezier(0.16, 1, 0.3, 1) forwards;
+}
+
+/* Respect des préférences système */
+@media (prefers-reduced-motion: reduce) {
+  .ub *,
+  .ub *::before,
+  .ub *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+  }
+  .ub-reveal { opacity: 1; transform: none; }
+  .ub-live-ring::before { animation: none; }
+  .ub-draw { stroke-dashoffset: 0; }
+}
+
+/* ============================================
+   10. COMPOSANTS MÉTIER
+   ============================================ */
+
+/* Bandeau « en direct » sous l'en-tête */
+.ub-ticker {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.6rem;
+  padding: 0.6rem 1rem;
+  background: var(--ub-ok-bg);
+  border-bottom: 1px solid var(--ub-ok);
+  font-size: var(--ub-f-small);
+  font-weight: 600;
+  color: var(--ub-ok-dark);
+  text-align: center;
+}
+.ub-ticker .dot {
+  position: relative;
+  width: 8px;
+  height: 8px;
+  flex: none;
+  border-radius: var(--border-radius-full);
+  background: var(--ub-ok);
+}
+.ub-ticker .dot::before {
+  content: "";
+  position: absolute;
+  inset: -4px;
+  border-radius: var(--border-radius-full);
+  border: 2px solid var(--ub-ok);
+  animation: ub-ping 2s cubic-bezier(0, 0, 0.2, 1) infinite;
+}
+
+/* ============================================
+   6bis. CARTES DE SERVICE ET MISES EN PAGE
+   Coins arrondis (18px) : plus contemporain que
+   les 16px stricts de Design.md, et cohérent sur
+   toutes les surfaces.
+   ============================================ */
+.ub-panel {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  padding: clamp(1.5rem, 3vw, 2.25rem);
+  border: 1px solid var(--ub-ink-12);
+  border-radius: 18px;
+  background: var(--ub-white);
+  overflow: hidden;
+  transition: transform var(--transition-base), box-shadow var(--transition-base),
+    border-color var(--transition-base);
+}
+.ub-panel--urgent { border-color: var(--ub-soft); }
+/* Halo d'accent : plus net au survol, jamais par defaut */
+.ub-panel::before {
+  content: "";
+  position: absolute;
+  inset: -50% -25% auto auto;
+  width: 280px;
+  height: 280px;
+  border-radius: 50%;
+  background: radial-gradient(circle, var(--ub-ok-bg), transparent 70%);
+  opacity: 0;
+  transform: scale(0.85);
+  transition: opacity 500ms ease, transform 700ms cubic-bezier(0.16, 1, 0.3, 1);
+  pointer-events: none;
+}
+.ub-panel--urgent::before {
+  background: radial-gradient(circle, var(--ub-soft-bg), transparent 70%);
+}
+.ub-panel:hover {
+  transform: translateY(-4px);
+  box-shadow: 0 18px 44px -22px rgba(25, 28, 30, 0.22);
+  border-color: var(--ub-ok);
+}
+.ub-panel--urgent:hover { border-color: var(--ub-urgent); }
+.ub-panel:hover::before { opacity: 1; transform: scale(1); }
+.ub-panel > * { position: relative; }
+
+.ub-panel__top {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 1rem;
+  margin-bottom: 1.5rem;
+}
+.ub-panel__h {
+  font-family: var(--ub-font-display);
+  font-size: var(--ub-f-h3);
+  font-weight: 800;
+  line-height: var(--ub-lh-title);
+  letter-spacing: -0.015em;
+  color: var(--ub-ink);
+}
+.ub-panel__p {
+  margin-top: 0.6rem;
+  color: var(--ub-ink-64);
+  line-height: 1.6;
+}
+.ub-panel__tags { display: flex; flex-wrap: wrap; gap: 0.5rem; margin: 1.5rem 0; }
+.ub-panel__foot {
+  display: flex;
+  align-items: center;
+  gap: 0.45rem;
+  margin-top: 1.1rem;
+  font-size: var(--ub-f-small);
+  color: var(--ub-ink-64);
+}
+.ub-panel__foot ub-icon { color: var(--ub-ok); flex: none; }
+
+/* Le point blanc de la pastille rouge */
+.ub-dot {
+  display: inline-grid;
+  place-items: center;
+  width: 8px;
+  height: 8px;
+  flex: none;
+}
+.ub-dot::before {
+  content: "";
+  display: block;
+  width: 5px;
+  height: 5px;
+  border-radius: 9999px;
+  background: currentColor;
+}
+.ub-dot.ub-live-ring::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  width: auto;
+  height: auto;
+  border: 1.5px solid currentColor;
+  border-radius: 9999px;
+  background: none;
+}
+
+/* Hero du site */
+.ub-hero { max-width: 42rem; margin: 0 auto clamp(2rem, 4vw, 3.25rem); text-align: center; }
+.ub-hero__t {
+  font-family: var(--ub-font-display);
+  font-size: var(--ub-f-display);
+  font-weight: 800;
+  line-height: var(--ub-lh-display);
+  letter-spacing: -0.032em;
+  color: var(--ub-ink);
+  text-wrap: balance;
+}
+.ub-hero .ub-lead { margin: 1rem auto 0; }
+
+/* Titre de section */
+.ub-sect__head { max-width: 42rem; margin-bottom: clamp(1.5rem, 3vw, 2.5rem); }
+.ub-sect__head .ub-lead { margin-top: 0.6rem; }
+
+/* Bloc texte + media */
+.ub-split {
+  display: grid;
+  grid-template-columns: minmax(0, 1.1fr) minmax(0, 1fr);
+  align-items: center;
+  gap: 0;
+  border: 1px solid var(--ub-ink-12);
+  border-radius: 18px;
+  overflow: hidden;
+  background: var(--ub-white);
+}
+.ub-split__body { padding: clamp(1.5rem, 4vw, 3rem); }
+.ub-split__body .ub-lead { margin-top: 0.75rem; }
+.ub-split__media { position: relative; height: 100%; min-height: 260px; }
+.ub-split__media img {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+/* Liste de pastilles de verification */
+.ub-checklist { display: flex; flex-wrap: wrap; gap: 1.25rem; margin-top: 1.5rem; }
+.ub-checklist li {
+  display: flex;
+  align-items: center;
+  gap: 0.45rem;
+  font-size: var(--ub-f-small);
+  font-weight: 600;
+  color: var(--ub-ink-soft);
+}
+.ub-checklist ub-icon { color: var(--ub-ok); flex: none; }
+
+/* Grand chiffre en ouverture de carte */
+.ub-figure {
+  margin-top: 1.25rem;
+  font-size: clamp(1.875rem, 3.2vw, 2.5rem);
+  font-weight: 800;
+  line-height: 1;
+  letter-spacing: -0.03em;
+  color: var(--ub-ok);
+  font-variant-numeric: tabular-nums;
+}
+.ub-card--urgent .ub-figure { color: var(--ub-urgent); }
+
+/* Les cartes adoptent le meme rayon que les panneaux */
+.ub-card,
+.ub-tile,
+.ub-list > li,
+.ub-note,
+.ub-idcard,
+.ub-list > a {
+  border-radius: 18px;
+}
+
+/* Statistique — chiffre en display, pas un tableau */
+.ub-stat__n {
+  font-size: clamp(2rem, 3.4vw, 2.75rem);
+  font-weight: 800;
+  line-height: 1;
+  letter-spacing: -0.03em;
+  color: var(--ub-ok);
+  font-variant-numeric: tabular-nums;
+}
+.ub-stat__t {
+  margin-top: 0.55rem;
+  font-family: var(--ub-font-display);
+  font-size: var(--ub-f-body-lg);
+  font-weight: 700;
+  line-height: 1.4;
+  letter-spacing: -0.01em;
+  color: var(--ub-ink);
+}
+.ub-stat__d {
+  margin-top: 0.4rem;
+  font-size: var(--ub-f-small);
+  color: var(--ub-ink-64);
+  line-height: var(--ub-lh-body);
+}
+
+/* Étapes numérotées */
+.ub-steps { display: grid; gap: clamp(1rem, 2.5vw, 1.5rem); }
+.ub-step { display: flex; gap: 1rem; }
+.ub-step__n {
+  width: 44px;
+  height: 44px;
+  flex: none;
+  display: grid;
+  place-items: center;
+  border-radius: var(--border-radius-full);
+  background: var(--ub-ok);
+  color: var(--ub-white);
+  font-size: 1.25rem;
+  font-weight: 800;
+  line-height: 1;
+}
+.ub-step__n--urgent { background: var(--ub-urgent); }
+.ub-step__n--ghost { background: var(--ub-white); color: var(--ub-ok); border: 2px solid var(--ub-ok); }
+.ub-step h3 {
+  font-family: var(--ub-font-display);
+  font-size: var(--ub-f-body-lg);
+  font-weight: 700;
+  line-height: 1.4;
+  margin-bottom: 0.35rem;
+}
+.ub-step p { font-size: var(--ub-f-label); line-height: var(--ub-lh-body); color: var(--ub-ink-64); }
+
+/* Fil d'ariane / fil d'étapes horizontal */
+.ub-trail { display: flex; align-items: center; gap: 0; margin-bottom: 2rem; }
+.ub-trail li {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  font-size: var(--ub-f-small);
+  font-weight: 600;
+  color: var(--ub-ink-40);
+}
+.ub-trail li::after {
+  content: "";
+  width: 32px;
+  height: 1px;
+  margin: 0 0.6rem;
+  background: var(--ub-ink-12);
+}
+.ub-trail li:last-child::after { display: none; }
+.ub-trail li .n {
+  width: 24px;
+  height: 24px;
+  display: grid;
+  place-items: center;
+  border-radius: var(--border-radius-full);
+  background: var(--ub-ink-06);
+  font-size: var(--ub-f-micro);
+  font-weight: 800;
+}
+.ub-trail li.is-done { color: var(--ub-ok); }
+.ub-trail li.is-done .n { background: var(--ub-ok); color: var(--ub-white); }
+.ub-trail li.is-now { color: var(--ub-ink); }
+.ub-trail li.is-now .n { background: var(--ub-urgent); color: var(--ub-white); }
+
+/* Ligne de temps (suivi d'urgence) */
+.ub-tl { display: grid; gap: 0; }
+.ub-tl li { display: grid; grid-template-columns: 36px 1fr; gap: 1rem; }
+.ub-tl__rail { display: flex; flex-direction: column; align-items: center; }
+.ub-tl__dot {
+  width: 36px;
+  height: 36px;
+  flex: none;
+  display: grid;
+  place-items: center;
+  border-radius: var(--border-radius-full);
+  background: var(--ub-ink-06);
+  color: var(--ub-ink-40);
+}
+.ub-tl__dot svg { width: 18px; height: 18px; }
+.ub-tl__line { flex: 1; width: 2px; background: var(--ub-ink-12); min-height: 28px; }
+.ub-tl li.is-done .ub-tl__dot { background: var(--ub-ok); color: var(--ub-white); }
+.ub-tl li.is-now .ub-tl__dot { background: var(--ub-urgent); color: var(--ub-white); }
+.ub-tl li.is-now .ub-tl__line { background: var(--ub-ok); }
+.ub-tl__body { padding-bottom: 1.5rem; }
+.ub-tl__body h3 {
+  font-family: var(--ub-font-display);
+  font-size: var(--ub-f-body-lg);
+  font-weight: 700;
+  line-height: 1.4;
+  margin-bottom: 0.3rem;
+}
+.ub-tl__body p {
+  font-size: var(--ub-f-small);
+  color: var(--ub-ink-64);
+  line-height: var(--ub-lh-body);
+}
+
+/* Liste de données (dossiers, rendez-vous) */
+.ub-list { display: grid; gap: 0.75rem; }
+.ub-list > li {
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+  padding: 1rem 1.25rem;
+  border: 1px solid var(--ub-ink-12);
+  border-radius: 18px;
+  background: var(--ub-white);
+  transition: border-color var(--transition-base), transform var(--transition-base);
+}
+.ub-list > li:hover { border-color: var(--ub-ok); transform: translateX(2px); }
+.ub-list__body { flex: 1; min-width: 0; }
+.ub-list__body h3 {
+  font-family: var(--ub-font-display);
+  font-size: var(--ub-f-body-lg);
+  font-weight: 700;
+  line-height: 1.4;
+  margin-bottom: 0.25rem;
+}
+.ub-list__body p {
+  font-size: var(--ub-f-small);
+  color: var(--ub-ink-64);
+  line-height: var(--ub-lh-body);
+}
+.ub-list__meta { text-align: right; flex: none; }
+.ub-list__meta time { display: block; font-size: var(--ub-f-micro); font-weight: 600; color: var(--ub-ink-soft); }
+
+/* Groupe sanguin — pastilles sélectionnables */
+.ub-blood { display: grid; grid-template-columns: repeat(4, minmax(0, 1fr)); gap: 0.5rem; }
+.ub-blood button {
+  min-height: 44px;
+  border: 1px solid var(--ub-ink-20);
+  border-radius: var(--ub-radius);
+  background: var(--ub-white);
+  font-family: inherit;
+  font-size: var(--ub-f-label);
+  font-weight: 700;
+  color: var(--ub-ink);
+  cursor: pointer;
+  transition: all var(--transition-base);
+}
+.ub-blood button:hover { border-color: var(--ub-urgent); color: var(--ub-urgent); }
+.ub-blood button[aria-pressed="true"] {
+  border-color: var(--ub-urgent);
+  background: var(--ub-urgent);
+  color: var(--ub-white);
+}
+
+/* Choix multiples (type de situation) */
+.ub-pick { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 0.75rem; }
+.ub-pick button {
+  display: flex;
+  align-items: flex-start;
+  gap: 0.7rem;
+  padding: 1rem;
+  border: 1px solid var(--ub-ink-20);
+  border-radius: var(--ub-radius);
+  background: var(--ub-white);
+  font-family: inherit;
+  text-align: left;
+  cursor: pointer;
+  transition: all var(--transition-base);
+}
+.ub-pick button svg { width: 22px; height: 22px; flex: none; color: var(--ub-urgent); }
+.ub-pick button b { display: block; font-size: var(--ub-f-label); font-weight: 700; margin-bottom: 0.15rem; }
+.ub-pick button em {
+  font-style: normal;
+  font-size: var(--ub-f-small);
+  color: var(--ub-ink-64);
+  line-height: 1.55;
+}
+.ub-pick button:hover { border-color: var(--ub-urgent); background: var(--ub-soft-bg); }
+.ub-pick button[aria-pressed="true"] {
+  border-color: var(--ub-urgent);
+  background: var(--ub-soft-bg);
+}
+.ub-pick button[aria-pressed="true"] b { color: var(--ub-urgent); }
+
+/* Onglets (filtres) */
+.ub-tabs { display: flex; gap: 0.4rem; flex-wrap: wrap; margin-bottom: 1.5rem; }
+.ub-tabs button {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.4rem;
+  padding: 0.5rem 1rem;
+  border: 1px solid var(--ub-ink-12);
+  border-radius: 9999px;
+  background: var(--ub-white);
+  font-family: inherit;
+  font-size: var(--ub-f-small);
+  font-weight: 600;
+  color: var(--ub-ink-soft);
+  cursor: pointer;
+  transition: all var(--transition-base);
+}
+.ub-tabs button:hover { border-color: var(--ub-ok); color: var(--ub-ok); }
+.ub-tabs button[aria-selected="true"] {
+  border-color: var(--ub-ok);
+  background: var(--ub-ok);
+  color: var(--ub-white);
+}
+.ub-tabs button b {
+  font-variant-numeric: tabular-nums;
+  opacity: 0.75;
+  font-weight: 700;
+}
+
+/* Table de bord : tuile de compteur */
+.ub-tile {
+  padding: 1.25rem;
+  border: 1px solid var(--ub-ink-12);
+  border-radius: 18px;
+  background: var(--ub-white);
+}
+.ub-tile__t {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  font-size: var(--ub-f-small);
+  font-weight: 600;
+  color: var(--ub-ink-soft);
+}
+.ub-tile__t svg { width: 16px; height: 16px; color: var(--ub-ok); }
+.ub-tile__n {
+  margin-top: 0.65rem;
+  font-family: var(--ub-font-display);
+  font-size: clamp(2.125rem, 1.6rem + 1.6vw, 2.625rem);
+  font-weight: 800;
+  line-height: 1.05;
+  letter-spacing: -0.03em;
+  color: var(--ub-ink);
+  font-variant-numeric: tabular-nums;
+}
+.ub-tile--urgent { border-color: var(--ub-urgent); background: var(--ub-soft-bg); }
+.ub-tile--urgent .ub-tile__t { color: var(--ub-urgent); }
+.ub-tile--urgent .ub-tile__t svg { color: var(--ub-urgent); }
+.ub-tile--urgent .ub-tile__n { color: var(--ub-urgent); }
+.ub-tile__bar { margin-top: 0.75rem; }
+.ub-tile .ub-tile__n + .ub-tile__n {
+  margin-top: 0.35rem;
+  font-size: var(--ub-f-micro);
+  font-weight: 600;
+  color: var(--ub-ok);
+}
+.ub-tile--urgent .ub-tile__n + .ub-tile__n { color: var(--ub-urgent); }
+.ub-stat__n--urgent { color: var(--ub-urgent); }
+.ub-stat__n--soft { color: var(--ub-soft); }
+
+/* ---------- Composants Vue : rendu des icones ----------
+   <ub-icon> enveloppe un <svg>. Sans ces regles, le navigateur
+   donne au <span> une taille nulle et le <svg> retombe sur
+   300x150px : c'est ce qui faisait deborder les boutons. */
+ub-icon {
+  display: inline-flex;
+  flex: none;
+  align-items: center;
+  justify-content: center;
+  line-height: 0;
+  width: 1em;
+  height: 1em;
+}
+ub-icon > svg {
+  width: 100%;
+  height: 100%;
+  display: block;
+}
+
+/* Taille par defaut : herite de la taille du texte du parent */
+.ub-btn ub-icon,
+.ub-urgent-btn ub-icon,
+.ub-link ub-icon,
+.ub-crumb ub-icon { width: 18px; height: 18px; }
+.ub-panel__foot ub-icon { width: 15px; height: 15px; }
+.ub-checklist ub-icon { width: 17px; height: 17px; }
+.ub-tile__t ub-icon { width: 16px; height: 16px; }
+.ub-chip ub-icon,
+.ub-demo ub-icon,
+.ub-disclaimer ub-icon { width: 14px; height: 14px; }
+.ub-note ub-icon { width: 20px; height: 20px; margin-top: 2px; }
+.ub-ico ub-icon { width: 24px; height: 24px; }
+.ub-ico--sm ub-icon { width: 18px; height: 18px; }
+.ub-brand-mark ub-icon { width: 24px; height: 24px; }
+.ub-list__body ub-icon,
+.ub-panel ub-icon { width: 1em; height: 1em; }
+
+/* Le hero et les titres : meme regle de securite */
+.ub-hero ub-icon,
+.ub-sect__head ub-icon { width: 20px; height: 20px; }
+
+/* Mention de demonstration en fin de section */
+.ub-disclaimer {
+  display: flex;
+  align-items: flex-start;
+  gap: 0.45rem;
+  margin-top: 1.25rem;
+  font-size: var(--ub-f-micro);
+  line-height: 1.5;
+  color: var(--ub-ink-40);
+}
+.ub-disclaimer ub-icon { margin-top: 1px; flex: none; }
+
+/* Fiche d'identité (en-tête patient / hôpital) */
+.ub-idcard {
+  display: flex;
+  align-items: center;
+  gap: 1.25rem;
+  flex-wrap: wrap;
+  padding: clamp(1.25rem, 3vw, 2rem);
+  border: 1px solid var(--ub-ok);
+  border-radius: 18px;
+  background: var(--ub-ok-bg);
+}
+.ub-idcard__av {
+  width: 60px;
+  height: 60px;
+  flex: none;
+  display: grid;
+  place-items: center;
+  border-radius: var(--border-radius-full);
+  background: var(--ub-ok);
+  color: var(--ub-white);
+  font-size: var(--ub-f-h3);
+  font-weight: 800;
+}
+.ub-idcard__n { flex: 1; min-width: 12rem; }
+.ub-idcard__n h1 { font-size: clamp(1.25rem, 2vw, 1.5rem); font-weight: 800; letter-spacing: -0.02em; }
+.ub-idcard__n p { margin-top: 0.35rem; font-size: var(--ub-f-small); color: var(--ub-ink-soft); }
+.ub-idcard__facts { display: flex; flex-wrap: wrap; gap: 0.5rem; }
+
+/* Encart de sécurité / de rappel */
+.ub-note {
+  display: flex;
+  gap: 0.9rem;
+  padding: 1.1rem 1.25rem;
+  border: 1px solid var(--ub-ink-12);
+  border-radius: 18px;
+  background: var(--ub-canvas);
+}
+.ub-note svg { width: 20px; height: 20px; flex: none; color: var(--ub-ok); margin-top: 2px; }
+.ub-note span,
+.ub-note p { font-size: var(--ub-f-small); line-height: var(--ub-lh-body); color: var(--ub-ink-soft); }
+.ub-note--urgent { background: var(--ub-soft-bg); border-color: var(--ub-soft); }
+.ub-note--urgent svg { color: var(--ub-urgent); }
+.ub-note--urgent strong { color: var(--ub-urgent); }
+
+/* Note « données de démonstration » */
+.ub-demo {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.4rem;
+  padding: 0.3rem 0.7rem;
+  border-radius: var(--ub-radius);
+  background: var(--ub-canvas);
+  border: 1px solid var(--ub-ink-12);
+  font-size: var(--ub-f-micro);
+  font-weight: 600;
+  color: var(--ub-ink-soft);
+}
+.ub-demo svg { width: 14px; height: 14px; }
+
+/* ============================================
+   11. CORRECTIONS MOBILE
+   Deux colonnes, quelles qu'elles soient, deviennent une colonne
+   pleine. Les colonnes sont déclarées en `style` inline pour rester
+   lisibles dans le HTML : on les rattrape donc par attribut.
+   ============================================ */
+@media (max-width: 860px) {
+  .ub-trail {
+    overflow-x: auto;
+    padding-bottom: 0.25rem;
+    -webkit-overflow-scrolling: touch;
+  }
+  .ub-trail li { flex: none; }
+}
+
+@media (max-width: 700px) {
+  /* Toute grille a deux colonnes (marquee .ub-cols) devient une
+     colonne pleine, quel que soit le rapport des fractions. */
+  .ub-cols { grid-template-columns: 1fr !important; }
+  /* Les separateurs verticaux d'une paire n'ont plus de sens */
+  .ub-cols > * { border-right: 0 !important; }
+  /* Le fil d'etapes defile plutot que de deborder */
+  .ub-trail {
+    overflow-x: auto;
+    padding-bottom: 0.35rem;
+    -webkit-overflow-scrolling: touch;
+  }
+  .ub-trail li { flex: none; }
+}
+
+/* ============================================
+   12. RESPONSIVE
+   Trois paliers : 1100px (grilles), 900px (navigation),
+   640px (une colonne). Les corps de texte ne sont jamais
+   reduits sous leur taille de reference sur petit ecran.
+   ============================================ */
+
+/* ---------- Palier 1 : les grilles se resserrent ---------- */
+@media (max-width: 1100px) {
+  .ub-grid--4 { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+  .ub-grid--3 { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+  .ub-foot-grid { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+  /* Six liens ne tiennent plus sur une ligne : on reduit l'ecart
+     avant de passer au menu, pour garder la barre lisible. */
+  .ub-nav { gap: 1.1rem; }
+}
+
+/* ---------- Palier 2 : la navigation devient un menu ---------- */
+@media (max-width: 900px) {
+  .ub-nav { display: none; }
+  .ub-burger { display: inline-flex; }
+  .ub-head-in { min-height: 68px; gap: 0.75rem; }
+  .ub-head-actions { margin-left: auto; }
+
+  /* Deux colonnes declarées en style inline (rapports 1.25fr 1fr,
+     1.4fr 1fr...) passent a une colonne. Le selecteur par attribut
+     etait trop fragile : la classe .ub-cols est posee a la main. */
+  .ub-cols { grid-template-columns: 1fr !important; }
+  .ub-cols > * { border-right: 0 !important; }
+
+  /* Le fil d'etapes ne peut pas se comprimer : il defile. */
+  .ub-trail {
+    overflow-x: auto;
+    padding-bottom: 0.4rem;
+    -webkit-overflow-scrolling: touch;
+    scrollbar-width: none;
+  }
+  .ub-trail::-webkit-scrollbar { display: none; }
+  .ub-trail li { flex: none; }
+
+  /* Le tableau conserve son defilement horizontal interne :
+     le rendre lisible en le reduisant rendrait les nombres faux. */
+  .ub-table-wrap { border-radius: 14px; }
+}
+
+/* ---------- Palier 3 : une seule colonne ---------- */
+@media (max-width: 640px) {
+  /* Un bouton compact dans l'en-tete garde son icone et reduit son
+     libelle : "Se connecter" tient mal a cote du burger sur 360px. */
+  .ub-head .ub-btn { padding: 0.6rem 0.8rem; font-size: var(--ub-f-small); }
+  .ub-head .ub-btn--sm { padding: 0.5rem 0.7rem; }
+
+  .ub-grid--2,
+  .ub-grid--3,
+  .ub-grid--4 { grid-template-columns: 1fr; }
+  .ub-pick { grid-template-columns: minmax(0, 1fr); }
+  .ub-foot-grid { grid-template-columns: 1fr; }
+
+  /* Le groupe sanguin reste en 4 colonnes : c'est une grille de
+     choix rapide, pas un texte a lire. */
+  .ub-blood { grid-template-columns: repeat(4, minmax(0, 1fr)); gap: 0.4rem; }
+
+  /* Une ligne de liste empile : le bloc de droite passe en dessous. */
+  .ub-list > li { flex-wrap: wrap; }
+  .ub-list__meta { text-align: left; width: 100%; }
+
+  /* Les libelles secondaires du logo et du bouton d'urgence
+     cede la place : sur 360px de large, ils ne tiennent pas. */
+  .ub-brand-txt span { display: none; }
+  .ub-urgent-btn span { display: none; }
+  .ub-urgent-btn { padding: 0.6rem 0.75rem; }
+
+  .ub-idcard { gap: 1rem; }
+  .ub-btn { width: 100%; }
+  .ub-tabs { gap: 0.35rem; }
+
+  .ub-map__legend { gap: 0.5rem 1rem; }
+  .ub-metric__notes { gap: 0.4rem 0.9rem; }
+
+  /* Les pastilles de la carte deviennent grosses pour le doigt */
+  .ub-map__pin { font-size: var(--ub-f-small); padding: 0.45rem 0.8rem; }
+}
+
+/* ---------- Sous 480px : l'entete se allege ----------
+   Le bouton de langue passe dans le menu, le nom de marque se
+   resserre : il ne reste que la marque, l'urgence et le burger. */
+@media (max-width: 480px) {
+  .ub-head .ub-lang { display: none; }
+  .ub-head-actions { gap: 0.5rem; }
+  .ub-brand-txt b { font-size: 1.0625rem; }
+}
+
+/* ---------- Sous 420px : l'en-tete passe en mode icones ----------
+   La marque, la pastille de role et le bouton de deconnexion ne
+   tiennent plus sur une ligne. Le libelle du bouton disparait,
+   le nom accessible reste sur aria-label. */
+@media (max-width: 420px) {
+  .ub-head .ub-btn { padding: 0.55rem 0.7rem; }
+  .ub-head .ub-btn--sm > span:not([aria-hidden]) { display: none; }
+  .ub-head .ub-tag { font-size: 0.75rem; padding: 0.3rem 0.55rem; }
+}
+
+/* ---------- Ecran tres etroit (380px et moins) ---------- */
+@media (max-width: 380px) {
+  .ub-blood { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+  .ub-head-in { padding-left: 0.85rem; padding-right: 0.85rem; }
+}
+
+/* ---------- Grand ecran : on elargit la colonne de lecture ---------- */
+@media (min-width: 1600px) {
+  .ub { --ub-max: 1320px; }
+}
+
+/* ---------- Preference systeme : moins d'animation ---------- */
+@media (prefers-reduced-motion: reduce) {
+  .ub-menu { animation: none; }
+  .ub *,
+  .ub *::before,
+  .ub *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+    scroll-behavior: auto !important;
+  }
+}
+
+/* ---------- Impression : on retire la navigation ---------- */
+@media print {
+  .ub-head, .ub-menu, .ub-foot { display: none !important; }
+  .ub { font-size: 11pt; }
+}
+
+/* ============================================
+   13. TABLEAU DE BORD ADMINISTRATION
+   Metriques, carte de tension, tableau de donnees,
+   repartition des langues.
+   ============================================ */
+
+/* ---------- Metrique nationale ---------- */
+.ub-metric {
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+}
+.ub-metric__ico {
+  width: 44px;
+  height: 44px;
+  flex: none;
+  display: grid;
+  place-items: center;
+  border-radius: 12px;
+  background: var(--ub-ok-bg);
+  color: var(--ub-ok);
+}
+.ub-metric__ico--urgent {
+  background: var(--ub-soft-bg);
+  color: var(--ub-urgent);
+}
+.ub-metric__n {
+  font-size: clamp(1.75rem, 3vw, 2.25rem);
+  font-weight: 800;
+  line-height: 1;
+  letter-spacing: -0.03em;
+  color: var(--ub-ink);
+  font-variant-numeric: tabular-nums;
+}
+.ub-metric__n--urgent { color: var(--ub-urgent); }
+.ub-metric__u {
+  font-size: var(--ub-f-small);
+  font-weight: 600;
+  line-height: 1.3;
+  color: var(--ub-ink-40);
+}
+.ub-metric .ub-stat__t { margin-top: 0.3rem; font-size: var(--ub-f-small); }
+/* Le titre peut tenir sur deux lignes : on lui garde son espace */
+.ub-metric__n + .ub-stat__t { min-height: 2.6em; }
+
+.ub-metric__notes {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.5rem 1.25rem;
+  margin-top: 1.1rem;
+  min-height: 3.2em;
+  align-content: flex-start;
+  padding-top: 1rem;
+  border-top: 1px solid var(--ub-ink-06);
+}
+.ub-metric__notes li {
+  display: flex;
+  align-items: center;
+  gap: 0.4rem;
+  font-size: var(--ub-f-small);
+  font-weight: 600;
+  color: var(--ub-ink-soft);
+}
+.ub-metric__notes ub-icon { color: var(--ub-ink-40); }
+.ub-metric__notes .is-urgent,
+.ub-metric__notes .is-urgent ub-icon { color: var(--ub-urgent); }
+.ub-metric__notes .is-ok,
+.ub-metric__notes .is-ok ub-icon { color: var(--ub-ok); }
+
+/* ---------- Carte de tension ---------- */
+.ub-map { position: relative; background: var(--ub-ok-bg); }
+.ub-map__svg { width: 100%; height: auto; display: block; }
+.ub-map__dot {
+  stroke: var(--ub-white);
+  stroke-width: 2.5;
+}
+.ub-map__dot--faible { fill: var(--ub-ok); }
+.ub-map__dot--modere { fill: var(--ub-soft); }
+.ub-map__dot--eleve { fill: var(--ub-soft); }
+.ub-map__dot--critique { fill: var(--ub-urgent); }
+
+.ub-map__label {
+  font-family: var(--ub-font-display);
+  font-size: 15px;
+  font-weight: 700;
+  fill: var(--ub-ink);
+}
+.ub-map__value {
+  font-family: var(--ub-font-display);
+  font-size: 13px;
+  font-weight: 700;
+  letter-spacing: 0.04em;
+  text-transform: uppercase;
+}
+.ub-map__value--faible { fill: var(--ub-ok); }
+.ub-map__value--modere,
+.ub-map__value--eleve { fill: var(--ub-urgent); opacity: 0.75; }
+.ub-map__value--critique { fill: var(--ub-urgent); }
+
+.ub-map__pin {
+  position: absolute;
+  left: 1rem;
+  bottom: 1rem;
+  display: inline-flex;
+  align-items: center;
+  gap: 0.4rem;
+  padding: 0.35rem 0.7rem;
+  border-radius: var(--border-radius-full);
+  background: var(--ub-white);
+  border: 1px solid var(--ub-ink-12);
+  font-size: var(--ub-f-micro);
+  font-weight: 600;
+  color: var(--ub-ink-soft);
+}
+.ub-map__pin ub-icon { color: var(--ub-ink-40); }
+
+.ub-map__legend {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.75rem 1.5rem;
+  padding: 1rem 1.5rem;
+  border-top: 1px solid var(--ub-ink-12);
+}
+.ub-legend {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.45rem;
+  font-size: var(--ub-f-micro);
+  color: var(--ub-ink-soft);
+}
+.ub-legend__sw {
+  width: 10px;
+  height: 10px;
+  flex: none;
+  border-radius: 50%;
+}
+.ub-legend__sw--ok { background: var(--ub-ok); }
+.ub-legend__sw--soft { background: var(--ub-soft); }
+.ub-legend__sw--urgent { background: var(--ub-soft); opacity: 0.75; }
+.ub-legend__sw--critique { background: var(--ub-urgent); }
+
+.ub-map__foot { padding: 0 1.5rem 1.25rem; }
+.ub-livebar--wide { display: block; }
+.ub-map__refresh {
+  display: flex;
+  align-items: center;
+  gap: 0.4rem;
+  margin-top: 0.6rem;
+  font-size: var(--ub-f-micro);
+  color: var(--ub-ink-40);
+}
+.ub-map__refresh ub-icon { color: var(--ub-ok); }
+
+/* ---------- Tableau de donnees ---------- */
+.ub-table-wrap {
+  border: 1px solid var(--ub-ink-12);
+  border-radius: 18px;
+  overflow-x: auto;
+  background: var(--ub-white);
+}
+.ub-table {
+  width: 100%;
+  min-width: 720px;
+  border-collapse: collapse;
+  font-size: var(--ub-f-small);
+}
+.ub-table thead th {
+  padding: 0.85rem 1.1rem;
+  text-align: left;
+  font-size: var(--ub-f-micro);
+  font-weight: 700;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+  color: var(--ub-ink-soft);
+  background: var(--ub-canvas);
+  border-bottom: 1px solid var(--ub-ink-12);
+  white-space: nowrap;
+}
+.ub-table tbody th,
+.ub-table tbody td {
+  padding: 1rem 1.1rem;
+  text-align: left;
+  font-weight: 400;
+  vertical-align: middle;
+  border-bottom: 1px solid var(--ub-ink-06);
+}
+.ub-table tbody tr:last-child th,
+.ub-table tbody tr:last-child td { border-bottom: 0; }
+.ub-table tbody tr {
+  transition: background-color var(--transition-base);
+}
+.ub-table tbody tr:hover { background: var(--ub-canvas); }
+.ub-table__name {
+  display: block;
+  font-weight: 700;
+  color: var(--ub-ink);
+}
+.ub-table__main {
+  display: block;
+  font-weight: 600;
+  color: var(--ub-ink);
+  font-variant-numeric: tabular-nums;
+}
+.ub-table__meta {
+  display: block;
+  margin-top: 0.2rem;
+  font-size: var(--ub-f-micro);
+  color: var(--ub-ink-40);
+}
+.ub-table__tags { display: flex; flex-wrap: wrap; gap: 0.3rem; }
+.ub-sr-only {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  padding: 0;
+  margin: -1px;
+  overflow: hidden;
+  clip: rect(0, 0, 0, 0);
+  white-space: nowrap;
+  border: 0;
+}
+
+/* ---------- Repartition des langues ---------- */
+.ub-langcard { display: flex; flex-direction: column; gap: 0.4rem; }
+.ub-langcard__top {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 1rem;
+}
+.ub-langcard__code {
+  display: grid;
+  place-items: center;
+  width: 40px;
+  height: 40px;
+  border-radius: 12px;
+  background: var(--ub-ok);
+  color: var(--ub-white);
+  font-size: var(--ub-f-small);
+  font-weight: 800;
+}
+.ub-langcard__part {
+  font-family: var(--ub-font-display);
+  font-size: clamp(1.75rem, 1.4rem + 1.1vw, 2.125rem);
+  line-height: 1.1;
+  font-weight: 800;
+  letter-spacing: -0.03em;
+  color: var(--ub-ink);
+  font-variant-numeric: tabular-nums;
+}
+.ub-langcard__name {
+  font-family: var(--ub-font-display);
+  font-size: var(--ub-f-body-lg);
+  font-weight: 700;
+  line-height: 1.4;
+  color: var(--ub-ink);
+}
+.ub-langcard__track {
+  height: 8px;
+  border-radius: 9999px;
+  background: var(--ub-ink-06);
+  overflow: hidden;
+  margin: 0.35rem 0;
+}
+.ub-langcard__track i {
+  display: block;
+  height: 100%;
+  border-radius: 9999px;
+  background: var(--ub-ok);
+  transform-origin: left center;
+  animation: ub-sweep 1200ms cubic-bezier(0.16, 1, 0.3, 1) backwards;
+}
+.ub-langcard__usage {
+  font-size: var(--ub-f-small);
+  color: var(--ub-ink-64);
+  line-height: var(--ub-lh-body);
+}
+.ub-langcard__count {
+  font-size: var(--ub-f-micro);
+  font-weight: 600;
+  color: var(--ub-ink-40);
+  margin-top: auto;
+  padding-top: 0.5rem;
+}
+.ub-stat-inline { font-variant-numeric: tabular-nums; }
+
+@media (max-width: 640px) {
+  .ub-map__legend { gap: 0.5rem 1rem; }
+  .ub-metric__notes { gap: 0.4rem 0.9rem; }
+}

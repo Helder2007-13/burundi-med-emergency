@@ -1,0 +1,337 @@
+/* ============================================
+   URGENCES BURUNDI — Onboarding 2/3 et 3/3, plein écran
+   Reprend la mise en page plein écran de la page 1 et le contenu
+   des écrans Stitch :
+   projects/2319574940971472390/screens/9802554de7964312ac269d8efa35a2ae
+   projects/2319574940971472390/screens/64b394e3bdc74ee2904bf1bf459c49d8
+
+   Couleurs : Design.md uniquement (jetons de styles.css)
+   - rouge #DC2626 urgence, badge d'étape, CTA
+   - vert  #16A34A validation, étape active (page 3)
+   - rouge doux #E57373 aplats secondaires
+   - encre #191C1E typographie
+   - blanc #FFFFFF fond
+   Aucun bleu. Les aplats pâles sortent d'alpha sur blanc.
+
+   Grille : 12 colonnes, max 1200px (Design.md § Layout)
+   Formes : rayon 8px (0.5rem) composants, 16px (1rem) cadres
+   ============================================ */
+
+.obf {
+  /* Dérivés : alpha de l'encre sur blanc, jamais un gris bleu */
+  --obf-ink-06: rgba(25, 28, 30, 0.06);
+  --obf-ink-12: rgba(25, 28, 30, 0.12);
+  --obf-ink-64: rgba(25, 28, 30, 0.64);
+
+  --obf-max: 1200px;
+  --obf-pad-x: clamp(1rem, 4vw, 2rem);
+
+  min-height: 100svh;
+  display: flex;
+  flex-direction: column;
+  background: var(--color-white);
+  color: var(--color-ink);
+  font-family: 'Public Sans', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+  overflow-x: clip;
+}
+
+.obf-main {
+  flex: 1;
+  display: grid;
+  grid-template-columns: repeat(12, minmax(0, 1fr));
+  align-items: center;
+  gap: clamp(1.5rem, 4vw, 3rem);
+  width: 100%;
+  max-width: var(--obf-max);
+  margin: 0 auto;
+  padding: clamp(2rem, 5vw, 3.5rem) var(--obf-pad-x);
+}
+
+.obf-copy {
+  grid-column: 1 / span 7;
+  max-width: 34rem;
+}
+
+/* ---------- Badge d'étape ---------- */
+.obf-step {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.375rem;
+  padding: 0.3rem 0.75rem;
+  margin-bottom: clamp(1rem, 2.4vw, 1.75rem);
+  border-radius: 9999px;
+  background: var(--color-white);
+  border: 1px solid rgba(229, 115, 115, 0.5);
+  font-size: 0.6875rem;
+  font-weight: 700;
+  letter-spacing: 0.04em;
+  text-transform: uppercase;
+  color: var(--color-alert-dark);
+}
+.obf-step .dot {
+  width: 0.5rem;
+  height: 0.5rem;
+  border-radius: var(--border-radius-full);
+  background: var(--color-alert-dark);
+}
+/* Page 3 : badge rouge plein comme sur Stitch */
+.obf--green .obf-step {
+  background: rgba(229, 115, 115, 0.2);
+  border-color: rgba(229, 115, 115, 0.8);
+}
+
+/* ---------- Pastilles de catégorie ---------- */
+.obf-pills {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  flex-wrap: wrap;
+  margin-bottom: clamp(0.75rem, 1.6vw, 1.1rem);
+}
+
+/* Acuity level 2 — Urgent/Warning */
+.obf-chip {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.3rem;
+  padding: 0.25rem 0.625rem;
+  border-radius: 0.5rem;
+  border: 1px solid var(--color-alert);
+  background: rgba(229, 115, 115, 0.2);
+  font-size: 0.75rem;
+  font-weight: 600;
+  color: var(--color-alert-dark);
+}
+/* Acuity level 3 — Stable/Verified */
+.obf-chip--green {
+  border-color: var(--color-primary);
+  background: rgba(22, 163, 74, 0.15);
+  color: var(--color-primary);
+}
+.obf-chip svg { width: 14px; height: 14px; flex: none; }
+
+/* ---------- Titre ---------- */
+.obf-title {
+  font-size: clamp(1.875rem, 4.2vw, 3rem);
+  font-weight: 700;
+  line-height: 1.16;
+  letter-spacing: -0.02em;
+  color: var(--color-ink);
+  margin: 0 0 clamp(0.75rem, 1.6vw, 1.1rem);
+  text-wrap: balance;
+}
+
+/* ---------- Texte ---------- */
+.obf-text {
+  font-size: clamp(1rem, 1.3vw, 1.125rem);
+  font-weight: 400;
+  line-height: 1.55;
+  color: var(--obf-ink-64);
+  margin: 0 0 clamp(1.5rem, 3vw, 2.25rem);
+  max-width: 32rem;
+  text-wrap: pretty;
+}
+
+/* ---------- Indicateur d'étapes — Design.md § Progress ---------- */
+.obf-dots {
+  display: flex;
+  align-items: center;
+  gap: 0.375rem;
+  margin-bottom: clamp(1.25rem, 2.4vw, 1.75rem);
+}
+.obf-dots span {
+  width: 0.5rem;
+  height: 0.5rem;
+  border-radius: var(--border-radius-full);
+  background: var(--obf-ink-12);
+}
+.obf-dots .is-done { background: rgba(22, 163, 74, 0.45); }
+.obf-dots .is-now {
+  width: 1.75rem;
+  height: 0.5rem;
+  border-radius: 9999px;
+}
+/* Page 2 : l'étape active est rouge. Page 3 : verte. */
+.obf--red .obf-dots .is-now   { background: var(--color-alert-dark); }
+.obf--green .obf-dots .is-now { background: var(--color-primary); }
+
+/* ---------- Bouton d'action — 48px, rayon 8px ---------- */
+.obf-btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.5rem;
+  min-height: 48px;
+  min-width: 220px;
+  padding: 0.875rem 2rem;
+  border: 0;
+  border-radius: 0.5rem;
+  background: var(--color-alert-dark);
+  color: var(--color-white);
+  font-family: inherit;
+  font-size: 1rem;
+  font-weight: 600;
+  text-decoration: none;
+  cursor: pointer;
+  box-shadow: 0 4px 12px rgba(220, 38, 38, 0.2);
+  transition: background-color var(--transition-base), transform var(--transition-base),
+    box-shadow var(--transition-base);
+}
+.obf-btn:hover {
+  background: #B91C1C;
+  box-shadow: 0 6px 16px rgba(220, 38, 38, 0.28);
+}
+.obf-btn:active { transform: scale(0.99); }
+.obf-btn:focus-visible {
+  outline: 2px solid var(--color-alert-dark);
+  outline-offset: 3px;
+}
+.obf-btn svg { width: 18px; height: 18px; flex: none; }
+.obf-btn .arrow { transition: transform var(--transition-base); }
+.obf-btn:hover .arrow { transform: translateX(3px); }
+
+.obf-back {
+  display: inline-block;
+  margin-left: 1rem;
+  font-family: inherit;
+  font-size: 0.9375rem;
+  font-weight: 500;
+  color: var(--obf-ink-64);
+  background: none;
+  border: 0;
+  padding: 0.5rem 0;
+  cursor: pointer;
+  text-decoration: none;
+  transition: color var(--transition-base);
+}
+.obf-back:hover { color: var(--color-ink); }
+
+/* ---------- Image ---------- */
+.obf-visual {
+  grid-column: 8 / span 5;
+  display: flex;
+  justify-content: flex-end;
+}
+
+.obf-frame {
+  position: relative;
+  width: 100%;
+  aspect-ratio: 4 / 3;
+  border-radius: 1rem;
+  overflow: hidden;
+  background: var(--color-white);
+  border: 1px solid var(--obf-ink-12);
+  box-shadow: 0 8px 30px rgba(25, 28, 30, 0.08);
+}
+.obf-frame img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  object-position: center;
+  display: block;
+}
+
+/* Voile bas + pulsation rouge : l'image est un point d'entrée ouvert */
+.obf-frame::after {
+  content: "";
+  position: absolute;
+  inset: auto 0 0 0;
+  height: 34%;
+  background: linear-gradient(
+    to top,
+    rgba(25, 28, 30, 0.55),
+    rgba(25, 28, 30, 0.08) 62%,
+    transparent
+  );
+  pointer-events: none;
+}
+.obf-cap {
+  position: absolute;
+  z-index: 1;
+  left: 1rem;
+  right: 1rem;
+  bottom: 0.85rem;
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  color: var(--color-white);
+  font-size: 0.8125rem;
+  font-weight: 600;
+  line-height: 1.35;
+}
+.obf-cap .pulse {
+  position: relative;
+  width: 0.5rem;
+  height: 0.5rem;
+  flex: none;
+  border-radius: var(--border-radius-full);
+  background: var(--color-alert-dark);
+}
+.obf-cap .pulse::before {
+  content: "";
+  position: absolute;
+  inset: -4px;
+  border-radius: var(--border-radius-full);
+  border: 2px solid var(--color-alert-dark);
+  animation: obf-ping 1.9s cubic-bezier(0, 0, 0.2, 1) infinite;
+}
+
+/* ============================================
+   ANIMATIONS
+   Une seule séquence d'entrée, décalée.
+   ============================================ */
+@keyframes obf-rise {
+  from { opacity: 0; transform: translateY(22px); }
+  to   { opacity: 1; transform: translateY(0); }
+}
+@keyframes obf-unveil {
+  from { opacity: 0; clip-path: inset(0 0 100% 0); }
+  to   { opacity: 1; clip-path: inset(0 0 0 0); }
+}
+@keyframes obf-ping {
+  0%   { transform: scale(0.7); opacity: 0.85; }
+  70%  { transform: scale(1.9); opacity: 0; }
+  100% { transform: scale(1.9); opacity: 0; }
+}
+
+.obf-copy > *,
+.obf-visual { animation: obf-rise 800ms cubic-bezier(0.16, 1, 0.3, 1) backwards; }
+.obf-step    { animation-delay: 60ms; }
+.obf-pills   { animation-delay: 150ms; }
+.obf-title   { animation-delay: 230ms; }
+.obf-text    { animation-delay: 310ms; }
+.obf-dots    { animation-delay: 390ms; }
+.obf-actions { animation-delay: 470ms; }
+.obf-visual  { animation-name: obf-unveil; animation-duration: 1000ms; animation-delay: 260ms; }
+
+@media (prefers-reduced-motion: reduce) {
+  .obf-copy > *,
+  .obf-visual { animation-duration: 0.01ms !important; animation-iteration-count: 1 !important; }
+  .obf-cap .pulse::before { animation: none; }
+}
+
+/* ============================================
+   RESPONSIVE
+   ============================================ */
+@media (max-width: 1023px) {
+  .obf-main { grid-template-columns: 1fr; gap: clamp(1.5rem, 5vw, 2.5rem); }
+  .obf-copy   { grid-column: 1 / -1; max-width: 38rem; }
+  .obf-visual { grid-column: 1 / -1; justify-content: center; }
+  .obf-frame  { max-width: 640px; aspect-ratio: 16 / 10; }
+}
+
+@media (max-width: 767px) {
+  /* L'image d'abord : elle porte le message avant le texte */
+  .obf-visual { order: -1; }
+  .obf-frame { aspect-ratio: 4 / 3; border-radius: 0.5rem; }
+  .obf-title { font-size: clamp(1.625rem, 7.4vw, 2.25rem); }
+  .obf-text  { font-size: 1rem; }
+  .obf-btn   { width: 100%; }
+  .obf-back  { display: block; margin: 0.75rem 0 0; text-align: center; }
+  .obf-cap   { left: 0.85rem; right: 0.85rem; bottom: 0.7rem; font-size: 0.75rem; }
+}
+
+@media (max-width: 380px) {
+  .obf-title { font-size: 1.5rem; }
+  .obf-btn { padding: 0.875rem 1.25rem; }
+}

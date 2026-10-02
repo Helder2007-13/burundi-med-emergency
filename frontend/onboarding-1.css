@@ -1,0 +1,240 @@
+/* ============================================
+   URGENCES BURUNDI — Onboarding 1/3 : « Onboarding Ultra-Minimaliste »
+   Reproduit l'écran Stitch projects/2319574940971472390
+   /screens/30f7beca1b074b308cce89c2475b563c
+
+   Couleurs : Design.md uniquement (jetons de styles.css)
+   - rouge  #DC2626  actions urgentes, CTA
+   - vert   #16A34A  « notre priorité », validation
+   - rouge doux #E57373  bordures / aplats secondaires
+   - encre  #191C1E  typographie
+   - blanc  #FFFFFF  fond
+   Aucun bleu. Les gris naissent d'alpha de l'encre sur blanc.
+
+   Grille : 12 colonnes, max 1200px (Design.md § Layout)
+   Formes : rayon 8px (0.5rem) composants, 16px (1rem) conteneurs
+   ============================================ */
+
+.ob1 {
+  /* Composition — 7/12 du texte, 5/12 de l'image, comme sur Stitch */
+  --ob1-max: 1200px;
+  --ob1-pad-x: clamp(1rem, 4vw, 2rem);
+  --ob1-pad-b: clamp(1.5rem, 4vw, 2.5rem);
+
+  /* Dérivés : alpha de l'encre sur blanc, jamais un gris bleu */
+  --ob1-ink-06: rgba(25, 28, 30, 0.06);
+  --ob1-ink-12: rgba(25, 28, 30, 0.12);
+  --ob1-ink-24: rgba(25, 28, 30, 0.24);
+  --ob1-ink-40: rgba(25, 28, 30, 0.4);
+  --ob1-ink-64: rgba(25, 28, 30, 0.64);
+
+  position: relative;
+  min-height: 100svh;
+  display: flex;
+  flex-direction: column;
+  background: var(--color-white);
+  color: var(--color-ink);
+  font-family: 'Public Sans', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+  overflow-x: clip;
+}
+
+.ob1-main {
+  flex: 1;
+  display: grid;
+  grid-template-columns: repeat(12, minmax(0, 1fr));
+  align-items: center;
+  gap: clamp(1.5rem, 4vw, 3rem);
+  width: 100%;
+  max-width: var(--ob1-max);
+  margin: 0 auto;
+  padding: clamp(1.5rem, 4vw, 3rem) var(--ob1-pad-x);
+}
+
+.ob1-copy {
+  grid-column: 1 / span 7;
+  max-width: 46rem;
+}
+
+/* display-lg / headline-lg — Design.md § Typography */
+.ob1-title {
+  font-size: clamp(2.25rem, 6.4vw, 5rem);
+  font-weight: 700;
+  line-height: 1.06;
+  letter-spacing: -0.02em;
+  color: var(--color-ink);
+  margin: 0;
+  text-wrap: balance;
+}
+.ob1-title em {
+  font-style: normal;
+  color: var(--color-primary);
+  font-weight: 700;
+}
+
+/* body-lg */
+.ob1-lead {
+  font-size: clamp(1.125rem, 1.8vw, 1.5rem);
+  font-weight: 400;
+  line-height: 1.5;
+  letter-spacing: -0.01em;
+  color: var(--ob1-ink-64);
+  margin: clamp(1.25rem, 2.4vw, 2rem) 0 0;
+  max-width: 34rem;
+  text-wrap: pretty;
+}
+
+.ob1-visual {
+  grid-column: 8 / span 5;
+  display: flex;
+  justify-content: flex-end;
+}
+
+.ob1-frame {
+  width: 100%;
+  max-width: 620px;
+  aspect-ratio: 4 / 3;
+  border-radius: 1rem; /* rounded-lg — conteneur */
+  overflow: hidden;
+  background: var(--color-white);
+  border: 1px solid var(--ob1-ink-12);
+  /* Ombre neutre 8px (Design.md § Elevation) */
+  box-shadow: 0 8px 30px rgba(25, 28, 30, 0.08);
+}
+.ob1-frame img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  object-position: center;
+  display: block;
+}
+
+.ob1-foot {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: var(--spacing-md);
+  width: 100%;
+  max-width: var(--ob1-max);
+  margin: 0 auto;
+  padding: 0 var(--ob1-pad-x) var(--ob1-pad-b);
+}
+
+.ob1-skip {
+  /* Tertiary / Neutral Outline — Design.md § Buttons */
+  font-family: inherit;
+  font-size: 1rem;
+  font-weight: 500;
+  line-height: 1.5;
+  color: var(--ob1-ink-64);
+  background: none;
+  border: 0;
+  padding: 0.5rem 0;
+  cursor: pointer;
+  text-decoration: none;
+  transition: color var(--transition-base);
+}
+.ob1-skip:hover { color: var(--color-ink); }
+
+.ob1-next {
+  /* Bouton rond 96px comme sur Stitch ; fond rouge urgent Design.md */
+  display: grid;
+  place-items: center;
+  width: 96px;
+  height: 96px;
+  flex: none;
+  border: 0;
+  border-radius: var(--border-radius-full);
+  background: var(--color-alert-dark);
+  color: var(--color-white);
+  cursor: pointer;
+  text-decoration: none;
+  box-shadow: 0 8px 30px rgba(220, 38, 38, 0.28);
+  transition: transform var(--transition-base), box-shadow var(--transition-base);
+}
+.ob1-next svg { width: 44px; height: 44px; }
+.ob1-next:hover {
+  transform: scale(1.05);
+  box-shadow: 0 12px 38px rgba(220, 38, 38, 0.36);
+}
+.ob1-next:active { transform: scale(0.95); }
+.ob1-next:focus-visible {
+  outline: 2px solid var(--color-alert-dark);
+  outline-offset: 4px;
+}
+
+/* ============================================
+   ANIMATIONS
+   Un seul moment choreographié : l'entrée en scène.
+   Ease-out exponentiel, depuis un état déjà visible.
+   ============================================ */
+@keyframes ob1-rise {
+  from { opacity: 0; transform: translateY(26px); }
+  to   { opacity: 1; transform: translateY(0); }
+}
+@keyframes ob1-fade {
+  from { opacity: 0; }
+  to   { opacity: 1; }
+}
+@keyframes ob1-unveil {
+  from { opacity: 0; clip-path: inset(0 0 100% 0); }
+  to   { opacity: 1; clip-path: inset(0 0 0 0); }
+}
+
+.ob1-copy > *,
+.ob1-visual,
+.ob1-foot > * {
+  animation: ob1-rise 900ms cubic-bezier(0.16, 1, 0.3, 1) backwards;
+}
+.ob1-title { animation-delay: 80ms; }
+.ob1-lead  { animation-delay: 200ms; }
+.ob1-visual {
+  animation-name: ob1-unveil;
+  animation-duration: 1100ms;
+  animation-delay: 300ms;
+}
+.ob1-skip { animation-delay: 460ms; }
+.ob1-next {
+  animation-name: ob1-fade;
+  animation-delay: 560ms;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .ob1-copy > *,
+  .ob1-visual,
+  .ob1-foot > * {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+  }
+}
+
+/* ============================================
+   RESPONSIVE — mobile < 768px, tablette 768-1024px
+   ============================================ */
+@media (max-width: 1023px) {
+  .ob1-main {
+    grid-template-columns: 1fr;
+    gap: clamp(1.5rem, 5vw, 2.5rem);
+    padding-top: clamp(2rem, 6vw, 3rem);
+  }
+  .ob1-copy { grid-column: 1 / -1; max-width: 38rem; }
+  .ob1-visual { grid-column: 1 / -1; justify-content: center; }
+  .ob1-frame { max-width: 640px; aspect-ratio: 16 / 10; }
+}
+
+@media (max-width: 767px) {
+  /* L'image d'abord : elle porte le message avant le texte */
+  .ob1-visual { order: -1; }
+  .ob1-frame { aspect-ratio: 4 / 3; border-radius: 0.5rem; }
+  .ob1-title { font-size: clamp(1.75rem, 8.4vw, 2.5rem); }
+  .ob1-lead { font-size: 1rem; line-height: 1.55; }
+  .ob1-foot { padding-bottom: 1.5rem; }
+  .ob1-skip { font-size: 0.9375rem; }
+  .ob1-next { width: 72px; height: 72px; }
+  .ob1-next svg { width: 32px; height: 32px; }
+}
+
+@media (max-width: 380px) {
+  .ob1-title { font-size: 1.625rem; }
+  .ob1-next { width: 64px; height: 64px; }
+  .ob1-next svg { width: 28px; height: 28px; }
+}

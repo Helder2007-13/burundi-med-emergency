@@ -1,0 +1,354 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+  <title>Signaler une urgence — Urgences Burundi</title>
+  <meta name="description" content="Décrivez rapidement la situation. L'assistant analyse les informations et vous oriente vers l'hôpital le plus adapté, sans inscription.">
+  <meta name="theme-color" content="#FFFFFF">
+  <link rel="preload" href="assets/fonts/Inter-var.woff2" as="font" type="font/woff2" crossorigin>
+  <link rel="preload" href="assets/fonts/PlusJakartaSans-var.woff2" as="font" type="font/woff2" crossorigin>
+
+  <link rel="stylesheet" href="ui.css?v=4">
+  <link rel="icon" href="assets/img/logo.svg" type="image/svg+xml">
+  <style>[v-cloak]{display:none}</style>
+</head>
+<body>
+<div id="app" class="ub" v-cloak>
+
+  <header class="ub-head">
+    <div class="ub-head-in">
+      <a class="ub-brand" href="accueil.html">
+        <span class="ub-brand-mark" aria-hidden="true">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2"
+               stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 5.5v13M5.5 12h13"/></svg>
+        </span>
+        <span class="ub-brand-txt"><b>Urgences Burundi</b><span>Santé Publique 24/7</span></span>
+      </a>
+
+      <nav class="ub-nav" aria-label="Navigation principale">
+        <a href="accueil.html">Accueil</a>
+        <a href="signaler-un-cas.html">Services</a>
+        <a href="signaler-une-urgence.html" aria-current="page">Hôpitaux</a>
+        <a href="mes-rendez-vous.html">Mes rendez-vous</a>
+        <a href="accueil.html#a-propos">À propos</a>
+      </nav>
+
+      <div class="ub-head-actions">
+        <button class="ub-lang" type="button" aria-label="Changer de langue">
+          <span class="on">FR</span><span class="sep">/</span><span>RN</span><span class="sep">/</span><span>EN</span>
+        </button>
+        <a class="ub-urgent-btn" href="#formulaire">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2"
+               stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+            <path d="M3 8.5h18M12 3v5.5M12 15.5V21M8.5 12h7"/>
+          </svg>
+          <span>Urgence Médicale</span>
+        </a>
+      </div>
+    </div>
+  </header>
+
+  <!-- Signalement ouvert : aucune connexion requise -->
+
+  <main class="ub-main">
+    <section class="ub-sec">
+      <div class="ub-wrap">
+
+        <a class="ub-link ub-a" href="signaler-un-cas.html" style="margin-bottom:1.5rem">
+          <svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.9"
+               stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+            <path d="M13.2 8H2.8M6.6 4.2 2.8 8l3.8 3.8"/>
+          </svg>
+          Retour à Signaler un cas
+        </a>
+
+        <div class="ub-cols" style="display:grid;grid-template-columns:1.4fr 1fr;gap:clamp(1.5rem,3vw,3rem);align-items:start">
+
+          <!-- ============ FORMULAIRE ============ -->
+          <div class="ub-a">
+            <h1 class="ub-h2" style="font-size:clamp(1.75rem,3.4vw,2.5rem)">
+              Signaler une urgence médicale
+            </h1>
+            <p class="ub-lead" style="margin-top:0.6rem;margin-bottom:1.5rem">
+              Décrivez rapidement la situation. Notre assistant analyse les informations
+              instantanément et vous oriente vers l'hôpital le plus adapté, sans inscription
+              requise.
+            </p>
+
+            <!-- Progression en 3 temps -->
+            <ol class="ub-trail" style="margin-bottom:1.75rem">
+              <li class="is-done"><span class="n">1</span> Décrire</li>
+              <li class="is-now"><span class="n">2</span> Analyse</li>
+              <li><span class="n">3</span> Hôpital</li>
+            </ol>
+
+            <form id="formulaire" data-validate novalidate
+                  style="display:grid;gap:clamp(1.5rem,3vw,2rem)">
+
+              <p class="ub-hint--bad" data-form-note data-msg="Complétez les champs signalés en rouge."
+                 style="display:none;padding:0.75rem 1rem;border:1px solid var(--ub-urgent);
+                        border-radius:var(--ub-radius);background:var(--ub-soft-bg)" role="alert"></p>
+
+              <!-- ---------- 1. LOCALISATION ---------- -->
+              <section class="ub-card ub-card--triage">
+                <div style="display:flex;align-items:center;gap:0.9rem;margin-bottom:0.5rem">
+                  <span class="ub-ico ub-ico--sm ub-ico--urgent" aria-hidden="true">
+                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
+                         stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+                      <path d="M12 21s7-5.6 7-11a7 7 0 1 0-14 0c0 5.4 7 11 7 11Z"/>
+                      <circle cx="12" cy="10" r="2.6"/>
+                    </svg>
+                  </span>
+                  <h2 class="ub-h3">1. Votre localisation</h2>
+                </div>
+                <p style="font-size:0.875rem;color:var(--ub-ink-64);margin-bottom:1.25rem">
+                  Pour identifier la structure de soins la plus proche de vous.
+                </p>
+
+                <div style="display:grid;gap:1rem">
+                  <button class="ub-btn ub-btn--ok" type="button" id="gps">
+                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
+                         stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+                      <circle cx="12" cy="12" r="3.2"/>
+                      <path d="M12 2.5v3.2M12 18.3v3.2M2.5 12h3.2M18.3 12h3.2"/>
+                    </svg>
+                    Utiliser ma position GPS
+                  </button>
+
+                  <div class="ub-field">
+                    <label for="quartier">Quartier, repère ou colline <span class="req" aria-hidden="true">*</span></label>
+                    <input class="ub-input" id="quartier" name="quartier" type="text" required
+                           placeholder="Ex. Nyakabiga, Commune de Muha">
+                  </div>
+                </div>
+
+                <p class="ub-note" style="margin-top:1.25rem">
+                  <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
+                       stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+                    <path d="M12 3 5 6v6c0 4.4 3.6 7.8 7 8.3 3.4-.5 7-3.9 7-8.3V6l-7-3Z"/>
+                    <path d="m9 12 2.2 2.2L15.5 10"/>
+                  </svg>
+                  <span>Votre géolocalisation sert exclusivement à identifier les hôpitaux avec lits
+                     et ambulances disponibles dans votre zone.</span>
+                </p>
+              </section>
+
+              <!-- ---------- 2. DESCRIPTION ---------- -->
+              <section class="ub-card ub-card--triage">
+                <div style="display:flex;align-items:center;gap:0.9rem;margin-bottom:0.5rem">
+                  <span class="ub-ico ub-ico--sm ub-ico--urgent" aria-hidden="true">
+                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
+                         stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+                      <path d="M6 3.5h9l4 4v13H6v-17Z"/><path d="M9 11h7M9 15h5"/>
+                    </svg>
+                  </span>
+                  <h2 class="ub-h3">2. Que se passe-t-il ?</h2>
+                </div>
+                <p style="font-size:0.875rem;color:var(--ub-ink-64);margin-bottom:1.25rem">
+                  Même une description courte suffit pour déclencher l'orientation d'urgence.
+                </p>
+
+                <div class="ub-field">
+                  <label for="desc">Description de la situation <span class="req" aria-hidden="true">*</span></label>
+                  <textarea class="ub-textarea" id="desc" name="desc" required
+                            placeholder="Ex. Homme de 60 ans, douleur thoracique intense depuis 20 minutes, conscient mais pale…"></textarea>
+                </div>
+
+                <div class="ub-grid ub-cols" style="grid-template-columns:1fr 1fr;gap:1rem;margin-top:1rem">
+                  <div class="ub-field">
+                    <label for="pers">Nombre de personnes</label>
+                    <select class="ub-select" id="pers" name="pers">
+                      <option>1 personne</option>
+                      <option>2 personnes</option>
+                      <option>3 personnes ou plus</option>
+                    </select>
+                  </div>
+                  <div class="ub-field">
+                    <label for="tel2">Téléphone de contact</label>
+                    <div class="ub-input-wrap">
+                      <span class="ub-prefix">+257</span>
+                      <input class="ub-input" id="tel2" name="tel2" type="tel"
+                             placeholder="79 12 34 56">
+                    </div>
+                  </div>
+                </div>
+              </section>
+
+              <!-- ---------- 3. TYPE DE SITUATION ---------- -->
+              <section class="ub-card ub-card--triage">
+                <div style="display:flex;align-items:center;gap:0.9rem;margin-bottom:0.5rem">
+                  <span class="ub-ico ub-ico--sm ub-ico--urgent" aria-hidden="true">
+                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
+                         stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+                      <path d="M4 6.5h16v11H4v-11Z"/><path d="M4 10.5h16M9 6.5V4M15 6.5V4"/>
+                    </svg>
+                  </span>
+                  <h2 class="ub-h3">3. Type de situation d'urgence</h2>
+                </div>
+                <p style="font-size:0.875rem;color:var(--ub-ink-64);margin-bottom:1.25rem">
+                  Sélectionnez la catégorie la plus proche de la situation constatée.
+                </p>
+
+                <div class="ub-pick" data-pick="single">
+                  <button type="button" aria-pressed="false">
+                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
+                         stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+                      <path d="M3 16v-4l2-1 1.5-4 2.5 1 1.5-4 2 4.5 2-1 1.5 2.5 2 .5 1 3.5H3Z"/>
+                      <circle cx="7" cy="17" r="1.6"/><circle cx="16.5" cy="17" r="1.6"/>
+                    </svg>
+                    <span>
+                      <b>Accident</b>
+                      <em>Chute, choc ou collision routière</em>
+                    </span>
+                  </button>
+
+                  <button type="button" aria-pressed="false">
+                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
+                         stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+                      <path d="M12 3.5s6 6.4 6 10.4a6 6 0 0 1-12 0C6 9.9 12 3.5 12 3.5Z"/>
+                    </svg>
+                    <span>
+                      <b>Saignement</b>
+                      <em>Hémorragie visible ou plaie grave</em>
+                    </span>
+                  </button>
+
+                  <button type="button" aria-pressed="false">
+                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
+                         stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+                      <path d="M3.5 13h3.2l1.8-3 2.4 5 2-4 1.6 2h5"/>
+                    </svg>
+                    <span>
+                      <b>Malaise</b>
+                      <em>Perte de connaissance, étouffement</em>
+                    </span>
+                  </button>
+
+                  <button type="button" aria-pressed="false">
+                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
+                         stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+                      <circle cx="12" cy="9" r="5.5"/><path d="M8 20.5c0-2.6 1.8-4.5 4-4.5s4 1.9 4 4.5"/>
+                    </svg>
+                    <span>
+                      <b>Accouchement imminent</b>
+                      <em>Contractions régulières, terme proche</em>
+                    </span>
+                  </button>
+
+                  <button type="button" aria-pressed="false">
+                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
+                         stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+                      <circle cx="12" cy="12" r="3.4"/><path d="M12 2.8v3.4M12 17.8v3.4M2.8 12h3.4M17.8 12h3.4"/>
+                    </svg>
+                    <span>
+                      <b>Urgence vitale absolue</b>
+                      <em>Inconscience, détresse respiratoire sévère</em>
+                    </span>
+                  </button>
+
+                  <button type="button" aria-pressed="false">
+                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
+                         stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+                      <rect x="3.5" y="5.5" width="17" height="13" rx="2"/>
+                      <path d="M8 9.5h8M8 13h5"/>
+                    </svg>
+                    <span>
+                      <b>Autre situation</b>
+                      <em>Symptômes não décrits ci-dessus</em>
+                    </span>
+                  </button>
+                </div>
+              </section>
+
+              <button class="ub-btn ub-btn--urgent" type="submit" style="min-height:56px;font-size:1.0625rem">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4"
+                     stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+                  <path d="M3 8.5h18M12 3v5.5M12 15.5V21M8.5 12h7"/>
+                </svg>
+                Envoyer le signalement
+              </button>
+
+              <p class="ub-hint" style="text-align:center">
+                Réponse moyenne inférieure à 30 secondes · Aucune donnée n'est transmise
+                dans cette maquette
+              </p>
+            </form>
+          </div>
+
+          <!-- ============ RÉASSURANCE ============ -->
+          <aside class="ub-a ub-d3">
+            <div class="ub-card ub-card--soft">
+              <h2 class="ub-h3">Ce qui se passe après l'envoi</h2>
+
+              <ol class="ub-steps" style="margin-top:1.5rem">
+                <li class="ub-step">
+                  <span class="ub-step__n ub-step__n--urgent">1</span>
+                  <div>
+                    <h3>Analyse et triage</h3>
+                    <p>Évaluation du degré d'urgence selon les protocoles hospitaliers nationaux.</p>
+                  </div>
+                </li>
+                <li class="ub-step">
+                  <span class="ub-step__n">2</span>
+                  <div>
+                    <h3>Orientation automatique</h3>
+                    <p>Identification du centre le plus proche avec lits de réanimation et
+                       équipe de garde.</p>
+                  </div>
+                </li>
+                <li class="ub-step">
+                  <span class="ub-step__n">3</span>
+                  <div>
+                    <h3>Suivi en direct</h3>
+                    <p>Vous suivez l'avancement du dossier et l'arrivée de l'ambulance.</p>
+                  </div>
+                </li>
+              </ol>
+
+              <a class="ub-btn ub-btn--ghost ub-btn--block" href="suivi-urgence.html" style="margin-top:1.75rem">
+                Voir un exemple de suivi
+              </a>
+            </div>
+
+            <div class="ub-note ub-note--urgent" style="margin-top:1rem">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
+                   stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+                <path d="M12 3 5 6v6c0 4.4 3.6 7.8 7 8.3 3.4-.5 7-3.9 7-8.3V6l-7-3Z"/>
+                <path d="M12 9v4M12 15.5v.2"/>
+              </svg>
+              <span>
+                <strong>En cas de danger immédiat</strong>, n'attendez pas le formulaire :
+                alertez les secours oulez votre entourage pour qu'il signale à votre place.
+              </span>
+            </div>
+
+            <figure style="margin-top:1rem;border-radius:var(--ub-radius-lg);overflow:hidden;
+                            border:1px solid var(--ub-ink-12);box-shadow:var(--ub-shadow)">
+              <picture><source srcset="assets/img/hopital-kira-800.webp" type="image/webp"><img src="assets/img/hopital-kira.jpg" alt="Entrée d'un hôpital burundais" width="1280" height="1707" loading="lazy" style="width:100%;height:200px;object-fit:cover"></picture>
+            </figure>
+          </aside>
+
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <footer class="ub-foot">
+    <div class="ub-wrap">
+      <div class="ub-foot-bottom" style="margin-top:0;border-top:0;padding-top:0">
+        <span>© 2026 Ministère de la Santé Publique — République du Burundi</span>
+        <span>Formulaire de démonstration</span>
+      </div>
+    </div>
+  </footer>
+
+</div>
+
+  <script src="assets/vendor/vue.global.prod.js?v=1"></script>
+  <script src="data.js?v=4"></script>
+  <script src="components.js?v=4"></script>
+  <script src="ui.js?v=4"></script>
+<script>UB.mount();</script>
+</body>
+</html>
